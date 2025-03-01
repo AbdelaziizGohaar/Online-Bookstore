@@ -2,7 +2,6 @@
   "name": "day-3",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
   "author": "",
   "license": "ISC",
   "main": "index.js",
@@ -13,16 +12,20 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.10.1",
+    "mongoose": "^8.11.0",
+    "mongoose-sequence": "^6.0.1",
     "pug": "^3.0.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.3.0",
     "eslint": "^9.21.0",
     "nodemon": "^3.1.9"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }
