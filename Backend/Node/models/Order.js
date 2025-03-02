@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import mongooseSequence from 'mongoose-sequence';
 
