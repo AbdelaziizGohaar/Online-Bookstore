@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import mongooseSequence from "mongoose-sequence"; 
+import mongoose from 'mongoose';
+import mongooseSequence from 'mongoose-sequence';
 
-const AutoIncrement = mongooseSequence(mongoose); // Initialize it Autoincrement of Mongos 
+const AutoIncrement = mongooseSequence(mongoose); // Initialize it Autoincrement of Mongos
 
 const OrderSchema = new mongoose.Schema({
-  order_id:{
-  type : Number,    // auto increment  
-  unique: true ,
-  }, 
+  order_id: {
+    type: Number, // auto increment
+    unique: true
+  },
   user_id: {
     type: Number,
     ref: 'User',
@@ -32,7 +32,7 @@ const OrderSchema = new mongoose.Schema({
       }
     }
   ],
-  totalPrice: {   
+  totalPrice: {
     type: Number,
     required: true
   },
@@ -47,11 +47,10 @@ const OrderSchema = new mongoose.Schema({
   }
 });
 
-//============= Apply Auto-Increment Plugin===============================================
-OrderSchema.plugin(AutoIncrement, { inc_field: "order_id" });
+// ============= Apply Auto-Increment Plugin===============================================
+OrderSchema.plugin(AutoIncrement, {inc_field: 'order_id'});
 
-
-///===================== Calculate the total amount ======================================================================== 
+/// ===================== Calculate the total amount ========================================================================
 OrderSchema.pre('save', async function (next) {
   const Book = mongoose.model('Book'); // Import Book model
   let total = 0;
@@ -66,7 +65,7 @@ OrderSchema.pre('save', async function (next) {
   next();
 });
 
-  // Validate stock for each book in the order
+// Validate stock for each book in the order
 
-const Order = mongoose.model("Order", OrderSchema);
+const Order = mongoose.model('Order', OrderSchema);
 export default Order;

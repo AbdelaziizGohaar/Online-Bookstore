@@ -7,7 +7,7 @@ import router from './routes/index.js';
 const app = express();
 app.use(cors());
 
-mongoose.connect('mongodb+srv://mahmoud:mahmoud123@cluster0.ypqat.mongodb.net/ecommerce_website');
+mongoose.connect('mongodb+srv://youssef:youssef123@cluster0.ypqat.mongodb.net/ecommerce_website');
 mongoose.connection.on('error', (err) => {
   console.error('MongoDB connection error: ', err);
   process.exit(1);
