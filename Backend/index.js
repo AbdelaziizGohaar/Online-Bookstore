@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import router from './routes/index.js';
-import connectDB from './db.js';
+import connectDB from './dbconfig/db.js';
 
 // import router from './routes/index.js';
 
