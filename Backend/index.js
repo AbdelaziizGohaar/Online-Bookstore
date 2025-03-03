@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import router from './routes/index.js';
+import connectDB from './db.js';
 
 // import router from './routes/index.js';
 
@@ -14,14 +15,7 @@ app.use(express.json());
 app.use(cors());
 app.use(router);
 
-mongoose.connect(process.env.MONGO_URI);
-mongoose.connection.on('error', (err) => {
-  console.error('MongoDB connection error: ', err);
-  process.exit(1);
-});
-mongoose.connection.on('connected', () => {
-  console.log('Connected to database');
-});
+connectDB();
 
 // app.use(router);
 app.use((err, req, res, next) => {
