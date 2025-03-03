@@ -1,7 +1,5 @@
 import Review from "../models/Review.js";
 
-// /review/product/id
-
 const getReviews = async (bookId) => {
   const reviews = await Review.find({ book_id: bookId });
   return reviews;
@@ -14,12 +12,11 @@ const addReview = async (data) => {
 };
 
 const updateReview = async (id, body) => {
-  console.log(id, body);
   const { rating, review } = body;
-  console.log(rating, review);
   const updatedReview = await Review.findOneAndUpdate(
     { review_id: id },
-    { rating: rating, review: review }
+    { rating: rating, review: review },
+    {new: true}
   );
   return updatedReview;
 };
