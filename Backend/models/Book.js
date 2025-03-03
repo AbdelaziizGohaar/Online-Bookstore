@@ -11,6 +11,7 @@ const BookSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    unique: true,
     trim: true,
     minlength: 2,
     maxlength: 255
@@ -22,7 +23,7 @@ const BookSchema = new mongoose.Schema({
     trim: true,
     minlength: 2,
     maxlength: 100,
-    match: /^[A-Z\s]+$/i
+    match: /^[A-Z.\s]+$/i
   },
   price: {
     type: Number,
@@ -58,5 +59,5 @@ BookSchema.plugin(AutoIncrement, {inc_field: 'book_id'});
 
 BookSchema.index({title: 'text', author: 'text', description: 'text'});
 
-const Book = mongoose.model('Order', BookSchema);
+const Book = mongoose.model('Book', BookSchema);
 export default Book;
