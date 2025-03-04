@@ -12,8 +12,8 @@ router.post('/', async (req, res) => {
   res.json(addedItem);
 });
 
-router.get('/', async (req, res) => {
-  const [err, cartItems] = await asyncWrapper(CartController.getCartItems(req.query.userId));
+router.get('/:userID', async (req, res) => {
+  const [err, cartItems] = await asyncWrapper(CartController.getCartItems(req.params.userID));
   if (err) throw new CustomError(err.message, 404);
   res.json(cartItems);
 });
@@ -24,8 +24,8 @@ router.patch('/:id', async (req, res) => {
   res.json(updatedItem);
 });
 
-router.delete('/:id', async (req, res) => {
-  const [err, deletedItem] = await asyncWrapper(CartController.removeItem(req.params.id));
+router.delete('/', async (req, res) => {
+  const [err, deletedItem] = await asyncWrapper(CartController.removeItem(req.body));
   if (err) throw new CustomError(err.message, 404);
   res.json({message: 'Item removed successfully', deletedItem});
 });
