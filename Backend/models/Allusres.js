@@ -1,16 +1,16 @@
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 import mongooseSequence from 'mongoose-sequence';
-   
+
 const AutoIncrement = mongooseSequence(mongoose);
 
 const userSchema = new mongoose.Schema({
-  user_id: {type: Number, unique: true, required: true},
+  user_id: {type: Number, unique: true},
   name: {type: String, required: true, minlength: 3, trim: true},
   password: {type: String, required: true, minlength: 8},
   email: {type: String, required: true, unique: true},
   role: {type: String, enum: ['Customer', 'Admin'], required: true}
-}, {timestamps: true, discriminatorKey: 'role'});   
+}, {timestamps: true, discriminatorKey: 'role'});
 
 userSchema.plugin(AutoIncrement, {inc_field: 'user_id'});
 
