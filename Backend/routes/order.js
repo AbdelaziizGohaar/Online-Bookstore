@@ -57,8 +57,13 @@ router.put('/:order_id', async (req, res) => {
 });
 
 // ======== Update specific order Status ========
-router.patch('/:order_id', (req, res) => {
+router.patch('/:order_id/status', async (req, res) => {
+  const [err, order] = await asyncWrapper (OrderController.updateOrderStatus(req.params.order_id, req.body.status));
+  if (err) return res.status(422).json({error: err.message});
 
+  if (!order) return res.status(404).json({message: 'Order not found'});
+
+  res.status(200).json({message: 'Order status updated successfully', order});
 });
 
 // ======== delete specific order  ========

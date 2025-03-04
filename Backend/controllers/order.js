@@ -87,6 +87,21 @@ const getOrdersByUser = async (user_id) => {
   return orders;
 };
 
+const updateOrderStatus = async (order_id, newStatus) => {
+  const validStatuses = ['pending', 'shipped', 'delivered', 'canceled'];
+  if (!validStatuses.includes(newStatus)) {
+    throw new Error('Invalid status value');
+  }
+  // Find and update the order status
+  const order = await Orders.findOneAndUpdate(
+    {order_id: Number(order_id)}, // Find order by order_id
+    {status: newStatus}, // Update the status
+    {new: true} // Return the updated document
+  );
+
+  return order;
+};
+
 export {
   addOrder,
   deleteOrder,
@@ -94,5 +109,6 @@ export {
   getFilterdOrders,
   getOrder,
   getOrdersByUser,
-  updateOrder
+  updateOrder,
+  updateOrderStatus
 };
