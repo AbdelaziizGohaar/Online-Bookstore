@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   const [err, order] = await asyncWrapper(OrderController.addOrder(req.body));
   if (err) {
-    return res.status(422).json({error: err.message}); // Handle validation errors
+    return res.status(422).json({error: err.message});
   }
   res.status(200).json({message: 'order created succsesfully', order});
 });
@@ -30,15 +30,20 @@ router.get('/:order_id', async (req, res) => {
   if (err) return res.status(422).json({error: err.message});
 
   if (!order) {
-    return res.status(422).json({message: 'Order not found'}); // Handle order not found
+    return res.status(422).json({message: 'Order not found'});
   }
 
-  res.status(200).json(order); // Send order if found
+  res.status(200).json(order);
 });
 
 // ======== get all orders of specific User ========
-router.get('/Users/:user_id', (req, res) => {
-
+router.get('/Users/:user_id', async (req, res) => {
+  const [err, orders] = await asyncWrapper(OrderController.getOrdersByUser(req.params.user_id));
+  if (err) return res.status(422).json({error: err.message});
+  if (!orders || orders.length === 0) {
+    return res.status(422).json({message: 'No Orders found for this User'});
+  }
+  res.status(200).json({orders});
 });
 
 // ======== Update specific order ========

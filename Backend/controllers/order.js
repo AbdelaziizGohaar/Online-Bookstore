@@ -82,11 +82,17 @@ const deleteOrder = async (order_id) => {
   return {message: 'Order deleted successfully'};
 };
 
+const getOrdersByUser = async (user_id) => {
+  const orders = await Orders.find({user_id: Number(user_id)});
+  return orders;
+};
+
 export {
   addOrder,
   deleteOrder,
   getAll,
   getFilterdOrders,
   getOrder,
+  getOrdersByUser,
   updateOrder
 };
