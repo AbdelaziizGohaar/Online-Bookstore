@@ -5,6 +5,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import connectDB from './dbconfig/db.js';
 import errorHandler from './middlewares/errorHandler.js';
+
 import router from './routes/index.js';
 
 dotenv.config();
