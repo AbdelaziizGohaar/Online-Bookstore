@@ -5,11 +5,13 @@ import {asyncWrapper} from '../helpers/asyncWrapper.js';
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  console.log(req.body); // Debugging
-
   const [err, addedBook] = await asyncWrapper(BooksController.addBook(req.body));
 
-  if (err) return res.status(422).json({error: err.message});
+  if (err) {
+    console.log('error');
+
+    return res.status(422).json({error: err.message});
+  }
 
   res.json(addedBook);
 });

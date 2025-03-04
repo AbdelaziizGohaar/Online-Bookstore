@@ -2,11 +2,12 @@ import Book from '../models/Book.js';
 import {bookUpdateSchema, bookValidationSchema} from '../validators/bookValidator.js';
 
 const addBook = async (data) => {
-  const {error, validData} = bookValidationSchema.validate(data);
+  const {error, value} = bookValidationSchema.validate(data);
+  console.log(value);
   if (error) {
     throw new Error(error.message);
   }
-  const addedBook = await Book.create(validData);
+  const addedBook = await Book.create(value);
   return addedBook;
 };
 
@@ -22,13 +23,13 @@ const deleteBook = async (id) => {
 };
 
 const editBook = async (id, data) => {
-  const {error, validData} = bookUpdateSchema.validate(data);
+  const {error, value} = bookUpdateSchema.validate(data);
   if (error) {
     throw new Error(error.message);
   }
   const updatedBook = await Book.findOneAndUpdate(
     {book_id: id},
-    validData,
+    value,
     {new: true, runValidators: true}
   ); if (!updatedBook) {
     throw new Error('Employee not found');
