@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "joi": "^17.13.3"
+  },
+  "devDependencies": {
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0"
   }
 }
