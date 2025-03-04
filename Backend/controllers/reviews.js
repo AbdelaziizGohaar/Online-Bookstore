@@ -1,7 +1,7 @@
-import Review from "../models/Review.js";
+import Review from '../models/Review.js';
 
 const getReviews = async (bookId) => {
-  const reviews = await Review.find({ book_id: bookId });
+  const reviews = await Review.find({book_id: bookId});
   return reviews;
 };
 
@@ -12,18 +12,18 @@ const addReview = async (data) => {
 };
 
 const updateReview = async (id, body) => {
-  const { rating, review } = body;
+  const {rating, review} = body;
   const updatedReview = await Review.findOneAndUpdate(
-    { review_id: id },
-    { rating: rating, review: review },
+    {review_id: id},
+    {rating, review},
     {new: true}
   );
   return updatedReview;
 };
 
 const deleteReview = async (id) => {
-  const deletedReview = await Review.findOneAndDelete({ review_id: id });
+  const deletedReview = await Review.findOneAndDelete({review_id: id});
   return deletedReview;
 };
 
-export { addReview, getReviews, updateReview, deleteReview };
+export {addReview, deleteReview, getReviews, updateReview};
