@@ -18,7 +18,7 @@ router.post('/', validateReview, async (req, res) => {
   const [err, addeddReviews] = await asyncWrapper(
     ReviewsController.addReview(req.body)
   );
-  if (err) res.status(422).json({error: err.message});
+  if (err) res.status(err.status).json({error: err.message});
   res.json(addeddReviews);
 });
 
