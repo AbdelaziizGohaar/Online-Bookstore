@@ -29,10 +29,6 @@ router.get('/:order_id', async (req, res) => {
   const [err, order] = await asyncWrapper(OrderController.getOrder(req.params.order_id));
   if (err) return res.status(422).json({error: err.message});
 
-  if (!order) {
-    return res.status(422).json({message: 'Order not found'});
-  }
-
   res.status(200).json(order);
 });
 
@@ -40,9 +36,6 @@ router.get('/:order_id', async (req, res) => {
 router.get('/Users/:user_id', async (req, res) => {
   const [err, orders] = await asyncWrapper(OrderController.getOrdersByUser(req.params.user_id));
   if (err) return res.status(422).json({error: err.message});
-  if (!orders || orders.length === 0) {
-    return res.status(422).json({message: 'No Orders found for this User'});
-  }
   res.status(200).json({orders});
 });
 

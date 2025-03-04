@@ -1,19 +1,31 @@
 // import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
+import CustomError from '../helpers/CustomError.js';
 import Orders from '../models/order.js';
 
 // ==== find by order by id======
 const getOrder = async (order_id) => {
   // validation
-  const order = await Orders.findOne({order_id: Number(order_id)});
+  try {
+    const order = await Orders.findOne({order_id: Number(order_id)});
+    if (!order) {
+      throw new CustomError('Order not found', 404);
+    }
 
-  return order;
+    return order;
+  } catch (error) {
+    throw new CustomError(error, 500);
+  }
 };
 
 // ==== create order ======
 const addOrder = async (data) => {
-  const order = await Orders.create(data);
-  return order;
+  try {
+    const order = await Orders.create(data);
+    return order;
+  } catch (error) {
+    throw new CustomError(error, 500);
+  }
 };
 
 // ==== get all  order ======
@@ -25,6 +37,14 @@ const getAll = async (data) => {
 // ==== Update Specific  order ======
 const updateOrder = async (order_id, updatedData) => {
   const order = await Orders.findOne({order_id: Number(order_id)});
+
+  if (!order) {
+    throw new CustomError('Order not found', 404);
+  }
+
+  if (!updatedData || Object.keys(updatedData).length === 0) {
+    throw new CustomError('No data provided for update', 400);
+  }
 
   if (updatedData.status) {
     order.status = updatedData.status;
@@ -48,8 +68,11 @@ const updateOrder = async (order_id, updatedData) => {
     order.totalPrice = total;
   }
 
-  await order.save();
-
+  try {
+    await order.save();
+  } catch (error) {
+    throw new CustomError(error, 500);
+  }
   return order;
 };
 
@@ -71,26 +94,32 @@ const getFilterdOrders = async (filters) => {
 
   const orders = await Orders.find(query).skip(skip).limit(limit);
 
+  if (!orders || orders.length === 0) {
+    throw new CustomError('No orders found matching the filters', 404);
+  }
   return orders;
 };
 
 const deleteOrder = async (order_id) => {
   const order = await Orders.findOneAndDelete({order_id: Number(order_id)});
   if (!order) {
-    throw new Error('Order not found');
+    throw new CustomError('Order not found , Cant delete', 404);
   }
   return {message: 'Order deleted successfully'};
 };
 
 const getOrdersByUser = async (user_id) => {
   const orders = await Orders.find({user_id: Number(user_id)});
+  if (!orders || orders.length === 0) {
+    throw new CustomError('No Orders found for this User', 404);
+  }
   return orders;
 };
 
 const updateOrderStatus = async (order_id, newStatus) => {
   const validStatuses = ['pending', 'shipped', 'delivered', 'canceled'];
   if (!validStatuses.includes(newStatus)) {
-    throw new Error('Invalid status value');
+    throw new CustomError('Invalid status value', 422);
   }
   // Find and update the order status
   const order = await Orders.findOneAndUpdate(
