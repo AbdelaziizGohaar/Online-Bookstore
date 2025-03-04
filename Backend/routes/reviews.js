@@ -1,6 +1,7 @@
 import express from "express";
 import * as ReviewsController from "../controllers/reviews.js";
 import { asyncWrapper } from "../helpers/asyncWrapper.js";
+import { validateReview, validateReviewUpdate } from "../validators/reviewValidator.js";
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get("/", async (req, res) => {
   res.json(retrievedReviews);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", validateReview, async (req, res) => {
   // console.log("test inside Router post api",req.body);
   const [err, addeddReviews] = await asyncWrapper(
     ReviewsController.addReview(req.body)
@@ -21,7 +22,7 @@ router.post("/", async (req, res) => {
   res.json(addeddReviews);
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", validateReviewUpdate, async (req, res) => {
   const [err, updatedReview] = await asyncWrapper(
     ReviewsController.updateReview(req.params.id, req.body)
   );

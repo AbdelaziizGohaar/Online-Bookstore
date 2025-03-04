@@ -1,3 +1,4 @@
+import { kMaxLength } from 'buffer';
 import mongoose from 'mongoose';
 import mongooseSequence from 'mongoose-sequence';
 
@@ -31,7 +32,8 @@ const ReviewSchema = new mongoose.Schema(
     },
     review: {
       type: String,
-      trim: true
+      trim: true,
+      maxLength: 500
     }
   },
   {timestamps: true}
