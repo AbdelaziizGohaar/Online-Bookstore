@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 import CustomError from '../helpers/CustomError.js';
 import Orders from '../models/order.js';
-import {orderValidationSchema, updateOrderValidationSchema} from '../validations/orderValidation.js';
+import {orderValidationSchema, updateOrderValidationSchema} from '../validators/orderValidation.js';
 
 // ==== find by order by id======
 const getOrder = async (order_id) => {

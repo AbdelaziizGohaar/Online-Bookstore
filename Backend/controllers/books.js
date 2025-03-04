@@ -1,40 +1,73 @@
+import CustomError from '../helpers/CustomError.js';
 import Book from '../models/Book.js';
-import {bookUpdateSchema, bookValidationSchema} from '../validators/bookValidator.js';
+import {bookAddSchema, bookQuerySchema, bookUpdateSchema} from '../validators/bookValidator.js';
 
 const addBook = async (data) => {
-  const {error, value} = bookValidationSchema.validate(data);
-  console.log(value);
+  const {error, value} = bookAddSchema.validate(data);
   if (error) {
-    throw new Error(error.message);
+    throw new CustomError(`Validation Error: ${error.details.map((e) => e.message).join(', ')}`, 400);
   }
-  const addedBook = await Book.create(value);
-  return addedBook;
+  try {
+    const addedBook = await Book.create(value);
+    return addedBook;
+  } catch (error) {
+    console.error('Error adding book:', error.message);
+    throw new CustomError(error.message, 500);
+  }
 };
 
 const getFilteredBooks = async (filters) => {
-  const books = await Book.find(filters)
-    .select('-_id book_id title author price description stock image')
-    .exec();
+  const {error, value} = bookQuerySchema.validate(filters);
+  if (error) {
+    throw new CustomError(`Validation Error: ${error.details.map((e) => e.message).join(', ')}`, 400);
+  }
+  try {
+    const books = await Book.find(value)
+      .select('-_id book_id title author price description stock image')
+      .exec();
+    return books;
+  } catch (error) {
+    console.error('Error fetching books:', error.message);
 
-  return books;
+    throw new CustomError(error.message, 500);
+  }
 };
 const deleteBook = async (id) => {
-  await Book.deleteOne({book_id: id});
+  try {
+    const result = await Book.deleteOne({book_id: id});
+
+    if (result.deletedCount === 0) {
+      throw new CustomError('Book not found', 404);
+    }
+
+    return {message: 'Book deleted successfully'};
+  } catch (error) {
+    console.error('Error deleting book:', error.message);
+    throw new CustomError(error.message, 500);
+  }
 };
 
 const editBook = async (id, data) => {
   const {error, value} = bookUpdateSchema.validate(data);
   if (error) {
-    throw new Error(error.message);
+    throw new CustomError(`Validation Error: ${error.details.map((e) => e.message).join(', ')}`, 400);
   }
-  const updatedBook = await Book.findOneAndUpdate(
-    {book_id: id},
-    value,
-    {new: true, runValidators: true}
-  ); if (!updatedBook) {
-    throw new Error('Employee not found');
+  try {
+    const updatedBook = await Book.findOneAndUpdate(
+      {book_id: id},
+      value,
+      {new: true, runValidators: true}
+    );
+
+    if (!updatedBook) {
+      throw new CustomError('Book not found', 404);
+    }
+
+    return updatedBook;
+  } catch (error) {
+    console.error('Error updating book:', error.message);
+    throw new CustomError(error.message, 500);
   }
-  return updatedBook;
 };
 
 export {
