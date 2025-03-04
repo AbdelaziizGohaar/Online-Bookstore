@@ -1,18 +1,19 @@
 import process from 'node:process';
 import jwt from 'jsonwebtoken';
+import CustomError from '../helpers/CustomError.js';
 
 const authMiddleware = (req, res, next) => {
   try {
     // console.log('Request Headers:', req.headers);
 
     const token = req.header('Authorization');
-    if (!token) return res.status(401).json({message: 'token not found'});
+    if (!token) throw new CustomError('Token not found', 401);
 
     const verfiy = jwt.verify(token, process.env.JWT_SECRET);
     req.user = verfiy;
     next();
   } catch (error) {
-    res.status(500).json({message: 'something wrong with token', error});
+    next(error);
   }
 };
 export default authMiddleware;

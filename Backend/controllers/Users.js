@@ -1,13 +1,14 @@
 import process from 'node:process';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import CustomError from '../helpers/CustomError.js';
 import {Admin, Customer, User} from '../models/Allusres.js';
 
-export const registerUser = async (req, res) => {
+export const registerUser = async (req, res, next) => {
   try {
     const {name, email, password, role} = req.body;
     const existuser = await User.findOne({email});
-    if (existuser) return res.status(400).json({message: `this email: ${email} already exist`});
+    if (existuser) throw new CustomError(`Email ${email} already exists`, 400);
 
     let newUser;
     if (role === 'Admin') {
@@ -16,41 +17,41 @@ export const registerUser = async (req, res) => {
       newUser = new Customer({name, email, password, role});
     }
     await newUser.save();
-    res.status(201).json({message: 'account created', user: newUser});
+    res.status(201).json({message: 'Account created successfully', user: newUser});
   } catch (error) {
-    res.status(500).json({message: 'account not created', error});
+    next(error);
   }
 };
 
-export const loginUser = async (req, res) => {
+export const loginUser = async (req, res, next) => {
   try {
     const {email, password} = req.body;
     const user = await User.findOne({email});
-    if (!user) return res.status(400).json({message: 'this account is wrong'});
+    if (!user) throw new CustomError('Invalid email or password', 400);
 
     const passwordIsMatch = await bcrypt.compare(password, user.password);
-    if (!passwordIsMatch) return res.status(400).json({message: 'password is wrong'});
+    if (!passwordIsMatch) throw new CustomError('Invalid email or password', 400);
 
     const token = jwt.sign({userID: user._id, role: user.role}, process.env.JWT_SECRET, {expiresIn: '7d'});
     res.json({message: 'login successfuly', token});
   } catch (error) {
-    res.status(500).json({message: 'something wrong with login', error});
+    next(error);
   }
 };
 
-export const getUserProfile = async (req, res) => {
+export const getUserProfile = async (req, res, next) => {
   try {
     //  const userID = req.user.userID;
     const user = await User.findById(req.user.userID).select('-password');
-    if (!user) return res.status(404).json({message: 'user not found'});
+    if (!user) throw new CustomError('User not found', 404);
 
     res.json(user);
   } catch (error) {
-    res.status(500).json({message: 'something wrong with get info', error});
+    next(error);
   }
 };
 
-export const updateUser = async (req, res) => {
+export const updateUser = async (req, res, next) => {
   try {
     // const userID = req.user.userID;
     const updates = req.body;
@@ -58,20 +59,20 @@ export const updateUser = async (req, res) => {
     if (updates.password) delete updates.password;
 
     const updateUser = await User.findByIdAndUpdate(req.user.userID, updates, {new: true});
-
-    res.json({message: 'info updated successfuly', user: updateUser});
+    if (!updateUser) throw new CustomError('User not found', 404);
+    res.json({message: 'User updated successfully', user: updateUser});
   } catch (error) {
-    res.status(500).json({message: 'something wrong with info update', error});
+    next(error);
   }
 };
 
-export const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res, next) => {
   try {
     // const userID = req.user.userID;
     const deletedUser = await User.findByIdAndDelete(req.user.userID);
-    if (!deletedUser) return res.status(404).json({message: 'User not found'});
+    if (!deletedUser) throw new CustomError('User not found', 404);
     res.json({message: 'Account deleted successfully'});
   } catch (error) {
-    res.status(500).json({message: 'something wrong with deleting', error});
+    next(error);
   }
 };

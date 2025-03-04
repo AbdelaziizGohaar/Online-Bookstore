@@ -3,8 +3,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
-import router from './routes/index.js';
 import connectDB from './dbconfig/db.js';
+import errorHandler from './middlewares/errorHandler.js';
+import router from './routes/index.js';
 
 dotenv.config();
 
@@ -15,14 +16,15 @@ app.use(router);
 
 connectDB();
 
-app.use((err, req, res, next) => {
-  res.status(err.status || 500).json({
-    message: err.message
-  });
-});
+app.use(errorHandler);
+// app.use((err, req, res, next) => {
+//   res.status(err.status || 500).json({
+//     message: err.message
+//   });
+// });
 
-app.use('*', (req,res)=>{
-    res.sendStatus(404);
+app.use('*', (req, res) => {
+  res.sendStatus(404);
 });
 
 const PORT = process.env.PORT;
