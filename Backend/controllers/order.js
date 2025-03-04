@@ -2,6 +2,7 @@
 import mongoose from 'mongoose';
 import CustomError from '../helpers/CustomError.js';
 import Orders from '../models/order.js';
+import {orderValidationSchema, updateOrderValidationSchema} from '../validations/orderValidation.js';
 
 // ==== find by order by id======
 const getOrder = async (order_id) => {
@@ -20,6 +21,12 @@ const getOrder = async (order_id) => {
 
 // ==== create order ======
 const addOrder = async (data) => {
+  const {error, value} = orderValidationSchema.validate(data);
+  console.log(value);
+  if (error) {
+    throw new CustomError(error.details[0].message, 400);
+  }
+
   try {
     const order = await Orders.create(data);
     return order;
@@ -36,6 +43,12 @@ const getAll = async (data) => {
 
 // ==== Update Specific  order ======
 const updateOrder = async (order_id, updatedData) => {
+  // Validate updated data
+  const {error} = updateOrderValidationSchema.validate(updatedData);
+  if (error) {
+    throw new CustomError(error.details[0].message, 400);
+  }
+
   const order = await Orders.findOne({order_id: Number(order_id)});
 
   if (!order) {
