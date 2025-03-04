@@ -8,14 +8,20 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   const [err, order] = await asyncWrapper(OrderController.addOrder(req.body));
   if (err) {
-    return res.status(400).json({error: err.message}); // Handle validation errors
+    return res.status(422).json({error: err.message}); // Handle validation errors
   }
   res.status(200).json({message: 'order created succsesfully', order});
 });
 
 // ======== get all orders with filters========
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+  const filters = req.query;
+  const [err, orders] = await asyncWrapper(OrderController.getFilterdOrders(filters));
 
+  if (err) {
+    return res.status(422).json({error: err.message});
+  }
+  res.json(orders);
 });
 
 // ======== get specific order========
@@ -24,7 +30,7 @@ router.get('/:order_id', async (req, res) => {
   if (err) return res.status(422).json({error: err.message});
 
   if (!order) {
-    return res.status(404).json({message: 'Order not found'}); // Handle order not found
+    return res.status(422).json({message: 'Order not found'}); // Handle order not found
   }
 
   res.status(200).json(order); // Send order if found
@@ -36,8 +42,13 @@ router.get('/Users/:user_id', (req, res) => {
 });
 
 // ======== Update specific order ========
-router.put('/:order_id', (req, res) => {
-
+router.put('/:order_id', async (req, res) => {
+  const [err, order] = await asyncWrapper (OrderController.updateOrder(req.params.order_id, req.body));
+  if (err) return res.status(422).json({error: err.message});
+  if (!order) {
+    return res.status(422).json({message: 'Order not found'});
+  }
+  res.status(200).json({message: 'Order updated successfully'});
 });
 
 // ======== Update specific order Status ========
@@ -46,7 +57,12 @@ router.patch('/:order_id', (req, res) => {
 });
 
 // ======== delete specific order  ========
-router.delete('/:order_id', (req, res) => {
-
+router.delete('/:order_id', async (req, res) => {
+  const [err, order] = await asyncWrapper (OrderController.deleteOrder(req.params.order_id));
+  if (err) return res.status(422).json({error: err.message});
+  if (!order) {
+    return res.status(422).json({message: 'Order not found'});
+  }
+  res.status(200).json({message: 'Order Delete successfully'});
 });
 export default router;
