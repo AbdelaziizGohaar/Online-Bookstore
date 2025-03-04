@@ -6,8 +6,6 @@ import mongoose from 'mongoose';
 import router from './routes/index.js';
 import connectDB from './dbconfig/db.js';
 
-// import router from './routes/index.js';
-
 dotenv.config();
 
 const app = express();
@@ -17,11 +15,14 @@ app.use(router);
 
 connectDB();
 
-// app.use(router);
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({
     message: err.message
   });
+});
+
+app.use('*', (req,res)=>{
+    res.sendStatus(404);
 });
 
 const PORT = process.env.PORT;
