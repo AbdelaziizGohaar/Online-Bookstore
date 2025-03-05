@@ -1,17 +1,30 @@
 import express from 'express';
 import * as BooksController from '../controllers/books.js';
 import {asyncWrapper} from '../helpers/asyncWrapper.js';
+import CustomError from '../helpers/CustomError.js';
+import upload from '../middlewares/upload.js';
 import 'express-async-errors';
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
-  const [err, addedBook] = await asyncWrapper(BooksController.addBook(req.body));
+router.post('/', upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      throw new CustomError('Image file is required', 400);
+    }
 
-  if (err)
-    return res.status(err.status).json({error: err.message});
+    req.body.image = `/uploads/${req.file.filename}`;
 
-  res.json(addedBook);
+    const [err, addedBook] = await asyncWrapper(BooksController.addBook(req.body));
+
+    if (err) {
+      return res.status(err.status).json({error: err.message});
+    }
+
+    res.status(201).json(addedBook);
+  } catch (error) {
+    res.status(error.status).json({error: error.message});
+  }
 });
 
 router.get('/', async (req, res) => {

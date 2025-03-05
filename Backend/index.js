@@ -1,19 +1,23 @@
+import path from 'node:path';
 import process from 'node:process';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import mongoose from 'mongoose';
 import connectDB from './dbconfig/db.js';
 import errorHandler from './middlewares/errorHandler.js';
 
 import router from './routes/index.js';
 
 dotenv.config();
-
 const app = express();
+
 app.use(express.json());
 app.use(cors());
 app.use(router);
+
+// eslint-disable-next-line no-multi-str
+app.use('/uploads', express.static(path.join('D:\OPEN SOURCE\Library Project\Online-Bookstore\Backend\
+   ', 'uploads')));
 
 connectDB();
 

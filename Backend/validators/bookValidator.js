@@ -6,7 +6,7 @@ export const bookAddSchema = Joi.object({
   price: Joi.number().min(1).max(10000).required(),
   description: Joi.string().min(10).max(2000).trim().required(),
   stock: Joi.number().integer().min(0).required(),
-  image: Joi.string().trim().pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$|^[\w,\s-]+\.(?:png|jpg|jpeg|gif|webp)$/).required()
+  image: Joi.string().trim().pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$|^\/?[\w,\s-]+\/[\w,\s-]+\.(?:png|jpg|jpeg|gif|webp)$/).required()
 });
 export const bookUpdateSchema = Joi.object({
   title: Joi.string().min(2).max(255).trim().optional(),
@@ -16,7 +16,7 @@ export const bookUpdateSchema = Joi.object({
   stock: Joi.number().integer().min(0).optional(),
   image: Joi.string()
     .trim()
-    .pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$|^[\w,\s-]+\.(?:png|jpg|jpeg|gif|webp)$/)
+    .pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$|^\/?[\w,\s-]+\/[\w,\s-]+\.(?:png|jpg|jpeg|gif|webp)$/)
     .optional()
 });
 

@@ -51,7 +51,8 @@ const BookSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    match: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$|^[\w,\s-]+\.(?:png|jpg|jpeg|gif|webp)$/
+    match: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$|^\/?[\w,\s-]+\/[\w,\s-]+\.(?:png|jpg|jpeg|gif|webp)$/
+
   }
 
 }, {timestamps: true});
