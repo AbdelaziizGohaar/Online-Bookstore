@@ -1,6 +1,8 @@
 // import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import CustomError from '../helpers/CustomError.js';
+import {Customer} from '../models/Allusres.js';
+import Book from '../models/Book.js';
 import Orders from '../models/order.js';
 import {orderValidationSchema, updateOrderValidationSchema} from '../validators/orderValidation.js';
 
@@ -25,6 +27,31 @@ const addOrder = async (data) => {
   console.log(value);
   if (error) {
     throw new CustomError(error.details[0].message, 400);
+  }
+
+  /// check user Exist or not in userschema
+  const userExists = await Customer.findOne({user_id: data.user_id});
+  if (!userExists) {
+    throw new CustomError('Not Found ,Wrong User Id', 404);
+  }
+
+  /// check book Exist or not in bookschema
+  for (const item of data.books) {
+    const bookExists = await Book.findOne({book_id: item.book_id});
+    if (!bookExists) {
+      throw new CustomError(`Book with ID ${item.book_id} not found`, 404);
+    } else {
+      // Check if stock is enough
+      if (item.quantity > bookExists.stock) {
+        throw new CustomError(`Not enough stock for book ID ${item.book_id}. Available: ${bookExists.stock}`, 400);
+      } else {
+        item.book_name = bookExists.title;
+        item.price = bookExists.price;
+        // Reduce stock
+        bookExists.stock -= item.quantity;
+        await bookExists.save(); // Save updated stock
+      }
+    }
   }
 
   try {
@@ -61,6 +88,16 @@ const updateOrder = async (order_id, updatedData) => {
 
   if (updatedData.status) {
     order.status = updatedData.status;
+  }
+
+  // Step 3: Validate each book_id if books array is provided
+  if (updatedData.books) {
+    for (const item of updatedData.books) {
+      const bookExists = await Book.findOne({book_id: item.book_id});
+      if (!bookExists) {
+        throw new CustomError(`Book with ID ${item.book_id} not found`, 404);
+      }
+    }
   }
   if (updatedData.books) {
     order.books = updatedData.books;
