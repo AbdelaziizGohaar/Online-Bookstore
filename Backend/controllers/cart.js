@@ -10,7 +10,7 @@ export const addItem = async (data) => {
     throw new CustomError(`Validation Error: ${error.details.map((e) => e.message).join(', ')}`, 400);
   }
 
-  const {userId, bookId} = value;
+  const {bookId, userId} = value;
 
   const [errCustomer, customer] = await asyncWrapper(Customer.findOne({user_id: userId}));
   if (errCustomer) throw new CustomError(errCustomer.message, 500);
@@ -21,10 +21,13 @@ export const addItem = async (data) => {
   if (!book) throw new CustomError('Book not found', 404);
 
   const existingItem = customer.cart.arrayOfBooks.find((item) => item.book_id === bookId);
-  if (existingItem) {
+
+  if (existingItem && !((existingItem.booknum + 1) > book.stock)) {
     existingItem.booknum++;
-  } else {
+  } else if (book.stock) {
     customer.cart.arrayOfBooks.push({book_id: bookId});
+  } else {
+    throw new CustomError(`Not enough stock for book ID ${bookId}`, 400);
   }
 
   customer.cart.totalItemNum++;
@@ -52,21 +55,25 @@ export const getCartItems = async (userId) => {
   return customer.cart;
 };
 
-export const updateItem = async (itemId, data) => {
+export const updateItem = async (data) => {
   const {error, value} = updateItemSchema.validate(data);
   if (error) {
     throw new CustomError(`Validation Error: ${error.details.map((e) => e.message).join(', ')}`, 400);
   }
 
-  const {userId, quantity} = value;
+  const {bookId, userId, quantity} = value;
 
   const [errCustomer, customer] = await asyncWrapper(Customer.findOne({user_id: userId}));
   if (errCustomer) throw new CustomError(errCustomer.message, 500);
   if (!customer) throw new CustomError('Customer not found', 404);
 
-  const item = customer.cart.arrayOfBooks.find((item) => item.book_id === Number(itemId));
+  const item = customer.cart.arrayOfBooks.find((item) => item.book_id === bookId);
   if (!item) throw new CustomError('Item not found in cart', 404);
 
+  const [, book] = await asyncWrapper(Book.findOne({book_id: bookId}));
+  if (quantity > book.stock) {
+    throw new CustomError(`Not enough stock for book ID ${bookId}`, 400);
+  }
   customer.cart.totalItemNum += quantity - item.booknum;
   item.booknum = quantity;
 

@@ -6,6 +6,7 @@ export const cartItemSchema = Joi.object({
 });
 
 export const updateItemSchema = Joi.object({
+  bookId: Joi.number().integer().positive().required(),
   userId: Joi.number().integer().positive().required(),
   quantity: Joi.number().integer().positive().required()
 });
