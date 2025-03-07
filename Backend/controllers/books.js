@@ -32,6 +32,17 @@ const getFilteredBooks = async (filters) => {
     throw new CustomError(error.message, 500);
   }
 };
+
+const getBook = async (id) => {
+  try {
+    const book = await Book.findOne({book_id: id});
+    if (!book) throw new CustomError('Book does not exist', 404);
+    return book;
+  }catch (error){
+    throw new CustomError(error.message || 'Failed to get book', error.status || 422);
+  }
+}
+
 const deleteBook = async (id) => {
   try {
     const result = await Book.deleteOne({book_id: id});
@@ -74,5 +85,6 @@ export {
   addBook,
   deleteBook,
   editBook,
-  getFilteredBooks
+  getFilteredBooks,
+  getBook
 };
