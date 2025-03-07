@@ -38,10 +38,10 @@ const getBook = async (id) => {
     const book = await Book.findOne({book_id: id});
     if (!book) throw new CustomError('Book does not exist', 404);
     return book;
-  }catch (error){
+  } catch (error) {
     throw new CustomError(error.message || 'Failed to get book', error.status || 422);
   }
-}
+};
 
 const deleteBook = async (id) => {
   try {
@@ -85,6 +85,6 @@ export {
   addBook,
   deleteBook,
   editBook,
-  getFilteredBooks,
-  getBook
+  getBook,
+  getFilteredBooks
 };

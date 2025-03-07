@@ -1,7 +1,7 @@
-<div class="container mx-auto mb-5">
-    <div class="flex flex-wrap px-5 mt-5 gap-5">
-      @for (book of books; track book.book_id) {
-        <app-book-card class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4" [book]="book"></app-book-card>
-      }
-    </div>
+<div class="container mx-auto mb-10">
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-5 mt-8">
+    @for (book of books; track book.book_id) {
+      <app-book-card [book]="book"></app-book-card>
+    }
   </div>
+</div>

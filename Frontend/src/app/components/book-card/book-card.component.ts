@@ -13,7 +13,7 @@ export class BookCardComponent {
   @Input() book !: Book;
   constructor(private router: Router) { 
   }
-  redirectToProductDetails(id: number) {
+  redirectToBookDetails(id: number) {
     this.router.navigate(['/book-details', id]);
   }
   addToCart(event: Event, book: Book): void {
