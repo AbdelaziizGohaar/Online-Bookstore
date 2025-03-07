@@ -1,0 +1,37 @@
+<nav class="bg-white shadow-md py-4">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <a [routerLink]="['/']" class="text-2xl font-bold text-gray-800">
+        Online Bookstore
+      </a>
+      <div class="flex space-x-8">
+        <a
+          [routerLink]="['/login']"
+          routerLinkActive="text-blue-600 font-semibold"
+          class="text-gray-700 hover:text-blue-600 transition duration-300"
+        >
+          Login
+        </a>
+        <a
+          [routerLink]="['/register']"
+          routerLinkActive="text-blue-600 font-semibold"
+          class="text-gray-700 hover:text-blue-600 transition duration-300"
+        >
+          Register
+        </a>
+        <a
+          [routerLink]="['/cart']"
+          routerLinkActive="text-blue-600 font-semibold"
+          class="text-gray-700 hover:text-blue-600 transition duration-300"
+        >
+          Cart
+        </a>
+        <a
+          [routerLink]="['/admin-dashboard']"
+          routerLinkActive="text-blue-600 font-semibold"
+          class="text-gray-700 hover:text-blue-600 transition duration-300"
+        >
+          Admin Dashboard
+        </a>
+      </div>
+    </div>
+  </nav>

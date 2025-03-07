@@ -5,6 +5,7 @@ import { BookListComponent } from './components/book-list/book-list.component';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { NotfoundComponent } from './components/notfound/notfound.component'
+import { CartComponent } from './components/cart/cart.component';
 
 export const routes: Routes = [
     {
@@ -23,6 +24,11 @@ export const routes: Routes = [
     {
         path: 'admin-dashboard',
         component: AdminDashboardComponent
+    },
+    {
+        path: 'cart',
+        component: CartComponent,
+        title: 'Cart'
     },
     {
         path: '**',
