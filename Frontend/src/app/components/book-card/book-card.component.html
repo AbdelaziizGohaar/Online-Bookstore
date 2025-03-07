@@ -1,0 +1,28 @@
+<div
+  class="card border-2 rounded-2xl shadow-lg h-full cursor-pointer"
+  (click)="redirectToProductDetails(book.book_id)"
+>
+  <img [src]="book.image" class="w-full h-48 object-cover rounded-t-2xl" alt="{{ book.title }}" />
+  <div class="p-4">
+    @if (book.stock > 0) {
+      <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-green-500 rounded-full">
+        In Stock
+      </span>
+    } @else {
+      <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-red-500 rounded-full">
+        Out of Stock
+      </span>
+    }
+    <h5 class="mt-2 text-lg font-bold text-gray-900">{{ book.title }}</h5>
+    <p class="text-gray-700">
+      <b>{{ book.price }}$</b>
+    </p>
+    <button
+      type="button"
+      class="mt-4 w-full px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+      (click)="addToCart($event, book)"
+    >
+      Add to Cart
+    </button>
+  </div>
+</div>

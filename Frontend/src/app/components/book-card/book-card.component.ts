@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Book } from '../types/book';
 import { Router } from '@angular/router';
+import { Book } from '../../types/book';
 
 @Component({
   selector: 'app-book-card',
@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class BookCardComponent {
   @Input() book !: Book;
-  constructor(private router: Router) { }
+  constructor(private router: Router) { 
+  }
   redirectToProductDetails(id: number) {
     this.router.navigate(['/book-details', id]);
   }

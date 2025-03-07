@@ -16,8 +16,7 @@ app.use(cors());
 app.use(router);
 
 // eslint-disable-next-line no-multi-str
-app.use('/uploads', express.static(path.join('D:\OPEN SOURCE\Library Project\Online-Bookstore\Backend\
-   ', 'uploads')));
+app.use('/uploads', express.static('uploads'));
 
 connectDB();
 

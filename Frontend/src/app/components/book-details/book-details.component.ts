@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { BookService } from '../services/book.service';
-import { Book } from '../types/book';
+
 import { ActivatedRoute } from '@angular/router';
+import { BookService } from '../../services/book.service';
+import { Book } from '../../types/book';
 
 
 @Component({
@@ -20,7 +21,11 @@ export class BookDetailsComponent {
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
       this.bookService.getBookDetails(id).subscribe((data) => {
-        this.book = data;
+        this.book = {
+          ...data,
+          image: `http://localhost:3000${data.image}`
+        };
+        
         console.log(this.book);
       });
     });

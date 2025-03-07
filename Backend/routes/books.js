@@ -41,8 +41,7 @@ router.get('/:id', async (req, res) => {
     return res.status(err.status).json({error: err.message});
 
   res.json(book);
-
-})
+});
 
 router.delete('/:id', async (req, res) => {
   const [err, result] = await asyncWrapper(BooksController.deleteBook(req.params.id));
