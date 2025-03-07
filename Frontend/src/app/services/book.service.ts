@@ -11,4 +11,8 @@ httpclient = inject(HttpClient);
   getBooks(): Observable<any> {
     return this.httpclient.get('http://localhost:3000/books');
   }
+  
+  getBookDetails(id: number): Observable<any> {
+    return this.httpclient.get(`http://localhost:3000/books/${id}`);
+  }
 }
