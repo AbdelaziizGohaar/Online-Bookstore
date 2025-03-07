@@ -1,0 +1,128 @@
+/* General Styles */
+.profile-container {
+    max-width: 600px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.profile-header {
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.profile-info .profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #007bff;
+}
+
+.user-role {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.member-since {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Stats */
+.profile-stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.stat {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    width: 30%;
+    font-size: 14px;
+}
+
+.stat span {
+    display: block;
+    font-weight: bold;
+    font-size: 18px;
+    color: #007bff;
+}
+
+/* Favorite Genres */
+.profile-section {
+    margin-bottom: 20px;
+}
+
+.profile-section h3 {
+    border-left: 4px solid #007bff;
+    padding-left: 10px;
+    font-size: 18px;
+}
+
+.genre-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.genre-list li {
+    background: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Orders Section */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.order h4 {
+    margin: 0;
+    color: #007bff;
+}
+
+.order p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.book-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.book-list li {
+    background: white;
+    padding: 5px 10px;
+    border-left: 4px solid #007bff;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    font-size: 14px;
+}
