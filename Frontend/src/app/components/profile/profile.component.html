@@ -1,56 +1,117 @@
-<div class="profile-container">
-    <!-- Profile Header -->
-    <div class="profile-header">
-        <div class="profile-info">
-            <img src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-img" />
-            <div>
-                <h2>Jane Doe</h2>
-                <p class="user-role">📌 Role: Premium Member</p>
-                <p class="member-since">Member since: Jan 2021</p>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-1/4 bg-white shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-4">My Account</h2>
+            <nav>
+                <ul class="space-y-4">
+                    <li>
+                        <button
+                            class="w-full text-left px-4 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700">
+                            Account Info
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="w-full text-left px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">
+                            Saved Addresses
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="w-full text-left px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">
+                            My Orders
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="w-full text-left px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">
+                            Saved Cards
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="w-full text-left px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">
+                            Cart List
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="w-3/4 p-8">
+            <h1 class="text-3xl font-bold mb-6">Account Information</h1>
+
+            <!-- User Info -->
+            <div class="bg-white p-6 shadow-md rounded-lg mb-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-medium">Email</label>
+                        <input type="text" class="w-full p-2 border rounded" value="user@example.com" disabled>
+                    </div>
+                    <div>
+                        <label class="block font-medium">Role</label>
+                        <input type="text" class="w-full p-2 border rounded" value="Customer" disabled>
+                    </div>
+                    <div>
+                        <label class="block font-medium">First Name</label>
+                        <input type="text" class="w-full p-2 border rounded" value="John">
+                    </div>
+                    <div>
+                        <label class="block font-medium">Last Name</label>
+                        <input type="text" class="w-full p-2 border rounded" value="Doe">
+                    </div>
+                </div>
+                <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Update</button>
             </div>
-        </div>
-    </div>
 
-    <!-- Account Stats -->
-    <div class="profile-stats">
-        <div class="stat"><span>35</span> Books Purchased</div>
-        <div class="stat"><span>5</span> Cart List</div>
-        <div class="stat"><span>20</span> Reviews</div>
-    </div>
+            <!-- Order History -->
+            <div class="bg-white p-6 shadow-md rounded-lg mb-6">
+                <h2 class="text-xl font-semibold mb-4">Order History</h2>
+                <table class="w-full border">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-2">Order ID</th>
+                            <th class="p-2">Date</th>
+                            <th class="p-2">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-t">
+                            <td class="p-2">#12345</td>
+                            <td class="p-2">2024-03-07</td>
+                            <td class="p-2 text-green-600">Completed</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="p-2">#67890</td>
+                            <td class="p-2">2024-03-06</td>
+                            <td class="p-2 text-yellow-600">Pending</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    <!-- Favorite Genres -->
-    <div class="profile-section">
-        <h3>Favorite Genres</h3>
-        <ul class="genre-list">
-            <li>📖 Fiction</li>
-            <li>🔬 Science</li>
-            <li>🧠 Psychology</li>
-            <li>👩‍💻 Technology</li>
-        </ul>
-    </div>
-
-    <!-- All Orders Section -->
-    <div class="profile-section">
-        <h3>All Orders</h3>
-        <div class="orders-list">
-            <div class="order">
-                <h4>Order #12345</h4>
-                <p>📅 Date: Feb 12, 2024</p>
-                <ul class="book-list">
-                    <li>📘 Atomic Habits</li>
-                    <li>📙 1984</li>
-                    <li>📕 The Subtle Art of Not Giving a F*ck</li>
+            <!-- Cart List -->
+            <div class="bg-white p-6 shadow-md rounded-lg">
+                <h2 class="text-xl font-semibold mb-4">Cart List</h2>
+                <ul class="space-y-2">
+                    <li class="p-2 border-b">Book Title 1 - $15</li>
+                    <li class="p-2 border-b">Book Title 2 - $20</li>
                 </ul>
             </div>
-
-            <div class="order">
-                <h4>Order #12344</h4>
-                <p>📅 Date: Jan 30, 2024</p>
-                <ul class="book-list">
-                    <li>📗 Sapiens: A Brief History of Humankind</li>
-                    <li>📕 The Psychology of Money</li>
-                </ul>
-            </div>
-        </div>
+        </main>
     </div>
-</div>
+</body>
+
+</html>
