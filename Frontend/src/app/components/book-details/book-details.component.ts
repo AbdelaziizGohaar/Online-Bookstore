@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../types/book';
 import { FormsModule } from '@angular/forms';
@@ -14,12 +14,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class BookDetailsComponent {
   bookService = inject(BookService);
-  route = inject(ActivatedRoute);
+  activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
   book !: Book;
   quantity : number = 1;
   constructor() {}
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
       this.bookService.getBookDetails(id).subscribe((data) => {
         this.book = {
@@ -41,5 +42,8 @@ export class BookDetailsComponent {
       this.quantity--;
     }
     console.log(this.quantity);
+  }
+  backHome(){
+    this.router.navigate(['/']);
   }
 }
