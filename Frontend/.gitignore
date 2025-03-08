@@ -41,6 +41,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
-
+# Ignore package files
 /package-lock.json
 /package.json
+
+

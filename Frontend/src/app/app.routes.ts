@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-
+import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
@@ -17,43 +17,58 @@ export const routes: Routes = [
         component: BookListComponent
     },
 
+    { path: 'login', 
+        component: LoginComponent 
+    },
+  
+    { path: 'register', 
+        component: RegisterComponent 
+    },
+
     {
         path: 'book-details/:id',
         component: BookDetailsComponent
     },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
+
     {
         path: 'admin-dashboard',
         component: AdminDashboardComponent
     },
+
     {
         path: 'cart',
         component: CartComponent,
         title: 'Cart'
     },
+
     {
         path: 'add-book',
         component: AddBookComponent
 
+
     },
+
     {
         path: 'edit-book/:id',
         component: EditBookComponent
     },
+
     {
         path: 'checkout',
         component: CheckoutComponent
     },
+
     {
         path: 'profile',
         component: ProfileComponent
     },
+    
     {
         path: '**',
         component: NotfoundComponent,
         title: 'Not Found Page'
-    }
+    },
+
+    
+
 ];

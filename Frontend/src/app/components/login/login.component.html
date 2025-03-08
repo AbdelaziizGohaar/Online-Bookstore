@@ -36,10 +36,12 @@
               <p *ngIf="errorMessage" class="text-red-500 text-sm text-center">{{ errorMessage }}</p>
         
               
-              <button type="submit" [disabled]="loginForm.invalid"
-                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-lg transition">
-                Login
-              </button>
+          <button type="submit" [disabled]="loginForm.invalid || isLoading"
+              class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-lg transition
+               disabled:bg-gray-400 disabled:cursor-not-allowed">
+        <span *ngIf="isLoading">Loading...</span>
+        <span *ngIf="!isLoading">Login</span>
+      </button>
         
               
               <p class="text-sm text-gray-600 text-center mt-2">
