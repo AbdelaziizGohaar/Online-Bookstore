@@ -52,7 +52,10 @@ router.delete('/:id', async (req, res) => {
   res.json(result);
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', upload.single('image'), async (req, res) => {
+  if (req.file) {
+    req.body.image = `/uploads/${req.file.filename}`;
+  }
   const [err, book] = await asyncWrapper(BooksController.editBook(req.params.id, req.body));
 
   if (err)

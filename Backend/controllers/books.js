@@ -1,7 +1,13 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import CustomError from '../helpers/CustomError.js';
+
 import Book from '../models/Book.js';
 import {bookAddSchema, bookQuerySchema, bookUpdateSchema} from '../validators/bookValidator.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const addBook = async (data) => {
   const {error, value} = bookAddSchema.validate(data);
   if (error) {
@@ -45,6 +51,14 @@ const getBook = async (id) => {
 
 const deleteBook = async (id) => {
   try {
+    const book = await Book.findOne({book_id: id});
+    const imagePath = path.join(__dirname, '..', book.image);
+    console.log(imagePath);
+    if (fs.existsSync(imagePath)) {
+      console.log('deleting image');
+      fs.unlinkSync(imagePath);
+    }
+
     const result = await Book.deleteOne({book_id: id});
 
     if (result.deletedCount === 0) {

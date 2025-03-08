@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Book } from '../types/book';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +15,17 @@ httpclient = inject(HttpClient);
   getBookDetails(id: number): Observable<any> {
     return this.httpclient.get(`http://localhost:3000/books/${id}`);
   }
-  addBook(book: Book): Observable<any> {
-    return this.httpclient.post('http://localhost:3000/books', book);
+  addBook(bookData: FormData): Observable<any> {
+    return this.httpclient.post('http://localhost:3000/books', bookData);
   }
+
+  updateBook(id: number, bookData: FormData): Observable<any> {
+    console.log(bookData);
+    return this.httpclient.patch(`http://localhost:3000/books/${id}`, bookData);
+  }
+
   deleteBook(id: number): Observable<any> {
     return this.httpclient.delete(`http://localhost:3000/books/${id}`);
   }
-  updateBook(id: number, data: any): Observable<any> {
-    return this.httpclient.put(`http://localhost:3000/books/${id}`, data);
-  }
+  
 }

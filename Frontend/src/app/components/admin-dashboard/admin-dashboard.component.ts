@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { Book } from '../../types/book';
+import { BookService } from '../../services/book.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -8,5 +11,28 @@ import { Component } from '@angular/core';
   styleUrl: './admin-dashboard.component.css'
 })
 export class AdminDashboardComponent {
-
+  books !: Book[];
+  bookService = inject(BookService);
+  ngOnInit() {
+    this.bookService.getBooks().subscribe((books) => {
+      this.books = books;
+    });
+  }
+  constructor(private router: Router) { }
+  goToAddBook() {
+    this.router.navigate(['/add-book']);
+  }
+  editBook(book: Book) {
+    this.router.navigate(['/edit-book', book.book_id]);
+  }
+  deleteBook(bookId: number) {
+    this.bookService.deleteBook(bookId).subscribe((res) => {
+      console.log(res);
+      if (res.error) {
+        return alert(res.error);
+      }
+      alert('Book deleted successfully');
+      this.books = this.books.filter((book) => book.book_id !==bookId);
+    });
+  }
 }

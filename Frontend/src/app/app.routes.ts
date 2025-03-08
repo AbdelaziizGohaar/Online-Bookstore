@@ -6,6 +6,8 @@ import { BookDetailsComponent } from './components/book-details/book-details.com
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { NotfoundComponent } from './components/notfound/notfound.component'
 import { CartComponent } from './components/cart/cart.component';
+import { AddBookComponent } from './components/add-book/add-book.component';
+import { EditBookComponent } from './components/edit-book/edit-book.component';
 
 export const routes: Routes = [
     {
@@ -29,6 +31,15 @@ export const routes: Routes = [
         path: 'cart',
         component: CartComponent,
         title: 'Cart'
+    },
+    {
+        path: 'add-book',
+        component: AddBookComponent
+
+    },
+    {
+        path: 'edit-book/:id',
+        component: EditBookComponent
     },
     {
         path: '**',

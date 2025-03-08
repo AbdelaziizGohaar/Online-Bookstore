@@ -1,14 +1,42 @@
 <div class="container mx-auto p-6">
-    <h1 class="text-2xl font-bold mb-6">Admin Dashboard - Books Management</h1>
-  
-    <div class="bg-white p-4 shadow-md rounded-lg">
-      <h2 class="text-lg font-semibold mb-4">Manage Books</h2>
-      <div class="flex space-x-2">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">View All Books</button>
-        <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Add New Book</button>
-        <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">Edit Book</button>
-        <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Delete Book</button>
-      </div>
-    </div>
+  <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Welcome to your Dashboard!</h1>
+
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-xl font-semibold text-gray-700">Book List</h2>
+    <button (click)="goToAddBook()" class="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 shadow-md">
+      + Add New Book
+    </button>
   </div>
-  
+
+  <div class="bg-white p-6 shadow-lg rounded-lg overflow-x-auto">
+    <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
+      <thead>
+        <tr class="bg-gray-200 text-gray-700">
+          <th class="border p-3 text-left">Title</th>
+          <th class="border p-3 text-left">Author</th>
+          <th class="border p-3 text-center">Price ($)</th>
+          <th class="border p-3 text-center">Stock</th>
+          <th class="border p-3 text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-300">
+        @for (book of books; track book.book_id) {
+          <tr class="hover:bg-gray-50 transition">
+            <td class="border p-3 text-gray-800">{{ book.title }}</td>
+            <td class="border p-3 text-gray-700">{{ book.author }}</td>
+            <td class="border p-3 text-center text-gray-800 font-medium">${{ book.price }}</td>
+            <td class="border p-3 text-center text-gray-700">{{ book.stock }}</td>
+            <td class="border p-3 flex justify-center space-x-6">
+              <button (click)="editBook(book)" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 shadow-md">
+                Edit
+              </button>
+              <button (click)="deleteBook(book.book_id)" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 shadow-md">
+                Delete
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
