@@ -1,1 +1,46 @@
-<p>cart works!</p>
+@if (cart) {
+    <div class="container mx-auto p-4">
+      <h2 class="text-2xl font-bold mb-4">Your Cart</h2>
+      <p class="text-lg mb-4">Total Items: {{ cart.totalItemNum }}</p>
+      <ul class="space-y-4">
+        @for (item of cart.arrayOfBooks; track item.book_id) {
+          <li class="p-4 border rounded-lg shadow-sm flex justify-between items-center">
+            <div>
+              <span class="text-lg font-medium">Book ID: {{ item.book_id }}</span>
+              <span class="text-lg ml-4">Quantity: {{ item.booknum }}</span>
+            </div>
+            <div class="space-x-2">
+              <button
+                (click)="updateItem(item.book_id, item.booknum + 1)"
+                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                +
+              </button>
+              <button
+                (click)="updateItem(item.book_id, item.booknum - 1)"
+                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                -
+              </button>
+              <button
+                (click)="removeItem(item.book_id)"
+                class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Remove
+              </button>
+            </div>
+          </li>
+        }
+      </ul>
+      <button
+        (click)="addItem(12)"
+        class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+      >
+        Add Sample Book
+      </button>
+    </div>
+  } @else {
+    <div class="container mx-auto p-4">
+      <p class="text-lg">loading cart...</p>
+    </div>
+  }
