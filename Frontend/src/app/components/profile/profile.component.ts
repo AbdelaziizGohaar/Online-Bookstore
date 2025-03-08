@@ -8,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class ProfileComponent {
 
+  activeSection: string = 'account';
+
+  setActiveSection(section: string) {
+    this.activeSection = section;
+  }
 } 
