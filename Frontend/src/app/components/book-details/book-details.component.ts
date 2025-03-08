@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../types/book';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.css'
 })
@@ -16,6 +16,7 @@ export class BookDetailsComponent {
   bookService = inject(BookService);
   route = inject(ActivatedRoute);
   book !: Book;
+  quantity : number = 1;
   constructor() {}
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -29,5 +30,16 @@ export class BookDetailsComponent {
         console.log(this.book);
       });
     });
+  }
+  increaseQuantity(){
+    this.quantity++;
+    console.log(this.quantity);
+  }
+
+  decreaseQuantity(){
+    if(this.quantity > 1){
+      this.quantity--;
+    }
+    console.log(this.quantity);
   }
 }
