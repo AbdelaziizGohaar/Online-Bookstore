@@ -1,0 +1,9 @@
+::1 - - [09/Mar/2025:19:36:41 +0000] "GET /books HTTP/1.1" 200 1365
+::1 - - [09/Mar/2025:19:37:08 +0000] "GET /reviews HTTP/1.1" 500 34
+::1 - - [09/Mar/2025:19:37:45 +0000] "GET /reviews HTTP/1.1" 500 34
+::1 - - [09/Mar/2025:19:39:16 +0000] "GET /reviews/22 HTTP/1.1" 404 9
+::1 - - [09/Mar/2025:19:40:11 +0000] "GET /reviews?bookId=9 HTTP/1.1" 500 66
+::1 - - [09/Mar/2025:19:40:36 +0000] "GET /reviews?bookId=9 HTTP/1.1" 500 34
+::1 - - [09/Mar/2025:19:40:48 +0000] "GET /reviews?bookId=22 HTTP/1.1" 200 2
+::1 - - [09/Mar/2025:19:40:56 +0000] "GET /reviews?bookid=22 HTTP/1.1" 500 34
+::1 - - [09/Mar/2025:19:41:21 +0000] "GET /reviews?bookid=22 HTTP/1.1" 200 2

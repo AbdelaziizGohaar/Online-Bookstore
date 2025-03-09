@@ -1,9 +1,11 @@
 import CustomError from '../helpers/CustomError.js';
 import {User} from '../models/Allusres.js';
 import Book from '../models/Book.js';
+import Order from '../models/order.js';
 import Review from '../models/Review.js';
 
-const getReviews = async (bookId) => {
+const getReviews = async (req) => {
+  const bookId = req.query.bookid;
   try {
     const bookExists = await Book.findOne({book_id: bookId});
     if (!bookExists) throw new CustomError('Book ID does not exist', 404);
@@ -16,9 +18,11 @@ const getReviews = async (bookId) => {
   }
 };
 
-const addReview = async (data) => {
+const addReview = async (req) => {
   try {
-    const {user_id, book_id} = data;
+    const user_id = req.user.userID;
+    console.log(req.body);
+    const {book_id, rating, review} = req.body;
 
     const userExists = await User.findOne({user_id});
     if (!userExists) throw new CustomError('User ID does not exist', 404);
@@ -26,20 +30,25 @@ const addReview = async (data) => {
     const bookExists = await Book.findOne({book_id});
     if (!bookExists) throw new CustomError('Book ID does not exist', 404);
 
-    const addedReview = await Review.create(data);
+    const orderExists = await Order.findOne({user_id, 'books.book_id': book_id});
+    if (!orderExists) throw new CustomError('User must purchase the book before reviewing', 403);
+
+    const addedReview = await Review.create({user_id, book_id, rating, review});
     return addedReview;
   } catch (error) {
     throw new CustomError(error.message || 'Failed to add review', error.status || 422);
   }
 };
 
-const updateReview = async (id, body) => {
+const updateReview = async (req) => {
   try {
-    const reviewExists = await Review.findOne({review_id: id});
-    if (!reviewExists) throw new CustomError('Review ID does not exist', 404);
-    const {rating, review} = body;
+    const user_id = req.user.userID;
+    const reviewId = req.params.id;
+    const {rating, review} = req.body;
+    const reviewExists = await Review.findOne({review_id: reviewId, user_id});
+    if (!reviewExists) throw new CustomError('Review not found or not authorized to update', 403);
     const updatedReview = await Review.findOneAndUpdate(
-      {review_id: id},
+      {review_id: reviewId},
       {rating, review},
       {new: true}
     );
@@ -49,11 +58,13 @@ const updateReview = async (id, body) => {
   }
 };
 
-const deleteReview = async (id) => {
+const deleteReview = async (req) => {
   try {
-    const reviewExists = await Review.findOne({review_id: id});
-    if (!reviewExists) throw new CustomError('Review ID does not exist', 404);
-    const deletedReview = await Review.findOneAndDelete({review_id: id});
+    const user_id = req.user.userID;
+    const reviewId = req.params.id;
+    const reviewExists = await Review.findOne({review_id: reviewId, user_id});
+    if (!reviewExists) throw new CustomError('Review not found or not authorized to delete', 403);
+    const deletedReview = await Review.findOneAndDelete({review_id: reviewId});
     return deletedReview;
   } catch (error) {
     throw new CustomError(error.message || 'Failed to delete review', error.status || 422);

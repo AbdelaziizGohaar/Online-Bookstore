@@ -1,8 +1,7 @@
-import {error} from 'node:console';
 import Joi from 'joi';
 
 const reviewSchema = Joi.object({
-  user_id: Joi.number().integer().required(),
+  user_id: Joi.number().integer(),
   book_id: Joi.number().integer().required(),
   rating: Joi.number().integer().min(0).max(5).required(),
   review: Joi.string().trim().max(500).optional()
