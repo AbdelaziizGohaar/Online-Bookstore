@@ -22,20 +22,26 @@ const getOrder = async (order_id) => {
 };
 
 // ==== create order ======
-const addOrder = async (data) => {
-  const {error, value} = orderValidationSchema.validate(data);
-  console.log(value);
+const addOrder = async (data, user_id) => {
+  data.user_id = user_id;
+
+  // Debugging logs
+  console.log('User ID from authMiddleware:', user_id);
+  console.log('Data user_id:', data.user_id);
+
+  const {error} = orderValidationSchema.validate(data);
   if (error) {
     throw new CustomError(error.details[0].message, 400);
   }
 
-  /// check user Exist or not in userschema
-  const userExists = await Customer.findOne({user_id: data.user_id});
+  // Check if user exists
+  const userExists = await Customer.findOne({user_id: Number(data.user_id)}); // Ensure correct collection name
   if (!userExists) {
-    throw new CustomError('Not Found ,Wrong User Id', 404);
+    console.log('User not found in DB:', data.user_id, typeof data.user_id);
+    throw new CustomError('Not Found, Wrong User Id', 404);
   }
 
-  /// check book Exist or not in bookschema
+  // Check if books exist and validate stock
   for (const item of data.books) {
     const bookExists = await Book.findOne({book_id: item.book_id});
     if (!bookExists) {
@@ -158,7 +164,13 @@ const deleteOrder = async (order_id) => {
   return {message: 'Order deleted successfully'};
 };
 
+// ==== get  order by user======
 const getOrdersByUser = async (user_id) => {
+  console.log('User ID in controller:', user_id); // Debugging log
+  if (!user_id || Number.isNaN(user_id)) {
+    throw new CustomError('Invalid User ID', 400);
+  }
+
   const orders = await Orders.find({user_id: Number(user_id)});
   if (!orders || orders.length === 0) {
     throw new CustomError('No Orders found for this User', 404);
@@ -166,6 +178,7 @@ const getOrdersByUser = async (user_id) => {
   return orders;
 };
 
+// ==== patch  order status ======
 const updateOrderStatus = async (order_id, newStatus) => {
   const validStatuses = ['pending', 'shipped', 'delivered', 'canceled'];
   if (!validStatuses.includes(newStatus)) {
