@@ -1,6 +1,7 @@
 import CustomError from '../helpers/CustomError.js';
 import {User} from '../models/Allusres.js';
 import Book from '../models/Book.js';
+import Order from '../models/order.js';
 import Review from '../models/Review.js';
 
 const getReviews = async (bookId) => {
@@ -19,12 +20,14 @@ const getReviews = async (bookId) => {
 const addReview = async (data) => {
   try {
     const {user_id, book_id} = data;
-
     const userExists = await User.findOne({user_id});
     if (!userExists) throw new CustomError('User ID does not exist', 404);
 
     const bookExists = await Book.findOne({book_id});
     if (!bookExists) throw new CustomError('Book ID does not exist', 404);
+
+    const orderExists = await Order.findOne({user_id, 'books.book_id': book_id});
+    if (!orderExists) throw new CustomError('User must purchase the book before reviewing', 403);
 
     const addedReview = await Review.create(data);
     return addedReview;
