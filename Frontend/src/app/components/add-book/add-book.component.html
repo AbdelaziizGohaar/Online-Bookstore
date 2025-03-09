@@ -1,63 +1,94 @@
-<div class="max-w-lg mx-auto bg-white p-6 shadow-md rounded-lg mt-16">
-    <h2 class="text-2xl font-bold mb-4 text-center">Add New Book</h2>
-    <form [formGroup]="bookForm" (ngSubmit)="addBook()" class="space-y-4">
-      
-      <!-- Title -->
-      <div>
-        <label class="block text-sm font-medium mb-1">Title</label>
-        <input type="text" formControlName="title" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        @if (bookForm.get('title')?.invalid && bookForm.get('title')?.touched) {
-          <p class="text-red-500 text-sm">Title is required</p>
-        }
-      </div>
-  
-      <!-- Author -->
-      <div>
-        <label class="block text-sm font-medium mb-1">Author</label>
-        <input type="text" formControlName="author" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        @if (bookForm.get('author')?.invalid && bookForm.get('author')?.touched) {
-          <p class="text-red-500 text-sm">Author is required</p>
-        }
-      </div>
-  
-      <!-- Price -->
-      <div>
-        <label class="block text-sm font-medium mb-1">Price ($)</label>
-        <input type="number" formControlName="price" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        @if (bookForm.get('price')?.invalid && bookForm.get('price')?.touched) {
-          <p class="text-red-500 text-sm">Enter a valid price</p>
-        }
-      </div>
-  
-      <!-- Description -->
-      <div>
-        <label class="block text-sm font-medium mb-1">Description</label>
-        <textarea formControlName="description" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-        @if (bookForm.get('description')?.invalid && bookForm.get('description')?.touched) {
-          <p class="text-red-500 text-sm">Description is required</p>
-        }
-      </div>
-  
-      <!-- Stock -->
-      <div>
-        <label class="block text-sm font-medium mb-1">Stock</label>
-        <input type="number" formControlName="stock" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        @if (bookForm.get('stock')?.invalid && bookForm.get('stock')?.touched) {
-          <p class="text-red-500 text-sm">Stock must be a positive number</p>
-        }
-      </div>
-  
-      <!-- Image Upload -->
-      <div>
-        <label class="block text-sm font-medium mb-1">Book Cover (Upload Image)</label>
-        <input type="file" (change)="onFileSelect($event)" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        @if (imageError) {
-          <p class="text-red-500 text-sm">Please upload a valid image file</p>
-        }
-      </div>
-  
-      <!-- Submit Button -->
-      <button type="submit" [disabled]="bookForm.invalid" class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Add Book</button>
-    </form>
-  </div>
-  
+<div class="max-w-md mx-auto bg-white p-6 shadow-md rounded-lg mt-12">
+  <h2 class="text-2xl font-bold mb-5 text-center text-gray-900">Add New Book</h2>
+
+  <form [formGroup]="bookForm" (ngSubmit)="addBook()" class="space-y-5">
+    
+    <!-- Title -->
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1">Title</label>
+      <input 
+        type="text" formControlName="title" 
+        class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600"
+      >
+      @if (bookForm.get('title')?.invalid && bookForm.get('title')?.touched) {
+        <p class="text-red-600 text-xs mt-1">Title is required</p>
+      }
+    </div>
+
+    <!-- Author -->
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1">Author</label>
+      <input 
+        type="text" formControlName="author" 
+        class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600"
+      >
+      @if (bookForm.get('author')?.invalid && bookForm.get('author')?.touched) {
+        <p class="text-red-600 text-xs mt-1">Author is required</p>
+      }
+    </div>
+
+    <!-- Price -->
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1">Price ($)</label>
+      <input 
+        type="number" formControlName="price" 
+        class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600"
+      >
+      @if (bookForm.get('price')?.invalid && bookForm.get('price')?.touched) {
+        <p class="text-red-600 text-xs mt-1">Enter a valid price</p>
+      }
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1">Description</label>
+      <textarea 
+        formControlName="description" 
+        class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600"
+      ></textarea>
+      @if (bookForm.get('description')?.invalid && bookForm.get('description')?.touched) {
+        <p class="text-red-600 text-xs mt-1">Description is required</p>
+      }
+    </div>
+
+    <!-- Stock -->
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-1">Stock</label>
+      <input 
+        type="number" formControlName="stock" 
+        class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600"
+      >
+      @if (bookForm.get('stock')?.invalid && bookForm.get('stock')?.touched) {
+        <p class="text-red-600 text-xs mt-1">Stock must be a positive number</p>
+      }
+    </div>
+
+    <!-- Image Upload -->
+    <div class="relative border-dashed border-2 border-gray-300 p-3 rounded-md text-center">
+      <label class="block text-sm font-semibold text-gray-700 mb-1">Book Cover (Upload Image)</label>
+      <input 
+        type="file" (change)="onFileSelect($event)" 
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+      >
+      @if (imageError) {
+        <p class="text-red-600 text-xs mt-1">Please upload a valid image file</p>
+      }
+    </div>
+
+    <!-- Submit Button -->
+    @if (bookForm.invalid) {
+      <button 
+      type="submit" [disabled]="bookForm.invalid" 
+        class="w-full bg-gray-300 text-white px-5 py-2 rounded-md font-semibold text-sm shadow-md"        
+    >
+      Add Book
+    </button>    
+  } @else {
+    <button 
+    type="submit" [disabled]="bookForm.invalid" 
+    class="w-full bg-purple-900 text-white px-5 py-2 rounded-md font-semibold text-sm hover:bg-purple-900 shadow-md transition-transform hover:scale-105"  >
+    Add Book
+  </button>       
+    }
+  </form>
+</div>

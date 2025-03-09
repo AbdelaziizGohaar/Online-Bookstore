@@ -14,7 +14,7 @@ import { Book } from '../../types/book';
 export class BookListComponent {
   bookService = inject(BookService);
   books !: Book[];
-  backendUrl = 'http://localhost:3000'; // Your backend URL
+  backendUrl = 'http://localhost:3000'; 
   ngOnInit() {
     this.bookService.getBooks().subscribe((data : Book[]) => {
       this.books = data.map(book => ({

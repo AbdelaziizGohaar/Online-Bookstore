@@ -96,6 +96,8 @@ export class EditBookComponent implements OnInit {
       console.log(res);
       this.imageFile = null;
       this.editBookForm.reset();
+      this.router.navigate(['/admin-dashboard']);
+
     });
   }
 
