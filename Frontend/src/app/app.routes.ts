@@ -14,15 +14,18 @@ import { ProfileComponent } from './components/profile/profile.component'
 export const routes: Routes = [
     {
         path: '',
-        component: BookListComponent
+        component: BookListComponent,
+        title: 'Booket'
     },
 
     { path: 'login', 
-        component: LoginComponent 
+        component: LoginComponent, 
+        title: 'Login'
     },
   
     { path: 'register', 
-        component: RegisterComponent 
+        component: RegisterComponent,
+        title: 'Register'
     },
 
     {
@@ -32,7 +35,8 @@ export const routes: Routes = [
 
     {
         path: 'admin-dashboard',
-        component: AdminDashboardComponent
+        component: AdminDashboardComponent,
+        title: 'DashBoard'
     },
 
     {
@@ -53,12 +57,14 @@ export const routes: Routes = [
 
     {
         path: 'checkout',
-        component: CheckoutComponent
+        component: CheckoutComponent,
+        title: 'Checkout'
     },
 
     {
         path: 'profile',
-        component: ProfileComponent
+        component: ProfileComponent,
+        title: 'Profile'
     },
     
     {
@@ -66,7 +72,5 @@ export const routes: Routes = [
         component: NotfoundComponent,
         title: 'Not Found Page'
     },
-
-    
 
 ];
