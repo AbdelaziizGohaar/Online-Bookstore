@@ -3,18 +3,24 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import CustomError from '../helpers/CustomError.js';
 
+import {Admin} from '../models/Allusres.js';
 import Book from '../models/Book.js';
 import {bookAddSchema, bookQuerySchema, bookUpdateSchema} from '../validators/bookValidator.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const addBook = async (data) => {
+const addBook = async (data, user) => {
   const {error, value} = bookAddSchema.validate(data);
   if (error) {
     throw new CustomError(`Validation Error: ${error.details.map((e) => e.message).join(', ')}`, 400);
   }
   try {
     const addedBook = await Book.create(value);
+    Admin.findOneAndUpdate(
+      {user_id: user.user_id},
+      {$push: {addedBooks: addedBook.book_id}},
+      {new: true}
+    ).exec();
     return addedBook;
   } catch (error) {
     console.error('Error adding book:', error.message);

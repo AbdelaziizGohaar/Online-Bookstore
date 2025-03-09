@@ -2,12 +2,14 @@ import express from 'express';
 import * as BooksController from '../controllers/books.js';
 import {asyncWrapper} from '../helpers/asyncWrapper.js';
 import CustomError from '../helpers/CustomError.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
+import isAdminMiddleware from '../middlewares/isAdminMiddleware.js';
 import upload from '../middlewares/upload.js';
 import 'express-async-errors';
 
 const router = express.Router();
 
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', authMiddleware, isAdminMiddleware, upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
       throw new CustomError('Image file is required', 400);
@@ -15,7 +17,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 
     req.body.image = `/uploads/${req.file.filename}`;
 
-    const [err, addedBook] = await asyncWrapper(BooksController.addBook(req.body));
+    const [err, addedBook] = await asyncWrapper(BooksController.addBook(req.body, req.user));
 
     if (err) {
       return res.status(err.status).json({error: err.message});
@@ -43,7 +45,7 @@ router.get('/:id', async (req, res) => {
   res.json(book);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authMiddleware, isAdminMiddleware, async (req, res) => {
   const [err, result] = await asyncWrapper(BooksController.deleteBook(req.params.id));
 
   if (err)
@@ -52,7 +54,7 @@ router.delete('/:id', async (req, res) => {
   res.json(result);
 });
 
-router.patch('/:id', upload.single('image'), async (req, res) => {
+router.patch('/:id', authMiddleware, isAdminMiddleware, upload.single('image'), async (req, res) => {
   if (req.file) {
     req.body.image = `/uploads/${req.file.filename}`;
   }
