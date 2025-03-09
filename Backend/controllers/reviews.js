@@ -4,7 +4,8 @@ import Book from '../models/Book.js';
 import Order from '../models/order.js';
 import Review from '../models/Review.js';
 
-const getReviews = async (bookId) => {
+const getReviews = async (req) => {
+  const bookId = req.query.bookid;
   try {
     const bookExists = await Book.findOne({book_id: bookId});
     if (!bookExists) throw new CustomError('Book ID does not exist', 404);

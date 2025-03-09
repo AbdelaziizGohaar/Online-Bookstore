@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const [err, retrievedReviews] = await asyncWrapper(
-    ReviewsController.getReviews(req.query.bookId)
+    ReviewsController.getReviews(req)
   );
   if (err) res.status(404).json({error: err.message});
   res.json(retrievedReviews);
