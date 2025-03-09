@@ -9,7 +9,7 @@ import 'express-async-errors';
 
 const router = express.Router();
 
-router.post('/', authMiddleware, isAdminMiddleware, upload.single('image'), async (req, res) => {
+router.post('/', authMiddleware, upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
       throw new CustomError('Image file is required', 400);
@@ -45,8 +45,8 @@ router.get('/:id', async (req, res) => {
   res.json(book);
 });
 
-router.delete('/:id', authMiddleware, isAdminMiddleware, async (req, res) => {
-  const [err, result] = await asyncWrapper(BooksController.deleteBook(req.params.id));
+router.delete('/:id', authMiddleware, async (req, res) => {
+  const [err, result] = await asyncWrapper(BooksController.deleteBook(req.params.id, req.user));
 
   if (err)
     return res.status(err.status).json({error: err.message});
@@ -54,7 +54,7 @@ router.delete('/:id', authMiddleware, isAdminMiddleware, async (req, res) => {
   res.json(result);
 });
 
-router.patch('/:id', authMiddleware, isAdminMiddleware, upload.single('image'), async (req, res) => {
+router.patch('/:id', authMiddleware, upload.single('image'), async (req, res) => {
   if (req.file) {
     req.body.image = `/uploads/${req.file.filename}`;
   }

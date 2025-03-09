@@ -20,7 +20,6 @@ httpclient = inject(HttpClient);
   }
 
   updateBook(id: number, bookData: FormData): Observable<any> {
-    console.log(bookData);
     return this.httpclient.patch(`http://localhost:3000/books/${id}`, bookData);
   }
 

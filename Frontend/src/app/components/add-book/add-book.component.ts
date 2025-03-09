@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { BookService } from '../../services/book.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-book',
@@ -15,7 +16,7 @@ export class AddBookComponent {
   imageFile: File | null = null; 
   imageError: boolean = false;   
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.bookForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(2)]],
       author: ['', [Validators.required, Validators.minLength(2)]],
@@ -65,6 +66,8 @@ export class AddBookComponent {
       this.bookForm.reset();
       this.imageFile = null;
       console.log(res);
+      this.router.navigate(['/admin-dashboard']);
+
     });
   }
 }
