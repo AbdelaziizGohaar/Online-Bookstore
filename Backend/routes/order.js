@@ -7,15 +7,13 @@ const router = express.Router();
 
 // ======== create order========
 router.post('/', authMiddleware, async (req, res) => {
-  const [err, order] = await asyncWrapper(OrderController.addOrder(req.body, req.user.userID));
+  const [err, order] = await asyncWrapper(OrderController.addOrder(req.body, req.user.user_id));
 
   if (err) {
     return res.status(422).json({error: err.message});
   }
   res.status(200).json({message: 'order created succsesfully', order});
 });
-
-// router.post('/', validate(registerValidation), registerUser);
 
 // ======== get all orders with filters========
 router.get('/', authMiddleware, async (req, res) => {
@@ -28,21 +26,12 @@ router.get('/', authMiddleware, async (req, res) => {
   res.json(orders);
 });
 
-// ======== get specific order========
-router.get('/:order_id', authMiddleware, async (req, res) => {
-  const [err, order] = await asyncWrapper(OrderController.getOrder(req.params.order_id));
-  if (err) return res.status(422).json({error: err.message});
-
-  res.status(200).json(order);
-});
-
 // ======== get all orders of specific User ========
 router.get('/users', authMiddleware, async (req, res) => {
   console.log('Route handler reached'); // Debugging log
-  console.log('Decoded req.user:', req.user); // Debugging log
-  console.log('User ID from token:', req.user.userID); // Debugging log
+  console.log('User ID from token:', req.user.user_id); // Debugging log
 
-  const user_id = Number(req.user.userID); // Convert to number
+  const user_id = Number(req.user.user_id); // Convert to number
 
   console.log('User ID after canges:', user_id); // Debugging log
 
@@ -54,6 +43,14 @@ router.get('/users', authMiddleware, async (req, res) => {
   const [err, orders] = await asyncWrapper(OrderController.getOrdersByUser(user_id));
   if (err) return res.status(422).json({error: err.message});
   res.status(200).json({orders});
+});
+
+// ======== get specific order========
+router.get('/:order_id', authMiddleware, async (req, res) => {
+  const [err, order] = await asyncWrapper(OrderController.getOrder(req.params.order_id));
+  if (err) return res.status(422).json({error: err.message});
+
+  res.status(200).json(order);
 });
 
 // ======== Update specific order ========
@@ -84,11 +81,6 @@ router.delete('/:order_id', authMiddleware, async (req, res) => {
     return res.status(422).json({message: 'Order not found'});
   }
   res.status(200).json({message: 'Order Delete successfully'});
-});
-
-// ======== * specific order  ========
-router.get('*', async (req, res) => {
-  console.log('xxxxx');
 });
 
 export default router;
