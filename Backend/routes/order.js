@@ -88,7 +88,7 @@ router.delete('/:order_id', authMiddleware, async (req, res) => {
 
 // ======== * specific order  ========
 router.get('*', async (req, res) => {
-  console.log('a7aaaaaaa');
+  console.log('xxxxx');
 });
 
 export default router;

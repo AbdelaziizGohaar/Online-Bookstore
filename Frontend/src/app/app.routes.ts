@@ -10,6 +10,8 @@ import { AddBookComponent } from './components/add-book/add-book.component';
 import { EditBookComponent } from './components/edit-book/edit-book.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProfileComponent } from './components/profile/profile.component'
+import { OrderListComponent } from './components/order-list/order-list.component'
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 
 export const routes: Routes = [
     {
@@ -17,12 +19,14 @@ export const routes: Routes = [
         component: BookListComponent
     },
 
-    { path: 'login', 
-        component: LoginComponent 
+    {
+        path: 'login',
+        component: LoginComponent
     },
-  
-    { path: 'register', 
-        component: RegisterComponent 
+
+    {
+        path: 'register',
+        component: RegisterComponent
     },
 
     {
@@ -62,13 +66,22 @@ export const routes: Routes = [
         path: 'profile',
         component: ProfileComponent
     },
-    
+
+    {
+        path: 'orders',
+        component: OrderListComponent
+    },
+
+    {
+        path: 'orders/:id',
+        component: OrderDetailsComponent
+    },
+
     {
         path: '**',
         component: NotfoundComponent,
         title: 'Not Found Page'
     },
 
-    
 
 ];

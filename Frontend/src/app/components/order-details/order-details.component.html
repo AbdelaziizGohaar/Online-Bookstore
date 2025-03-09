@@ -1,0 +1,26 @@
+<div class="p-6">
+    <h2 class="text-2xl font-bold mb-6">Order Details</h2>
+
+    <!-- Loading Spinner -->
+    @if (isLoading) {
+    <p>Loading order details...</p>
+    } @else {
+    <!-- Order Details -->
+    <div class="border p-4 rounded-lg shadow-md">
+        <h3 class="font-semibold text-lg">Order #{{ order.order_id }}</h3>
+        <p class="text-gray-600">User ID: {{ order.user_id }}</p>
+        <p class="text-gray-600">Status: {{ order.status }}</p>
+        <p class="text-gray-600">Total Price: ${{ order.totalPrice }}</p>
+        <p class="text-gray-600">Created At: {{ order.createdAt | date }}</p>
+
+        <div class="mt-4">
+            <h4 class="font-medium">Books:</h4>
+            <ul class="list-disc list-inside">
+                @for (book of order.books; track book.book_id) {
+                <li>{{ book.book_name }} ({{ book.quantity }} x ${{ book.price }})</li>
+                }
+            </ul>
+        </div>
+    </div>
+    }
+</div>

@@ -1,0 +1,21 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <h2 class="text-3xl font-extrabold text-gray-800 mb-6">📦 Order List</h2>
+
+  <!-- Loading Spinner -->
+  @if (isLoading) {
+  <div class="flex justify-center items-center">
+    <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+  } @else {
+  <!-- Order List -->
+  <div class="space-y-6">
+    @for (order of orders; track order.order_id) {
+    <div class="bg-white shadow-md p-6 rounded-lg transform transition duration-300 hover:scale-105">
+      <app-order-item [order]="order" (delete)="deleteOrder(order.order_id)"></app-order-item>
+    </div>
+    } @empty {
+    <p class="text-gray-500 text-center text-lg">🚫 No orders found.</p>
+    }
+  </div>
+  }
+</div>
