@@ -1,37 +1,49 @@
-<nav class="bg-white shadow-md py-4">
-    <div class="container mx-auto flex justify-between items-center px-4">
-      <a [routerLink]="['/']" class="text-2xl font-bold text-gray-800">
-        Online Bookstore
+<header
+  class="text-slate-700 container relative mx-auto flex flex-col overflow-hidden px-4 py-4 lg:flex-row lg:items-center">
+  <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <img src="/favicon.png" class="h-8" alt="Flowbite Logo">
+    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">BOOKET</span>
+  </a>
+  <input type="checkbox" class="peer hidden" id="navbar-open" />
+  <label class="absolute top-5 right-5 cursor-pointer lg:hidden" for="navbar-open">
+    <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </label>
+  <nav aria-label="Header Navigation"
+    class="peer-checked:pt-8 peer-checked:max-h-60 flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row">
+    <ul class="flex w-full flex-col items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
+      <li class="lg:mr-12"><a
+          class="rounded text-gray-900 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
+          routerLink="/">Home</a></li>
+      <li class="lg:mr-12"><a
+          class="rounded text-gray-900 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
+          routerLink="/admin-dashboard">Dashboard</a></li>
+      <li class="lg:mr-12"><a
+          class="rounded text-gray-900 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
+          href="#">Contact</a></li>
+      <li class="lg:mr-12"><a
+          class="rounded text-gray-900 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
+          href="#">FAQ</a></li>
+    </ul>
+    <hr class="mt-4 w-full lg:hidden" />
+    <div class="my-4 flex items-center space-x-6 space-y-2 lg:my-0 lg:ml-auto lg:space-x-8 lg:space-y-0">
+      <a class="rounded-xl border-2 border-blue-600 px-6 py-2 font-medium text-blue-600 hover:bg-blue-600 hover:text-white" routerLink="/login">
+        Login</a>
+      <a routerLink="/profile"
+      routerLinkActive="active-svg"
+        class="items-center p-2 whitespace-nowrap rounded  transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2 hover:text-opacity-50">
+        <svg class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
       </a>
-      <div class="flex space-x-8">
-        <a
-          [routerLink]="['/login']"
-          routerLinkActive="text-blue-600 font-semibold"
-          class="text-gray-700 hover:text-blue-600 transition duration-300"
-        >
-          Login
+        <a routerLink="/cart"
+        routerLinkActive="active-svg" class="group -m-2 flex items-center p-2">
+          <svg class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+          </svg>
+          <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
         </a>
-        <a
-          [routerLink]="['/register']"
-          routerLinkActive="text-blue-600 font-semibold"
-          class="text-gray-700 hover:text-blue-600 transition duration-300"
-        >
-          Register
-        </a>
-        <a
-          [routerLink]="['/cart']"
-          routerLinkActive="text-blue-600 font-semibold"
-          class="text-gray-700 hover:text-blue-600 transition duration-300"
-        >
-          Cart
-        </a>
-        <a
-          [routerLink]="['/admin-dashboard']"
-          routerLinkActive="text-blue-600 font-semibold"
-          class="text-gray-700 hover:text-blue-600 transition duration-300"
-        >
-          Admin Dashboard
-        </a>
-      </div>
     </div>
   </nav>
+</header> 

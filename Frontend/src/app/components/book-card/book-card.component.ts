@@ -11,6 +11,7 @@ import { Book } from '../../types/book';
 })
 export class BookCardComponent {
   @Input() book !: Book;
+  
   constructor(private router: Router) { 
   }
   redirectToBookDetails(id: number) {

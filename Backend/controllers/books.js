@@ -3,7 +3,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import CustomError from '../helpers/CustomError.js';
 
-import {Admin} from '../models/Allusres.js';
+import {User} from '../models/Allusres.js';
 import Book from '../models/Book.js';
 import {bookAddSchema, bookQuerySchema, bookUpdateSchema} from '../validators/bookValidator.js';
 
@@ -16,7 +16,7 @@ const addBook = async (data, user) => {
   }
   try {
     const addedBook = await Book.create(value);
-    Admin.findOneAndUpdate(
+    await User.findOneAndUpdate(
       {user_id: user.user_id},
       {$push: {addedBooks: addedBook.book_id}},
       {new: true}
@@ -55,16 +55,14 @@ const getBook = async (id) => {
   }
 };
 
-const deleteBook = async (id) => {
+const deleteBook = async (id, user) => {
   try {
     const book = await Book.findOne({book_id: id});
     const imagePath = path.join(__dirname, '..', book.image);
-    console.log(imagePath);
     if (fs.existsSync(imagePath)) {
-      console.log('deleting image');
       fs.unlinkSync(imagePath);
     }
-
+    User.findOneAndUpdate({user_id: user.user_id}, {$pull: {addedBooks: id}}).exec();
     const result = await Book.deleteOne({book_id: id});
 
     if (result.deletedCount === 0) {

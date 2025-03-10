@@ -5,12 +5,18 @@ import dotenv from 'dotenv';
 import express from 'express';
 import connectDB from './dbconfig/db.js';
 import errorHandler from './middlewares/errorHandler.js';
-
 import router from './routes/index.js';
+import morgan from 'morgan';
+import fs from'node:fs';
 
 dotenv.config();
 const app = express();
 
+const logStream = fs.createWriteStream(path.join('logs', 'access.log'), {
+  flags: 'a'
+});
+
+app.use(morgan('common', {stream: logStream}));
 app.use(express.json());
 app.use(cors());
 app.use(router);

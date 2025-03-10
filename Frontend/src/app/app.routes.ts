@@ -16,14 +16,23 @@ import { OrderDetailsComponent } from './components/order-details/order-details.
 export const routes: Routes = [
     {
         path: '',
-        component: BookListComponent
+        component: BookListComponent,
+        title: 'Booket'
     },
 
+    { path: 'login', 
+        component: LoginComponent, 
+        title: 'Login'
+    },
     {
         path: 'login',
         component: LoginComponent
     },
-
+  
+    { path: 'register', 
+        component: RegisterComponent,
+        title: 'Register'
+    },
     {
         path: 'register',
         component: RegisterComponent
@@ -36,7 +45,8 @@ export const routes: Routes = [
 
     {
         path: 'admin-dashboard',
-        component: AdminDashboardComponent
+        component: AdminDashboardComponent,
+        title: 'DashBoard'
     },
 
     {
@@ -48,8 +58,6 @@ export const routes: Routes = [
     {
         path: 'add-book',
         component: AddBookComponent
-
-
     },
 
     {
@@ -59,12 +67,14 @@ export const routes: Routes = [
 
     {
         path: 'checkout',
-        component: CheckoutComponent
+        component: CheckoutComponent,
+        title: 'Checkout'
     },
 
     {
         path: 'profile',
-        component: ProfileComponent
+        component: ProfileComponent,
+        title: 'Profile'
     },
 
     {
@@ -82,6 +92,5 @@ export const routes: Routes = [
         component: NotfoundComponent,
         title: 'Not Found Page'
     },
-
 
 ];

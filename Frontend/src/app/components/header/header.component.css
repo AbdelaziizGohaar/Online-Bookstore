@@ -1,0 +1,3 @@
+.active-svg svg {
+    fill: currentColor; /* Fills the SVG with the current text color */
+  }

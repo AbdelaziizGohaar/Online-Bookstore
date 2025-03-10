@@ -40,13 +40,7 @@ export const addItem = async (data) => {
 
 export const getCartItems = async (userId) => {
   const [err, customer] = await asyncWrapper(
-    Customer.findOne({user_id: userId}).populate({
-      path: 'cart.arrayOfBooks.book_id',
-      model: 'Book',
-      localField: 'cart.arrayOfBooks.book_id',
-      foreignField: 'book_id',
-      justOne: false
-    })
+    Customer.findOne({user_id: userId})
   );
 
   if (err) throw new CustomError(err.message, 500);
