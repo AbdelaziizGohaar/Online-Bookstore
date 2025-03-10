@@ -1,25 +1,40 @@
-<div class="p-6">
-    <h2 class="text-2xl font-bold mb-6">Order Details</h2>
+<div class="p-6 bg-gray-50 min-h-screen">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Order Details</h2>
 
     <!-- Loading Spinner -->
     @if (isLoading) {
-    <p>Loading order details...</p>
+    <p class="text-gray-600">Loading order details...</p>
     } @else {
     <!-- Order Details -->
-    <div class="border p-4 rounded-lg shadow-md">
-        <h3 class="font-semibold text-lg">Order #{{ order.order_id }}</h3>
-        <p class="text-gray-600">User ID: {{ order.user_id }}</p>
-        <p class="text-gray-600">Status: {{ order.status }}</p>
-        <p class="text-gray-600">Total Price: ${{ order.totalPrice }}</p>
-        <p class="text-gray-600">Created At: {{ order.createdAt | date }}</p>
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h3 class="font-semibold text-xl text-gray-900 mb-4">Order #{{ order.order_id }}</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Order Information -->
+            <div>
+                <p class="text-gray-700"><span class="font-medium">User ID:</span> {{ order.user_id }}</p>
+                <p class="text-gray-700"><span class="font-medium">Status:</span> {{ order.status }}</p>
+                <p class="text-gray-700"><span class="font-medium">Total Price:</span> ${{ order.totalPrice }}</p>
+                <p class="text-gray-700"><span class="font-medium">Created At:</span> {{ order.createdAt | date }}</p>
+            </div>
 
-        <div class="mt-4">
-            <h4 class="font-medium">Books:</h4>
-            <ul class="list-disc list-inside">
-                @for (book of order.books; track book.book_id) {
-                <li>{{ book.book_name }} ({{ book.quantity }} x ${{ book.price }})</li>
-                }
-            </ul>
+            <!-- Books Section -->
+            <div>
+                <h4 class="font-medium text-lg text-gray-900 mb-4">Books:</h4>
+                <ul class="space-y-4">
+                    @for (book of order.books; track book.book_id) {
+                    <li class="flex items-center space-x-4">
+                        <!-- Book Image -->
+                        <img [src]="book.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgUfwRTH-egkhJgeJJRY-TvGpTf_QlvASe9A&s/150'"
+                            alt="{{ book.book_name }}" class="w-16 h-24 object-cover rounded-lg shadow-sm">
+                        <!-- Book Details -->
+                        <div>
+                            <p class="text-gray-900 font-medium">{{ book.book_name }}</p>
+                            <p class="text-gray-600">{{ book.quantity }} </p>
+                        </div>
+                    </li>
+                    }
+                </ul>
+            </div>
         </div>
     </div>
     }
