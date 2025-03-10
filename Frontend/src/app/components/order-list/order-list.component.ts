@@ -14,12 +14,48 @@ import { CommonModule } from '@angular/common';
 export class OrderListComponent implements OnInit {
   orders: Order[] = []; // Array to store orders
   isLoading: boolean = true; // Loading state
+  errorMessage: string = ''; // Error message
+
 
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
-    this.fetchOrders();
+    // this.fetchOrders();
+    // const userId = 14; // Replace with the actual user ID (e.g., from authentication)
+    // this.fetchUserOrders(userId);
+    this.fetchOrdersForAuthenticatedUser();
   }
+
+
+  // Fetch orders for the authenticated user
+  fetchOrdersForAuthenticatedUser(): void {
+    this.orderService.getOrdersForAuthenticatedUser().subscribe({
+      next: (data) => {
+        this.orders = data;
+        this.isLoading = false; // Stop loading
+      },
+      error: (error) => {
+        this.errorMessage = 'Failed to fetch orders. Please try again later.';
+        this.isLoading = false; // Stop loading even if there's an error
+      }
+    });
+  }
+
+
+  // Fetch orders for a specific user
+  fetchUserOrders(userId: number): void {
+    this.orderService.getOrdersByUserId(userId).subscribe({
+      next: (data) => {
+        this.orders = data;
+        this.isLoading = false; // Stop loading
+      },
+      error: (error) => {
+        this.errorMessage = 'Failed to fetch orders. Please try again later.';
+        this.isLoading = false; // Stop loading even if there's an error
+      }
+    });
+  }
+
 
   // Fetch all orders
   fetchOrders(): void {

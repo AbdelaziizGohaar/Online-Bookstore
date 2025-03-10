@@ -6,6 +6,7 @@ export interface Order {
         book_name: string;
         quantity: number;
         price: number;
+        image: string; // Ensure this property exists
     }[];
     totalPrice: number;
     status: 'pending' | 'shipped' | 'delivered' | 'canceled';
