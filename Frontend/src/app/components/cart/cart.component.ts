@@ -1,28 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { CartService } from '../../services/cart.service';
-import { Cart, CartItem} from '../../types/cart';
+import { Cart} from '../../types/cart';
+import { RouterLink } from '@angular/router';
 import { Book } from '../../types/book';
 
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule,RouterLink ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 
-export class CartComponent implements OnInit {
-  cart: Cart | null = null;
+export class CartComponent {
 
-  constructor(private cartService: CartService) {}
+  cartService = inject(CartService);
+  cart!: Cart ;
 
+  
   ngOnInit(): void {
-    this.loadCart();
-  }
-
-  loadCart(): void {
     this.cartService.getCartItems().subscribe({
       next: (cart) => this.cart = cart,
       error: (err) => console.error('Failed to load cart', err)
