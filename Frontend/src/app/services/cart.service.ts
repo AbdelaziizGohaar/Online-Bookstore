@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Cart, CartItem} from '../types/cart';
-import { Book } from '../types/book';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Cart } from '../types/cart';
 
 @Injectable({
   providedIn: 'root'
@@ -10,22 +9,43 @@ import { Book } from '../types/book';
 export class CartService {
 
   private apiUrl = 'http://localhost:3000/cart';
+  private cartSubject = new BehaviorSubject<Cart | null>(null);
 
   constructor(private http: HttpClient) {}
 
-  addItem(bookId: number): Observable<Cart> {
-    return this.http.post<Cart>(`${this.apiUrl}/${bookId}`, {});
+  get cart$(): Observable<Cart | null> {
+    return this.cartSubject.asObservable();
   }
 
-  getCartItems(): Observable<Cart> {
-    return this.http.get<Cart>(`${this.apiUrl}`);
+  private updateCart(cart: Cart): void {
+    this.cartSubject.next(cart);
   }
 
-  updateItem(bookId: number, quantity: number): Observable<Cart> {
-    return this.http.patch<Cart>(`${this.apiUrl}/${bookId}`, { quantity });
+  addItem(bookId: number): void {
+    this.http.post<Cart>(`${this.apiUrl}/${bookId}`, {}).subscribe({
+      next: (cart) => this.updateCart(cart),
+      error: (err) => console.error('Failed to add item', err)
+    });
   }
 
-  removeItem(bookId: number): Observable<Cart> {
-    return this.http.delete<Cart>(`${this.apiUrl}/${bookId}`);
+  getCartItems(): void {
+    this.http.get<Cart>(`${this.apiUrl}`).subscribe({
+      next: (cart) => this.updateCart(cart),
+      error: (err) => console.error('Failed to load cart', err)
+    });
+  }
+
+  updateItem(bookId: number, quantity: number): void {
+    this.http.patch<Cart>(`${this.apiUrl}/${bookId}`, { quantity }).subscribe({
+      next: (cart) => this.updateCart(cart),
+      error: (err) => console.error('Failed to update item', err)
+    });
+  }
+
+  removeItem(bookId: number): void {
+    this.http.delete<Cart>(`${this.apiUrl}/${bookId}`).subscribe({
+      next: (cart) => this.updateCart(cart),
+      error: (err) => console.error('Failed to remove item', err)
+    });
   }
 }
