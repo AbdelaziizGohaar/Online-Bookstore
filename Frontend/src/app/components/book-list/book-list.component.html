@@ -4,4 +4,25 @@
       <app-book-card [book]="book"></app-book-card>
     }
   </div>
+  <div class="flex justify-center space-x-2 mt-4">
+    <button 
+      (click)="changePage(currentPage - 1)" 
+      [disabled]="currentPage === 1"
+      class="px-4 py-1.5 border rounded-md bg-purple-900 text-white hover:bg-purple-800 shadow-md transition-transform hover:scale-105 disabled:bg-gray-300 disabled:cursor-not-allowed cursor-pointer"
+    >
+      Prev
+    </button>
+  
+    <span class="px-4 py-1 border">{{ currentPage }}</span>
+  
+    <button 
+      (click)="changePage(currentPage + 1)" 
+      [disabled]="currentPage * 10 >= totalBooks"
+      class="px-4 py-1.5 border rounded-md bg-purple-900 text-white hover:bg-purple-800 shadow-md transition-transform hover:scale-105 disabled:bg-gray-300 disabled:cursor-not-allowed cursor-pointer"
+    >
+      Next
+    </button>
+  </div>
+  
+  
 </div>

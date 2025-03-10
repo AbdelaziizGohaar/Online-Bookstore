@@ -24,5 +24,6 @@ export const bookQuerySchema = Joi.object({
   title: Joi.string().trim().optional(),
   author: Joi.string().trim().optional(),
   minPrice: Joi.number().min(0).optional(),
-  maxPrice: Joi.number().min(0).optional().when('minPrice', {is: Joi.exist(), then: Joi.number().greater(Joi.ref('minPrice'))})
+  maxPrice: Joi.number().min(0).optional().when('minPrice', {is: Joi.exist(), then: Joi.number().greater(Joi.ref('minPrice'))}),
+  page: Joi.number().min(1).optional()
 });

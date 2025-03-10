@@ -20,7 +20,8 @@ export class BookCardComponent {
     this.router.navigate(['/book-details', id]);
   }
 
-  addToCart(bookId: number): void {
+  addToCart($event: Event, bookId: number): void {
+    $event.stopPropagation();
     this.cartService.addItem(bookId);
   }
 }
