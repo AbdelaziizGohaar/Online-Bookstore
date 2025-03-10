@@ -19,6 +19,6 @@ export class HeaderComponent {
         this.cartItem = cart.totalItemNum;
       }
     });
-    this.cartService.getCartItems(); // Fetch initial cart state
+    this.cartService.getCartItems();
   }
 }
