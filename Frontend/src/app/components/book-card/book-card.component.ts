@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from '../../types/book';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-book-card',
@@ -10,6 +11,7 @@ import { Book } from '../../types/book';
   styleUrl: './book-card.component.css'
 })
 export class BookCardComponent {
+  cartService = inject(CartService);
   @Input() book !: Book;
   
   constructor(private router: Router) { 
@@ -17,8 +19,8 @@ export class BookCardComponent {
   redirectToBookDetails(id: number) {
     this.router.navigate(['/book-details', id]);
   }
-  addToCart(event: Event, book: Book): void {
-    event.stopPropagation(); // Prevents the card's click event
-    // this.cartService.addProduct(product);
+
+  addToCart(bookId: number): void {
+    this.cartService.addItem(bookId);
   }
 }
