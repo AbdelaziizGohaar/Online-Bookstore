@@ -44,6 +44,7 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+// debug
 // for check if data sended to mongodb or not
 // const testDB = async () => {
 //   const users = await User.find();
