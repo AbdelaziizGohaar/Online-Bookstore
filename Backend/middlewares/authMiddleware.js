@@ -10,11 +10,12 @@ const authMiddleware = (req, res, next) => {
     if (!token) throw new CustomError('Token not found', 401);
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('Decoded Token:', decoded);
     req.user = {
-      _id: decoded.userID,
       user_id: decoded.user_id,
       role: decoded.role
     };
+    console.log('User after Middleware:', req.user);
     next();
   } catch (error) {
     next(error);

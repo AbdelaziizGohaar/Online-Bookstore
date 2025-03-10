@@ -8,7 +8,10 @@ import 'express-async-errors';
 const router = express.Router();
 
 router.post('/:id', authMiddleware, async (req, res) => {
+  console.log('User from authMiddleware:', req.user);
   const data = {bookId: req.params.id, userId: req.user.user_id};
+  console.log('Data being sent to Controller:', data);
+
   const [err, addedItem] = await asyncWrapper(CartController.addItem(data));
   if (err) throw new CustomError(err.message, 422);
   res.json(addedItem);
