@@ -16,80 +16,102 @@ import { OrderDetailsComponent } from './components/order-details/order-details.
 export const routes: Routes = [
     {
         path: '',
-        component: BookListComponent,
+        loadComponent: () =>
+            import('./components/book-list/book-list.component').then(
+              (m) => m.BookListComponent
+            ),
         title: 'Booket'
     },
-
     { path: 'login', 
-        component: LoginComponent, 
+        loadComponent: () =>
+            import('./components/login/login.component').then(
+              (m) => m.LoginComponent
+            ), 
         title: 'Login'
     },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-  
     { path: 'register', 
-        component: RegisterComponent,
+        loadComponent: () =>
+            import('./components/register/register.component').then(
+              (m) => m.RegisterComponent
+            ), 
         title: 'Register'
     },
     {
-        path: 'register',
-        component: RegisterComponent
-    },
-
-    {
         path: 'book-details/:id',
-        component: BookDetailsComponent
+        loadComponent: () =>
+            import('./components/book-details/book-details.component').then(
+              (m) => m.BookDetailsComponent
+            ),
+            title: 'Book Details'
     },
-
     {
         path: 'admin-dashboard',
-        component: AdminDashboardComponent,
+        loadComponent: () =>
+            import('./components/admin-dashboard/admin-dashboard.component').then(
+              (m) => m.AdminDashboardComponent
+            ),
         title: 'DashBoard'
     },
-
     {
         path: 'cart',
-        component: CartComponent,
+        loadComponent: () =>
+            import('./components/cart/cart.component').then((m) => m.CartComponent),
         title: 'Cart'
     },
-
     {
         path: 'add-book',
-        component: AddBookComponent
+        loadComponent: () =>
+            import('./components/add-book/add-book.component').then(
+              (m) => m.AddBookComponent
+            ),
+            title: 'Add Book'
     },
-
     {
         path: 'edit-book/:id',
-        component: EditBookComponent
+        loadComponent: () =>
+            import('./components/edit-book/edit-book.component').then(
+              (m) => m.EditBookComponent
+            ),
+          title: 'Edit Book'
     },
-
     {
         path: 'checkout',
-        component: CheckoutComponent,
+        loadComponent: () =>
+            import('./components/checkout/checkout.component').then(
+              (m) => m.CheckoutComponent
+            ),
         title: 'Checkout'
     },
-
     {
         path: 'profile',
-        component: ProfileComponent,
+        loadComponent: () =>
+            import('./components/profile/profile.component').then(
+              (m) => m.ProfileComponent
+            ),
         title: 'Profile'
     },
-
     {
         path: 'orders',
-        component: OrderListComponent
+        loadComponent: () =>
+            import('./components/order-list/order-list.component').then(
+              (m) => m.OrderListComponent
+            ),
+          title: 'Orders'
     },
-
     {
         path: 'orders/:id',
-        component: OrderDetailsComponent
+        loadComponent: () =>
+            import('./components/order-details/order-details.component').then(
+              (m) => m.OrderDetailsComponent
+            ),
+          title: 'Order Details'
     },
-
     {
         path: '**',
-        component: NotfoundComponent,
+        loadComponent: () =>
+            import('./components/notfound/notfound.component').then(
+              (m) => m.NotfoundComponent
+            ),
         title: 'Not Found Page'
     },
 
