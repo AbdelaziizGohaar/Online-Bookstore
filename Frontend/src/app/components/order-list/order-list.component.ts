@@ -55,7 +55,7 @@ export class OrderListComponent implements OnInit {
       }
     });
   }
-
+ 
 
   // Fetch all orders
   fetchOrders(): void {
@@ -70,7 +70,7 @@ export class OrderListComponent implements OnInit {
       }
     });
   }
-
+ 
   // Delete an order
   deleteOrder(id: number): void {
     if (confirm('Are you sure you want to delete this order?')) {

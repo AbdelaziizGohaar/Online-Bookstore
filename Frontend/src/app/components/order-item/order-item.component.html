@@ -12,9 +12,8 @@
 <div class="border p-4 rounded-lg shadow-md">
     <!-- Display the image of the first book or a placeholder -->
     @if (order.books.length > 0) {
-    <img [src]="order.books[0].image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgUfwRTH-egkhJgeJJRY-TvGpTf_QlvASe9A&s/150'"
-        alt="Book Cover" class="w-24 h-32 object-cover mb-4 rounded-lg hover:opacity-75"
-        (click)="navigateToOrderDetails()">
+    <img [src]="order.books[0].image || 'https://d5i0fhmkm8zzl.cloudfront.net/book/9788176558587.jpg'" alt="Book Cover"
+        class="w-24 h-32 object-cover mb-4 rounded-lg hover:opacity-75" (click)="navigateToOrderDetails()">
     }
 
     <h3 class="font-semibold text-lg">Order #{{ order.order_id }}</h3>
