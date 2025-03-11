@@ -41,6 +41,8 @@ export class LoginComponent {
 
     this.authService.login(email, password).subscribe({
       next: (response) => {
+        // for cheack if token send with login
+        console.log('Login Response:', response);
         this.authService.saveToken(response.token);
         this.router.navigate(['/']);
       },

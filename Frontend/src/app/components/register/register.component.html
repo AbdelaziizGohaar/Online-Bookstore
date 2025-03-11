@@ -1,67 +1,83 @@
 <div class="flex justify-center items-center min-h-screen bg-gray-100">
-          <div class="bg-white p-8 rounded-lg shadow-md max-w-sm w-full">
-            
-            <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Register</h2>
-        
-            <form [formGroup]="registerForm" (ngSubmit)="register()" class="flex flex-col gap-4">
-              
-              
-              <label class="block">
-                <span class="text-gray-700">Full Name</span>
-                <input type="text" formControlName="name" placeholder="Enter your name" 
-                  class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-300" required />
-                <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="text-red-500 text-sm mt-1">
-                  <small *ngIf="registerForm.get('name')?.errors?.['required']">Name is required.</small>
-                  <small *ngIf="registerForm.get('name')?.errors?.['pattern']">Name must contain only letters.</small>
-                </div>
-              </label>
-        
-              
-              <label class="block">
-                <span class="text-gray-700">Email</span>
-                <input type="email" formControlName="email" placeholder="Enter your email" 
-                  class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-300" required />
-                <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
-                  <small *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</small>
-                  <small *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format.</small>
-                </div>
-              </label>
-        
-              
-              <label class="block">
-                <span class="text-gray-700">Password</span>
-                <input type="password" formControlName="password" placeholder="Enter your password" 
-                  class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-300" required />
-              </label>
-        
-              
-              <label class="block">
-                <span class="text-gray-700">Confirm Password</span>
-                <input type="password" formControlName="confirmPassword" placeholder="Confirm your password" 
-                  class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-300" required />
-                <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched" class="text-red-500 text-sm mt-1">
-                  <small>Passwords do not match.</small>
-                </div>
-              </label>
-        
-              
-              <p *ngIf="errorMessage" class="text-red-500 text-sm text-center">{{ errorMessage }}</p>
-        
-              
-              <button type="submit" [disabled]="registerForm.invalid || isLoading"
-              class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-lg transition
-              disabled:bg-gray-400 disabled:cursor-not-allowed">
-              <span *ngIf="isLoading">Loading...</span>
-              <span *ngIf="!isLoading">Register</span>
-              </button>
-        
-              
-              <p class="text-sm text-gray-600 text-center mt-2">
-                Already have an account? 
-                <a routerLink="/login" class="text-blue-500 hover:underline">Login</a>
-              </p>
-        
-            </form>
-          </div>
+  <div class="bg-white p-8 rounded-lg shadow-md max-w-sm w-full">
+    
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Register</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="register()" class="flex flex-col gap-4">
+      
+      <!-- Full Name Field -->
+      <label class="block">
+        <span class="text-gray-700">Full Name</span>
+        <input type="text" formControlName="name" placeholder="Enter your name" 
+          class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-300" />
+        <div *ngIf="formSubmitted && registerForm.get('name')?.invalid" class="text-red-500 text-sm mt-1">
+          <small *ngIf="registerForm.get('name')?.errors?.['required']">Name is required.</small>
+          <small *ngIf="registerForm.get('name')?.errors?.['pattern']">Name must contain only letters.</small>
         </div>
-        
+      </label>
+
+      <!-- Email Field -->
+      <label class="block">
+        <span class="text-gray-700">Email</span>
+        <input type="email" formControlName="email" placeholder="Enter your email" 
+          class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-300" />
+        <div *ngIf="formSubmitted && registerForm.get('email')?.invalid" class="text-red-500 text-sm mt-1">
+          <small *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</small>
+          <small *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format.</small>
+        </div>
+      </label>
+
+      <!-- Password Field -->
+      <label class="block relative">
+        <span class="text-gray-700">Password</span>
+        <div class="relative">
+          <input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password"
+            placeholder="Enter your password" 
+            class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-300 pr-10" />
+          <button type="button" (click)="togglePasswordVisibility()" 
+            class="absolute inset-y-0 right-2 flex items-center text-gray-500">
+            <i class="fas" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <div *ngIf="formSubmitted && registerForm.get('password')?.invalid" class="text-red-500 text-sm mt-1">
+          <small *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</small>
+          <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters.</small>
+          <small *ngIf="registerForm.get('password')?.errors?.['pattern']">Password must include uppercase, lowercase, and a number.</small>
+        </div>
+      </label>
+
+      <!-- Confirm Password Field -->
+      <label class="block relative">
+        <span class="text-gray-700">Confirm Password</span>
+        <div class="relative">
+          <input [type]="isConfirmPasswordVisible ? 'text' : 'password'" formControlName="confirmPassword"
+            placeholder="Confirm your password" 
+            class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-300 pr-10" />
+          <button type="button" (click)="toggleConfirmPasswordVisibility()" 
+            class="absolute inset-y-0 right-2 flex items-center text-gray-500">
+            <i class="fas" [ngClass]="isConfirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <div *ngIf="formSubmitted && registerForm.errors?.['passwordNotMatch']" class="text-red-500 text-sm mt-1">
+          <small>Passwords do not match.</small>
+        </div>
+      </label>
+
+      <!-- Error Message -->
+      <p *ngIf="errorMessage" class="text-red-500 text-sm text-center">{{ errorMessage }}</p>
+
+      <!-- Register Button -->
+      <button type="submit" 
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-lg transition">
+        <span *ngIf="isLoading">Loading...</span>
+        <span *ngIf="!isLoading">Register</span>
+      </button>
+
+      <p class="text-sm text-gray-600 text-center mt-2">
+        Already have an account? 
+        <a routerLink="/login" class="text-blue-500 hover:underline">Login</a>
+      </p>
+
+    </form>
+  </div>
+</div>

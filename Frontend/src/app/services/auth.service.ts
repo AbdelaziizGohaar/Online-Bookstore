@@ -19,6 +19,17 @@ export class AuthService {
   login(email:string , password:string):Observable<any>{ 
     return this.http.post(`${this.API_URL}/login` , {email,password});
   }
+  // login(email: string, password: string): Observable<any> {
+  //   return this.http.post(`${this.API_URL}/login`, { email, password }).pipe(
+  //     tap(response => {
+  //       if (response.token) {
+  //         this.saveToken(response.token);
+  //         console.log("Token saved:", response.token);
+  //       }
+  //     })
+  //   );
+  // }
+  
 
   saveToken(token:string):void{ 
     localStorage.setItem('token', token);
@@ -36,5 +47,22 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
   }
+
+  getUserRole(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+  
+    try {
+      const tokenPayload = JSON.parse(atob(token.split('.')[1])); 
+      return tokenPayload.role; 
+    } catch (error) {
+      return null;
+    }
+  }
+  
   
 }
+// function tap(arg0: (response: any) => void): import("rxjs").OperatorFunction<Object, any> {
+//   throw new Error('Function not implemented.');
+// }
+
