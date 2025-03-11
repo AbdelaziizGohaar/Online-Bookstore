@@ -37,6 +37,7 @@ export const loginUser = async (req, res, next) => {
     if (!passwordIsMatch) throw new CustomError('Invalid email or password', 400);
 
     const token = jwt.sign({user_id: user.user_id, role: user.role}, process.env.JWT_SECRET, {expiresIn: '7d'});
+
     res.json({message: 'login successfuly', token});
   } catch (error) {
     next(error);

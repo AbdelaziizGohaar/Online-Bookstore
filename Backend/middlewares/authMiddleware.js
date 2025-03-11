@@ -20,6 +20,9 @@ const authMiddleware = (req, res, next) => {
     };
     // debug
     console.log('User after Middleware:', req.user);
+
+    // console.log('Request Headers:', req.headers);
+
     next();
   } catch (error) {
     next(error);
