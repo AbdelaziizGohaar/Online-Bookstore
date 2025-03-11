@@ -9,9 +9,9 @@ import { Book } from '../types/book';
 export class BookService {
 httpclient = inject(HttpClient);
   constructor() { } 
-  getBooks(page: number): Observable<any> {
+  getBooks(page: number,params:String): Observable<any> {
     return this.httpclient.get(
-      `http://localhost:3000/books?page=${page}`
+      `http://localhost:3000/books?page=${page}&${params}`
     );
   }
   getAllBooks(): Observable<any> {

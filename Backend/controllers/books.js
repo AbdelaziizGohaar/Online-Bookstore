@@ -37,19 +37,30 @@ const getFilteredBooks = async (filters) => {
     );
   }
   let books = {};
+  const query = {};
+  const title = value.title?.trim();
+  const author = value.author?.trim();
+  const minPrice = value.minPrice;
+  const maxPrice = value.maxPrice;
+
+  if (title) query.title = {$regex: title.trim(), $options: 'i'};
+  if (author) query.title = {$regex: author.trim(), $options: 'i'};
+
+  if (minPrice || maxPrice) {
+    query.$and = [];
+    if (minPrice) query.$and.push({price: {$gte: minPrice}});
+    if (maxPrice) query.$and.push({price: {$lte: maxPrice}});
+  }
+  console.log(query);
+
   try {
     if (!filters.page) {
-      books = await Book.find(value)
+      console.log('No page');
+      books = await Book.find(query)
         .select('-_id book_id title author price description stock image')
         .exec();
       return books;
     } else {
-      const query = {};
-      if (filters.title) query.title = {$regex: filters.title, $options: 'i'};
-      if (filters.author) query.author = {$regex: filters.author, $options: 'i'};
-      if (filters.minPrice) query.price = {...query.price, $gte: +filters.minPrice};
-      if (filters.maxPrice) query.price = {...query.price, $lte: +filters.maxPrice};
-
       const page = filters.page || 1;
       const totalBooks = await Book.countDocuments(query);
       if (page < 1) {
