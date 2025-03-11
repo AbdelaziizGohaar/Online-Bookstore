@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { OrderListComponent } from '../order-list/order-list.component'; // Import OrderListComponent
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, OrderListComponent], // Add OrderListComponent here
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
