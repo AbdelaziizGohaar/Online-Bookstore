@@ -15,13 +15,31 @@ export class OrderItemComponent {
   @Input() order!: Order; // Input property to receive order data
   @Output() delete = new EventEmitter<number>(); // Output property to emit delete event
 
+  showModal: boolean = false; // Control modal visibility
+
   constructor(private router: Router) { } // Inject Router
 
 
   // Emit the delete event
+  // onDelete(): void {
+  //   this.delete.emit(this.order.order_id);
+  // }
+
+
+  // Emit the delete event
   onDelete(): void {
-    this.delete.emit(this.order.order_id);
+    this.showModal = true; // Show the modal
   }
+
+
+  // Handle modal confirmation
+  onConfirm(confirmed: boolean): void {
+    this.showModal = false; // Hide the modal
+    if (confirmed) {
+      this.delete.emit(this.order.order_id); // Emit delete event if confirmed
+    }
+  }
+
 
   // Navigate to order details page
   navigateToOrderDetails(): void {

@@ -31,21 +31,6 @@
                         My Orders
                     </button>
                 </li>
-                <li>
-                    <button (click)="setActiveSection('cards')" class="w-full text-left px-4 py-2 rounded-md"
-                        [class.bg-blue-600]="activeSection === 'cards'" [class.text-white]="activeSection === 'cards'"
-                        [class.bg-gray-100]="activeSection !== 'cards'"
-                        [class.text-gray-700]="activeSection !== 'cards'">
-                        Saved Cards
-                    </button>
-                </li>
-                <li>
-                    <button (click)="setActiveSection('cart')" class="w-full text-left px-4 py-2 rounded-md"
-                        [class.bg-blue-600]="activeSection === 'cart'" [class.text-white]="activeSection === 'cart'"
-                        [class.bg-gray-100]="activeSection !== 'cart'" [class.text-gray-700]="activeSection !== 'cart'">
-                        Cart List
-                    </button>
-                </li>
             </ul>
         </nav>
     </aside>
@@ -81,42 +66,14 @@
 
         <!-- Order History Section -->
         @if (activeSection === 'orders') {
+
         <div class="bg-white p-6 shadow-md rounded-lg mb-6">
             <h2 class="text-xl font-semibold mb-4">Order History</h2>
-            <table class="w-full border">
-                <thead>
-                    <tr class="bg-gray-200">
-                        <th class="p-2">Order ID</th>
-                        <th class="p-2">Date</th>
-                        <th class="p-2">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="border-t">
-                        <td class="p-2">#12345</td>
-                        <td class="p-2">2024-03-07</td>
-                        <td class="p-2 text-green-600">Completed</td>
-                    </tr>
-                    <tr class="border-t">
-                        <td class="p-2">#67890</td>
-                        <td class="p-2">2024-03-06</td>
-                        <td class="p-2 text-yellow-600">Pending</td>
-                    </tr>
-                </tbody>
-            </table>
+            <app-order-list></app-order-list> <!-- Use OrderListComponent here -->
         </div>
         }
 
-        <!-- Cart List Section -->
-        @if (activeSection === 'cart') {
-        <div class="bg-white p-6 shadow-md rounded-lg">
-            <h2 class="text-xl font-semibold mb-4">Cart List</h2>
-            <ul class="space-y-2">
-                <li class="p-2 border-b">Book Title 1 - $15</li>
-                <li class="p-2 border-b">Book Title 2 - $20</li>
-            </ul>
-        </div>
-        }
+
 
         <!-- Saved Addresses Section -->
         @if (activeSection === 'addresses') {
@@ -126,12 +83,6 @@
         </div>
         }
 
-        <!-- Saved Cards Section -->
-        @if (activeSection === 'cards') {
-        <div class="bg-white p-6 shadow-md rounded-lg">
-            <h2 class="text-xl font-semibold mb-4">Saved Cards</h2>
-            <p class="text-gray-600">No saved cards.</p>
-        </div>
-        }
+
     </main>
 </div>

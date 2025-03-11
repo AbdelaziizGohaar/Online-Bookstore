@@ -16,7 +16,7 @@ export class AdminDashboardComponent {
   backendUrl = 'http://localhost:3000'; 
 
   ngOnInit() {
-    this.bookService.getBooks().subscribe((books: Book[]) => {
+    this.bookService.getAllBooks().subscribe((books: Book[]) => {
       this.books = books.map((book) => ({
         ...book,
         image: `${this.backendUrl}${book.image}`

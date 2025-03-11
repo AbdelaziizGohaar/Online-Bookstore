@@ -31,17 +31,44 @@ const addBook = async (data, user) => {
 const getFilteredBooks = async (filters) => {
   const {error, value} = bookQuerySchema.validate(filters);
   if (error) {
-    throw new CustomError(`Validation Error: ${error.details.map((e) => e.message).join(', ')}`, 400);
+    throw new CustomError(
+      `Validation Error: ${error.details.map((e) => e.message).join(', ')}`,
+      400
+    );
   }
+  let books = {};
   try {
-    const books = await Book.find(value)
-      .select('-_id book_id title author price description stock image')
-      .exec();
-    return books;
-  } catch (error) {
-    console.error('Error fetching books:', error.message);
+    if (!filters.page) {
+      books = await Book.find(value)
+        .select('-_id book_id title author price description stock image')
+        .exec();
+      return books;
+    } else {
+      const query = {};
+      if (filters.title) query.title = {$regex: filters.title, $options: 'i'};
+      if (filters.author) query.author = {$regex: filters.author, $options: 'i'};
+      if (filters.minPrice) query.price = {...query.price, $gte: +filters.minPrice};
+      if (filters.maxPrice) query.price = {...query.price, $lte: +filters.maxPrice};
 
-    throw new CustomError(error.message, 500);
+      const page = filters.page || 1;
+      const totalBooks = await Book.countDocuments(query);
+      if (page < 1) {
+        throw new CustomError('Page number must be greater than 0', 400);
+      }
+      books = await Book.find(query)
+        .select('-_id book_id title author price description stock image')
+        .skip((page - 1) * 10)
+        .limit(10)
+        .exec();
+
+      return {
+        books,
+        totalBooks,
+        totalPages: Math.ceil(totalBooks / 10)
+      };
+    }
+  } catch (error) {
+    throw new CustomError(`Database Error: ${error.message}`, 500);
   }
 };
 

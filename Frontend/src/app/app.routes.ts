@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { BookListComponent } from './components/book-list/book-list.component';
@@ -14,6 +15,7 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+
 
 export const routes: Routes = [
     {

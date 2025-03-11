@@ -15,12 +15,24 @@ export class BookListComponent {
   bookService = inject(BookService);
   books !: Book[];
   backendUrl = 'http://localhost:3000'; 
+  currentPage = 1;
+  totalPages = 1;
+  totalBooks = 0;
   ngOnInit() {
-    this.bookService.getBooks().subscribe((data : Book[]) => {
-      this.books = data.map(book => ({
+   this.loadBooks();
+  }
+  loadBooks() {
+    this.bookService.getBooks(this.currentPage).subscribe((response) => {
+      this.books = response.books.map((book : Book) => ({
         ...book,
         image: `${this.backendUrl}${book.image}` 
       }));
+      this.totalPages = response.totalPages;
+      this.totalBooks = response.totalBooks;
     });
+  }
+  changePage(page: number) {
+    this.currentPage = page;
+    this.loadBooks();
   }
 }
