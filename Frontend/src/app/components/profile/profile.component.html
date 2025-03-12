@@ -42,7 +42,6 @@
 
 
 
-
         <nav>
             <ul class="space-y-4">
                 <li>
@@ -56,12 +55,11 @@
                     </button>
                 </li>
                 <li>
-                    <button (click)="setActiveSection('addresses')" class="w-full text-left px-4 py-2 rounded-md"
-                        [class.bg-blue-600]="activeSection === 'addresses'"
-                        [class.text-white]="activeSection === 'addresses'"
-                        [class.bg-gray-100]="activeSection !== 'addresses'"
-                        [class.text-gray-700]="activeSection !== 'addresses'">
-                        Saved Addresses
+                    <button (click)="setActiveSection('update')" class="w-full text-left px-4 py-2 rounded-md"
+                        [class.bg-blue-600]="activeSection === 'update'" [class.text-white]="activeSection === 'update'"
+                        [class.bg-gray-100]="activeSection !== 'update'"
+                        [class.text-gray-700]="activeSection !== 'update'">
+                        Update User Info
                     </button>
                 </li>
                 <li>
@@ -112,13 +110,62 @@
 
 
 
-        <!-- Saved Addresses Section -->
-        @if (activeSection === 'addresses') {
-        <div class="bg-white p-6 shadow-md rounded-lg">
-            <h2 class="text-xl font-semibold mb-4">Saved Addresses</h2>
-            <p class="text-gray-600">No addresses saved yet.</p>
+        <!-- Account update Section -->
+        @if (activeSection === 'update') {
+        <div class="bg-white p-6 shadow-md rounded-lg mb-6">
+            <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Name -->
+                    <div>
+                        <label class="block font-medium">Name</label>
+                        <input type="text" formControlName="name" class="w-full p-2 border rounded">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block font-medium">Email</label>
+                        <input type="email" formControlName="email" class="w-full p-2 border rounded">
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label class="block font-medium">Password</label>
+                        <input type="password" formControlName="password" class="w-full p-2 border rounded"
+                            placeholder="Enter new password">
+                    </div>
+
+                    <!-- Role (disabled) -->
+                    <div>
+                        <label class="block font-medium">Role</label>
+                        <input type="text" [value]="role" class="w-full p-2 border rounded" disabled>
+                    </div>
+                </div>
+
+                <!-- Update Button -->
+                <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+                    [disabled]="updateForm.invalid || isUpdating">
+                    {{ isUpdating ? 'Updating...' : 'Update' }}
+                </button>
+
+                <!-- Error Message -->
+                @if (errorMessage) {
+                <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    {{ errorMessage }}
+                </div>
+                }
+
+                <!-- Success Message -->
+                @if (successMessage) {
+                <div class="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                    {{ successMessage }}
+                </div>
+                }
+
+
+            </form>
         </div>
         }
+
 
 
     </main>

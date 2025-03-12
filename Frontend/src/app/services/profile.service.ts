@@ -23,5 +23,8 @@ export class ProfileService {
     );
   }
 
+  updateUser(updatedData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/users`, updatedData);
+  }
 
 }

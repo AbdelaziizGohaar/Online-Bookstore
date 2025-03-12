@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { OrderListComponent } from '../order-list/order-list.component'; // Import OrderListComponent
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../services/profile.service';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, OrderListComponent], // Add OrderListComponent here
+  imports: [CommonModule, OrderListComponent, ReactiveFormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -20,7 +21,23 @@ export class ProfileComponent {
   isLoading: boolean = true; // Loading state
   errorMessage: string = ''; // Error message
 
-  constructor(private profileService: ProfileService) { }
+  updateForm: FormGroup; // Form group for updating user data
+  isUpdating: boolean = false; // Loading state during update
+  successMessage: string = ''; // Add this variable
+
+
+
+  constructor(private profileService: ProfileService, private fb: FormBuilder) {
+
+    // Initialize the update form
+    this.updateForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.minLength(8)]]
+    });
+
+  }
+
 
   ngOnInit(): void {
     this.fetchUserData();
@@ -44,6 +61,41 @@ export class ProfileComponent {
     });
   }
 
+
+  //============================================
+
+  // Handle form submission
+  onUpdate(): void {
+    if (this.updateForm.invalid) {
+      this.errorMessage = 'Please fill out the form correctly.';
+      return;
+    }
+
+    this.isUpdating = true;
+    this.errorMessage = '';
+
+    const updatedData = this.updateForm.value;
+
+    // Call the update service
+    this.profileService.updateUser(updatedData).subscribe({
+      next: (response) => {
+        this.isUpdating = false;
+        this.fetchUserData(); // Refresh user data after update
+        console.log('User updated successfully:', response);
+        // Switch to the Account Info section after successful update
+        this.activeSection = 'account';
+        this.successMessage = 'User updated successfully!';
+        setTimeout(() => this.successMessage = '', 3000);
+      },
+      error: (error) => {
+        this.isUpdating = false;
+        this.errorMessage = 'Failed to update user. Please try again.';
+        console.error('Update error:', error);
+      }
+    });
+  }
+
+  //============================================
 
   activeSection: string = 'account';
 
