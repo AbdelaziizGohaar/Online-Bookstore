@@ -86,11 +86,17 @@ export class ProfileComponent {
         this.activeSection = 'account';
         this.successMessage = 'User updated successfully!';
         setTimeout(() => this.successMessage = '', 3000);
+        this.updateForm.reset();
+        this.updateForm.patchValue({ role: this.role });
+
       },
       error: (error) => {
         this.isUpdating = false;
         this.errorMessage = 'Failed to update user. Please try again.';
         console.error('Update error:', error);
+        this.updateForm.reset();
+        this.updateForm.patchValue({ role: this.role });
+
       }
     });
   }
