@@ -26,7 +26,8 @@
     "mongoose-sequence": "^6.0.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "pug": "^3.0.3"
+    "pug": "^3.0.3",
+    "stripe": "^17.7.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.4.0",
