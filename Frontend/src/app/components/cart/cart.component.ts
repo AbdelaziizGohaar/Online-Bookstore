@@ -60,4 +60,13 @@ export class CartComponent {
   removeItem(bookId: number): void {
     this.cartService.removeItem(bookId);
   }
+
+  onCheckout() {
+    this.cartService.checkout().subscribe({
+      next: (response) => {
+        window.location.href = response.checkoutSession.url; // Redirect to Stripe
+      },
+      error: (err) => console.error('Checkout failed', err),
+    });
+  }
 }

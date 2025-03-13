@@ -1,0 +1,74 @@
+<!-- Hero Section -->
+<section class="relative h-screen bg-cover bg-center" style="background-image: url('/book-hero.jpg');">
+    <div class="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6">Welcome to Booket The Online Book Store</h1>
+        <p class="text-lg md:text-xl mb-8 max-w-2xl">
+            Explore a wide range of books from various genres. Whether you’re a bookworm or looking for a gift, we have
+            something for everyone.
+        </p>
+        <div class="flex space-x-4">
+            <button
+                class="bg-white text-purple-900 px-6 py-3 rounded-lg font-semibold hover:bg-purple-100 transition-colors">
+                Contact Us
+            </button>
+            <button
+                class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-900 transition-colors">
+                Read More
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Books Section -->
+<div class="container mx-auto py-16 px-4 overflow-hidden">
+    <h2 class="text-3xl font-bold text-center mb-8">Best Sellers</h2>
+    @if (isLoading) {
+    <div class="text-center text-2xl font-semibold text-gray-500">Loading...</div>
+    }
+    @else {
+    <div class="relative w-full overflow-hidden">
+        <!-- Carousel Container -->
+        <div class="flex animate-scroll">
+            <!-- Loop through dynamic featured books -->
+            @for (book of featuredBooks; track book.book_id) {
+            <div class="flex-shrink-0 w-64 mx-4">
+                <app-book-card [book]="book"></app-book-card>
+            </div>
+            }
+            <!-- Duplicate books for infinite scroll effect -->
+            @for (book of featuredBooks; track book.book_id) {
+            <div class="flex-shrink-0 w-64 mx-4">
+                <app-book-card [book]="book"></app-book-card>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="flex justify-center mt-8">
+        <!-- <button (click)="navigateToBookList()"
+            class="px-6 py-2 bg-purple-900 text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors">
+            Load More
+        </button> -->
+    </div>
+    }
+</div>
+
+<!-- Some Books Section -->
+<div class="container mx-auto py-16 px-4 overflow-hidden">
+    <h2 class="text-3xl font-bold text-center mb-8">Our Library</h2>
+    @if (isLoading) {
+    <div class="text-center text-2xl font-semibold text-gray-500">Loading...</div>
+    }
+    @else {
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        @for (book of libraryBooks; track book.book_id) {
+        <app-book-card [book]="book"></app-book-card>
+        }
+    </div>
+    <div class="flex justify-center mt-8">
+        <button (click)="navigateToBookList()"
+            class="px-6 py-2 bg-purple-900 text-white rounded-lg font-semibold hover:bg-purple-800 transition-colors">
+            Load More
+        </button>
+    </div>
+    }
+</div>

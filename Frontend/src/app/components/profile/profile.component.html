@@ -1,7 +1,47 @@
 <div class="flex min-h-screen">
     <!-- Sidebar -->
     <aside class="w-1/4 bg-white shadow-md p-6">
-        <h2 class="text-2xl font-semibold mb-4">My Account</h2>
+
+        <!-- Avatar and Name Container -->
+        <div class="flex items-center mb-4">
+            <!-- SVG Avatar with Animation -->
+            <div class="relative group">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                    class="w-12 h-12 rounded-full mr-4 transition-transform duration-300 transform group-hover:scale-110 group-hover:rotate-6">
+                    <!-- Face -->
+                    <circle cx="50" cy="50" r="45" fill="#FFD699" stroke="#000" stroke-width="2" />
+                    <!-- Hair -->
+                    <path d="M 30 25 Q 50 10 70 25" stroke="#FFD700" stroke-width="5" fill="transparent" />
+                    <!-- Eyes -->
+                    <circle cx="35" cy="45" r="5" fill="#000" />
+                    <circle cx="65" cy="45" r="5" fill="#000" />
+                    <!-- Smile -->
+                    <path d="M 30 60 Q 50 70 70 60" stroke="#000" stroke-width="2" fill="transparent" />
+                    <!-- Scarf -->
+                    <rect x="30" y="65" width="40" height="10" fill="#FF6347" stroke="#000" stroke-width="2" />
+                    <!-- Body -->
+                    <rect x="35" y="75" width="30" height="20" fill="#4682B4" stroke="#000" stroke-width="2" />
+                    <!-- Arms -->
+                    <line x1="25" y1="80" x2="35" y2="80" stroke="#000" stroke-width="2" />
+                    <line x1="75" y1="80" x2="65" y2="80" stroke="#000" stroke-width="2" />
+                    <!-- Legs -->
+                    <line x1="45" y1="95" x2="45" y2="85" stroke="#000" stroke-width="2" />
+                    <line x1="55" y1="95" x2="55" y2="85" stroke="#000" stroke-width="2" />
+                    <!-- Star -->
+                    <polygon points="50,20 55,30 65,30 57,37 60,47 50,40 40,47 43,37 35,30 45,30" fill="#FFD700"
+                        stroke="#000" stroke-width="1" />
+                </svg>
+                <!-- Glow Effect on Hover -->
+                <div
+                    class="absolute inset-0 rounded-full bg-blue-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                </div>
+            </div>
+            <!-- User Name -->
+            <h1 class="text-2xl font-semibold">{{ name }}</h1>
+        </div>
+
+
+
         <nav>
             <ul class="space-y-4">
                 <li>
@@ -15,12 +55,11 @@
                     </button>
                 </li>
                 <li>
-                    <button (click)="setActiveSection('addresses')" class="w-full text-left px-4 py-2 rounded-md"
-                        [class.bg-blue-600]="activeSection === 'addresses'"
-                        [class.text-white]="activeSection === 'addresses'"
-                        [class.bg-gray-100]="activeSection !== 'addresses'"
-                        [class.text-gray-700]="activeSection !== 'addresses'">
-                        Saved Addresses
+                    <button (click)="setActiveSection('update')" class="w-full text-left px-4 py-2 rounded-md"
+                        [class.bg-blue-600]="activeSection === 'update'" [class.text-white]="activeSection === 'update'"
+                        [class.bg-gray-100]="activeSection !== 'update'"
+                        [class.text-gray-700]="activeSection !== 'update'">
+                        Update User Info
                     </button>
                 </li>
                 <li>
@@ -44,23 +83,19 @@
         <div class="bg-white p-6 shadow-md rounded-lg mb-6">
             <div class="grid grid-cols-2 gap-4">
                 <div>
+                    <label class="block font-medium">Name</label>
+                    <input type="text" class="w-full p-2 border rounded" [value]="name || 'Loading...'" disabled>
+                </div>
+                <div>
                     <label class="block font-medium">Email</label>
-                    <input type="text" class="w-full p-2 border rounded" value="user@example.com" disabled>
+                    <input type="text" class="w-full p-2 border rounded" [value]="email || 'Loading...'" disabled>
                 </div>
                 <div>
                     <label class="block font-medium">Role</label>
-                    <input type="text" class="w-full p-2 border rounded" value="Customer" disabled>
-                </div>
-                <div>
-                    <label class="block font-medium">First Name</label>
-                    <input type="text" class="w-full p-2 border rounded" value="John">
-                </div>
-                <div>
-                    <label class="block font-medium">Last Name</label>
-                    <input type="text" class="w-full p-2 border rounded" value="Doe">
+                    <input type="text" class="w-full p-2 border rounded" [value]="role || 'Loading...'" disabled>
                 </div>
             </div>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Update</button>
+            <!-- <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Update</button> -->
         </div>
         }
 
@@ -75,13 +110,62 @@
 
 
 
-        <!-- Saved Addresses Section -->
-        @if (activeSection === 'addresses') {
-        <div class="bg-white p-6 shadow-md rounded-lg">
-            <h2 class="text-xl font-semibold mb-4">Saved Addresses</h2>
-            <p class="text-gray-600">No addresses saved yet.</p>
+        <!-- Account update Section -->
+        @if (activeSection === 'update') {
+        <div class="bg-white p-6 shadow-md rounded-lg mb-6">
+            <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Name -->
+                    <div>
+                        <label class="block font-medium">Name</label>
+                        <input type="text" formControlName="name" class="w-full p-2 border rounded">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block font-medium">Email</label>
+                        <input type="email" formControlName="email" class="w-full p-2 border rounded">
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label class="block font-medium">Password</label>
+                        <input type="password" formControlName="password" class="w-full p-2 border rounded"
+                            placeholder="Enter new password">
+                    </div>
+
+                    <!-- Role (disabled) -->
+                    <div>
+                        <label class="block font-medium">Role</label>
+                        <input type="text" [value]="role" class="w-full p-2 border rounded" disabled>
+                    </div>
+                </div>
+
+                <!-- Update Button -->
+                <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+                    [disabled]="updateForm.invalid || isUpdating">
+                    {{ isUpdating ? 'Updating...' : 'Update' }}
+                </button>
+
+                <!-- Error Message -->
+                @if (errorMessage) {
+                <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    {{ errorMessage }}
+                </div>
+                }
+
+                <!-- Success Message -->
+                @if (successMessage) {
+                <div class="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                    {{ successMessage }}
+                </div>
+                }
+
+
+            </form>
         </div>
         }
+
 
 
     </main>
