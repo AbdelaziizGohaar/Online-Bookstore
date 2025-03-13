@@ -20,6 +20,9 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-async-errors": "^3.1.1",
+    "express-rate-limit": "^7.5.0",
+    "googleapis": "^146.0.0",
+    "html-to-text": "^9.0.5",
     "ioredis": "^5.6.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
@@ -27,6 +30,7 @@
     "mongoose-sequence": "^6.0.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.10.0",
     "pug": "^3.0.3",
     "stripe": "^17.7.0"
   },

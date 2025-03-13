@@ -14,6 +14,11 @@ dotenv.config();
 
 const app = express();
 
+const logsDir = path.join('logs');
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir, {recursive: true}); // Create 'logs' directory if it doesn't exist
+}
+
 const logStream = fs.createWriteStream(path.join('logs', 'access.log'), {
   flags: 'a'
 });

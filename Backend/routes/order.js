@@ -7,7 +7,7 @@ const router = express.Router();
 
 // ======== create order========
 router.post('/', authMiddleware, async (req, res) => {
-  const [err, order] = await asyncWrapper(OrderController.addOrder(req.body, req.user.user_id));
+  const [err, order] = await asyncWrapper(OrderController.addOrder(req.body, req.user.user_id, req));
 
   if (err) {
     return res.status(422).json({error: err.message});
@@ -55,7 +55,7 @@ router.get('/:order_id', authMiddleware, async (req, res) => {
 
 // ======== Update specific order ========
 router.put('/:order_id', authMiddleware, async (req, res) => {
-  const [err, order] = await asyncWrapper (OrderController.updateOrder(req.params.order_id, req.body));
+  const [err, order] = await asyncWrapper (OrderController.updateOrder(req.params.order_id, req.body, req));
   if (err) return res.status(422).json({error: err.message});
   if (!order) {
     return res.status(422).json({message: 'Order not found'});

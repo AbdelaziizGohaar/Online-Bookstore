@@ -1,10 +1,11 @@
 // import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import CustomError from '../helpers/CustomError.js';
-import {Customer} from '../models/Allusres.js';
+import {Customer, User} from '../models/Allusres.js';
 import Book from '../models/Book.js';
 import Orders from '../models/order.js';
 import {orderValidationSchema, updateOrderValidationSchema} from '../validators/orderValidation.js';
+import Email from '../helpers/email.js';
 
 // ==== find by order by id======
 const getOrder = async (order_id) => {
@@ -22,7 +23,7 @@ const getOrder = async (order_id) => {
 };
 
 // ==== create order ======
-const addOrder = async (data, user_id) => {
+const addOrder = async (data, user_id, req) => {
   data.user_id = user_id;
 
   // Debugging logs
@@ -71,7 +72,13 @@ const addOrder = async (data, user_id) => {
     // Commit the transaction
     await session.commitTransaction();
     session.endSession();
-
+    try {
+      const orderURL = `${req.protocol}://${req.get('host')}/order`;
+      await new Email(userExists, orderURL).sendOrderConfiramtion();
+    } catch (emailError) {
+      console.error('Email sending error:', emailError);
+      throw new CustomError('Failed to send email. Please try again later.', 500);
+    }
     return order;
   } catch (error) {
     // If any error occurs, abort the transaction
@@ -88,7 +95,7 @@ const getAll = async (data) => {
 };
 
 // ==== Update Specific  order ======
-const updateOrder = async (order_id, updatedData) => {
+const updateOrder = async (order_id, updatedData, req) => {
   // Validate updated data
   const {error} = updateOrderValidationSchema.validate(updatedData);
   if (error) {
@@ -107,6 +114,14 @@ const updateOrder = async (order_id, updatedData) => {
 
   if (updatedData.status) {
     order.status = updatedData.status;
+    try {
+      const userExists = await User.findOne({user_id: order.user_id});
+      const orderURL = `${req.protocol}://${req.get('host')}/order`;
+      await new Email(userExists, orderURL).sendOrderConfiramtion();
+    } catch (emailError) {
+      console.error('Email sending error:', emailError);
+      throw new CustomError('Failed to send email. Please try again later.', 500);
+    }
   }
 
   // Step 3: Validate each book_id if books array is provided
