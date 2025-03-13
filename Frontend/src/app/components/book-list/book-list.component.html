@@ -1,5 +1,5 @@
 <!-- Hero Section -->
-<div class="relative h-screen bg-cover bg-center" style="background-image: url('/book-hero.jpg');">
+<!-- <div class="relative h-screen bg-cover bg-center" style="background-image: url('/book-hero.jpg');">
   <div class="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4">
     <h1 class="text-4xl md:text-6xl font-bold mb-6">Welcome to Our Online Book Store</h1>
     <p class="text-lg md:text-xl mb-8 max-w-2xl">
@@ -18,19 +18,18 @@
   </div>
 </div>
 
-<!-- Featured Books Section -->
+
 <div class="container mx-auto py-16 px-4 overflow-hidden">
   <h2 class="text-3xl font-bold text-center mb-8">Best Sellers</h2>
   <div class="relative w-full overflow-hidden">
-    <!-- Carousel Container -->
+
     <div class="flex animate-scroll">
-      <!-- Loop through static featured books -->
+
       @for (book of featuredBooks; track book.book_id) {
       <div class="flex-shrink-0 w-64 mx-4">
         <app-book-card [book]="book"></app-book-card>
       </div>
       }
-      <!-- Duplicate books for infinite scroll effect -->
       @for (book of featuredBooks; track book.book_id) {
       <div class="flex-shrink-0 w-64 mx-4">
         <app-book-card [book]="book"></app-book-card>
@@ -38,7 +37,7 @@
       }
     </div>
   </div>
-</div>
+</div> -->
 
 
 <div class="container mx-auto mb-10 px-4">

@@ -18,6 +18,7 @@ export class BookListComponent {
   router = inject(Router);
 
   books: Book[] = [];
+  // featuredBooks: Book[] = [];
   backendUrl = 'http://localhost:3000';
   currentPage = 1;
   totalPages = 1;
@@ -54,7 +55,18 @@ export class BookListComponent {
       }
       this.loadBooks();
     });
+
+    // this.loadFeaturedBooks(); // Load featured books dynamically
   }
+
+
+  // loadFeaturedBooks() {
+  //   this.bookService.getAllBooks().subscribe((response: any) => {
+  //     this.featuredBooks = response.slice(0, 5); // Take the first 7 books
+  //     console.log('Featured Books:', this.featuredBooks);
+  //   });
+  // }
+
 
   loadBooks() {
     this.bookService.getBooks(this.currentPage, this.paramsString).subscribe((response) => {
@@ -77,63 +89,63 @@ export class BookListComponent {
   }
 
 
-  // Static featured books data
-  featuredBooks: Book[] = [
-    {
-      book_id: 1,
-      title: 'Prizoner Of Zenda',
-      author: 'Rachel Kushner',
-      description: 'A captivating story about...',
-      price: 25.99,
-      stock: 10,
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEOB-4pxOD9XvkL7a-7l4RDx9D6mDM9f_pQw&s'
-    },
-    {
-      book_id: 2,
-      title: 'Frankenstein',
-      author: 'Alice McDermott',
-      description: 'A timeless classic about...',
-      price: 29.99,
-      stock: 5,
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCjl6w1MEvwYzftlCTmxsAtZ9bQFo3fDTxNQ&s'
-    },
-    {
-      book_id: 3,
-      title: 'The Lord of the Rings',
-      author: 'Fuman Alam',
-      description: 'A gripping tale of...',
-      price: 22.99,
-      stock: 8,
-      image: 'https://harpercollins.co.uk/cdn/shop/files/x9780008537760_668991cc-5323-4f83-8c89-0052afc21a23.jpg?v=1741251116&width=350'
-    },
-    {
-      book_id: 4,
-      title: 'War and Peace',
-      author: 'Leo Tolstoy',
-      description: 'A story of ambition and...',
-      price: 19.99,
-      stock: 15,
-      image: 'https://m.media-amazon.com/images/I/81oHM-dzefL.jpg'
-    },
-    {
-      book_id: 5,
-      title: 'One Hundred Years of Solitude',
-      author: 'Gabriel García Márquez',
-      description: 'A story of ambition and...',
-      price: 29.99,
-      stock: 15,
-      image: 'https://www.alpiedelaletralibreria.com/imagenes/9780241/978024196858.JPG'
-    },
-    {
-      book_id: 6,
-      title: 'Animal Farm',
-      author: 'George Orwell',
-      description: 'A story of ambition and...',
-      price: 11.94,
-      stock: 15,
-      image: 'https://prodimage.images-bn.com/pimages/9789390909001_p0_v1_s600x595.jpg'
-    }
-  ];
+
+  // featuredBooks: Book[] = [
+  //   {
+  //     book_id: 1,
+  //     title: 'Prizoner Of Zenda',
+  //     author: 'Rachel Kushner',
+  //     description: 'A captivating story about...',
+  //     price: 25.99,
+  //     stock: 10,
+  //     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEOB-4pxOD9XvkL7a-7l4RDx9D6mDM9f_pQw&s'
+  //   },
+  //   {
+  //     book_id: 2,
+  //     title: 'Frankenstein',
+  //     author: 'Alice McDermott',
+  //     description: 'A timeless classic about...',
+  //     price: 29.99,
+  //     stock: 5,
+  //     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCjl6w1MEvwYzftlCTmxsAtZ9bQFo3fDTxNQ&s'
+  //   },
+  //   {
+  //     book_id: 3,
+  //     title: 'The Lord of the Rings',
+  //     author: 'Fuman Alam',
+  //     description: 'A gripping tale of...',
+  //     price: 22.99,
+  //     stock: 8,
+  //     image: 'https://harpercollins.co.uk/cdn/shop/files/x9780008537760_668991cc-5323-4f83-8c89-0052afc21a23.jpg?v=1741251116&width=350'
+  //   },
+  //   {
+  //     book_id: 4,
+  //     title: 'War and Peace',
+  //     author: 'Leo Tolstoy',
+  //     description: 'A story of ambition and...',
+  //     price: 19.99,
+  //     stock: 15,
+  //     image: 'https://m.media-amazon.com/images/I/81oHM-dzefL.jpg'
+  //   },
+  //   {
+  //     book_id: 5,
+  //     title: 'One Hundred Years of Solitude',
+  //     author: 'Gabriel García Márquez',
+  //     description: 'A story of ambition and...',
+  //     price: 29.99,
+  //     stock: 15,
+  //     image: 'https://www.alpiedelaletralibreria.com/imagenes/9780241/978024196858.JPG'
+  //   },
+  //   {
+  //     book_id: 6,
+  //     title: 'Animal Farm',
+  //     author: 'George Orwell',
+  //     description: 'A story of ambition and...',
+  //     price: 11.94,
+  //     stock: 15,
+  //     image: 'https://prodimage.images-bn.com/pimages/9789390909001_p0_v1_s600x595.jpg'
+  //   }
+  // ];
 
 
 }
