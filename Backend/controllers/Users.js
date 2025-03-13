@@ -1,8 +1,11 @@
+import crypto from 'node:crypto';
 import process from 'node:process';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import CustomError from '../helpers/CustomError.js';
+import Email from '../helpers/email.js';
 import {Admin, Customer, User} from '../models/Allusres.js';
+import {validate} from '../validators/usersValidator.js';
 
 export const registerUser = async (req, res, next) => {
   try {
@@ -20,6 +23,9 @@ export const registerUser = async (req, res, next) => {
     } else {
       newUser = new Customer({name, email, password, role});
     }
+
+    const url = `${req.protocol}://${req.get('host')}/users/login`;
+    await new Email(newUser, url).sendWelcome();
     await newUser.save();
     res.status(201).json({message: 'Account created successfully', user: newUser});
   } catch (error) {
@@ -86,4 +92,46 @@ export const deleteUser = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+export const forgetPassword = async (req, res, next) => {
+  try {
+    const user = await User.findOne({email: req.body.email});
+    if (!user) throw new CustomError('There is no user with email address.', 404);
+
+    const resetToken = user.createPasswordResetToken();
+    await user.save();
+
+    try {
+      const resetURL = `${req.protocol}://${req.get('host')}/users/resetPassword/${resetToken}`;
+      await new Email(user, resetURL).sendPasswordReset();
+
+      res.status(200).json({
+        status: 'success',
+        message: 'Token sent to email!'
+      });
+    } catch (emailError) {
+      console.error('Email sending error:', emailError);
+      throw new CustomError('Failed to send email. Please try again later.', 500);
+    }
+  } catch (error) {
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save();
+
+    next(new CustomError(error.message || 'There was an error sending the email, Try again later!', error.status || 500));
+  }
+};
+
+export const resetPassword = async (req, res, next) => {
+  const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+  const user = await User.findOne({passwordResetToken: hashedToken, passwordResetExpires: {$gt: Date.now()}});
+
+  if (!user) throw new CustomError('Token is invalid or expired!', 400);
+  user.password = req.body.password;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  await user.save();
+
+  res.status(200).json({message: 'Password changed successfully!'});
 };
