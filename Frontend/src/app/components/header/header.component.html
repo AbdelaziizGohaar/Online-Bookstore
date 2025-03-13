@@ -17,9 +17,9 @@
         <div class=" mr-5 rounded-xl bg-white px-4 py-8">
           <div class="mb-2 flex">
             <div class="mr-1 w-full">
-              <input type="text" class="placeholder:text-gray-400 h-12 w-full rounded-md bg-gray-200 px-4 font-medium focus:outline-none focus:ring-1 focus:ring-purple-900" placeholder="Search..." [formControl]="searchControl" (keyup.enter)="search()"/>
+              <input type="text" class="placeholder:text-gray-400 h-12 w-full rounded-md bg-gray-200 px-4 font-medium focus:outline-none focus:ring-1 focus:ring-orange-900" placeholder="Search..." [formControl]="searchControl" (keyup.enter)="search()"/>
             </div>
-            <button class="shrink-0 flex h-12 w-12 items-center justify-center rounded-lg bg-purple-900 text-white hover:bg-white hover:text-purple-900 "
+            <button class="shrink-0 flex h-12 w-12 items-center justify-center rounded-lg bg-orange-900 text-white hover:bg-white hover:text-orange-900 "
             (click)="search()">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
@@ -73,8 +73,8 @@
 <header
   class="text-slate-700 container relative mx-auto flex flex-col overflow-hidden px-4 py-4 lg:flex-row lg:items-center">
   <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-    <img src="/favicon.png" class="h-8" alt="Booket Logo">
-    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">BOOKET</span>
+    <img src="/favicon.avif" class="h-8" alt="Booket Logo">
+    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-orange-950">BOOKET</span>
   </a>
   <input type="checkbox" class="peer hidden" id="navbar-open" />
   <label class="absolute top-5 right-5 cursor-pointer lg:hidden" for="navbar-open">
