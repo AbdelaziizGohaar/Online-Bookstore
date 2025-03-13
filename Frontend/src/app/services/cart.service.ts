@@ -48,4 +48,8 @@ export class CartService {
       error: (err) => console.error('Failed to remove item', err)
     });
   }
+
+  checkout(): Observable<{ checkoutSession: any }> {
+    return this.http.post<{ checkoutSession: any }>(`http://localhost:3000/checkout`, {});
+  }
 }
