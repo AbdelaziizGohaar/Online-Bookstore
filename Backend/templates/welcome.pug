@@ -1,0 +1,74 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Welcome to Our Bookstore!
+    style.
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color:rgb(92, 7, 141);
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      p {
+        margin-bottom: 20px;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: rgb(92, 7, 141);
+        color: rgb(255, 255, 255) !important;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      .button:hover{
+        background-color: rgb(40, 3, 61);
+      }
+      .highlight {
+        font-weight: bold;
+        color: white;
+      }
+
+  body
+    .container
+      h1 Welcome to #[strong Our Bookstore!]
+      p Dear #[strong #{name}],
+
+      p We're thrilled to welcome you to our community of book lovers! Thank you for joining our bookstore website.
+
+      p Discover a world of stories, knowledge, and adventure within our vast collection. Whether you're a fan of classic literature, thrilling mysteries, or insightful non-fiction, we have something for everyone.
+
+      p Here are a few things you can do now:
+
+      ul
+        li Browse our latest arrivals and bestsellers.
+        li Create your personalized wishlist.
+        li Join our book club and discussions.
+        li Take advantage of exclusive member discounts.
+
+      p Start exploring today!
+
+      p
+        a.button(href=`${url}`) Login NOW!
+
+      p If you have any questions or need assistance, please don't hesitate to contact our support team.
+
+      p Happy reading!
+
+      p Sincerely,<br>The Our Bookstore Team

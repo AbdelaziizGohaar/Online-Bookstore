@@ -7,17 +7,30 @@ import express from 'express';
 import morgan from 'morgan';
 import connectDB from './dbconfig/db.js';
 import errorHandler from './middlewares/errorHandler.js';
-
+import rateLimit from 'express-rate-limit';
 import router from './routes/index.js';
 
 dotenv.config();
-console.log('MONGO_URI:', process.env.MONGO_URI);
 
 const app = express();
+
+const logsDir = path.join('logs');
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir, {recursive: true}); // Create 'logs' directory if it doesn't exist
+}
 
 const logStream = fs.createWriteStream(path.join('logs', 'access.log'), {
   flags: 'a'
 });
+
+// Allow max 100 requests from the same IP address in one hour
+const limiter = rateLimit({
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: 'Too many requests from this IP, please try again later!'
+});
+
+app.use('/', limiter);
 
 app.use(morgan('common', {stream: logStream}));
 app.use(express.json());
@@ -27,7 +40,6 @@ app.use(router);
 app.use('/uploads', express.static('uploads'));
 
 connectDB();
-console.log('Connected to MongoDB successfully!');
 
 app.use(errorHandler);
 // app.use((err, req, res, next) => {

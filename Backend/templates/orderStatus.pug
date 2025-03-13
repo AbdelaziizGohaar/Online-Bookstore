@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Order Status Updated
+    style.
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      .container {
+        width: 80%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .status {
+        font-weight: bold;
+        color: #007bff;
+        margin-top: 10px;
+      }
+  body
+    .div.container
+      h1 Order Status Updated
+      p Your order status has been updated.
+      
+      p You can view your order details and track its shipment by clicking the button below:
+
+      p
+        a.button(href=`${orderUrl}`, style="display: inline-block; padding: 10px 20px; background-color: rgb(92, 7, 141); color: rgb(255, 255, 255); text-decoration: none; border-radius: 5px;") View Order
+
+      p If you have any questions, please don't hesitate to contact our customer support.
+
+      p Thank you for shopping with us!
+
+      p Sincerely,<br>The Our Bookstore Team

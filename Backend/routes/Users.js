@@ -1,5 +1,5 @@
 import express from 'express';
-import {deleteUser, getUserProfile, loginUser, registerUser, updateUser} from '../controllers/Users.js';
+import {deleteUser, getUserProfile, loginUser, registerUser, updateUser, forgetPassword, resetPassword} from '../controllers/Users.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 import {registerValidation, updateValidation, validate} from '../validators/usersValidator.js';
 // import bcrypt from 'bcrypt';
@@ -17,5 +17,9 @@ router.get('/', authMiddleware, getUserProfile);
 router.put('/', authMiddleware, validate(updateValidation), updateUser);
 // delete info abount current user
 router.delete('/', authMiddleware, deleteUser);
+
+router.post('/forgotPassword', forgetPassword);
+
+router.patch('/resetPassword/:token', resetPassword);
 
 export default router;
