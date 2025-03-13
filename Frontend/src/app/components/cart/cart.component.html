@@ -1,19 +1,19 @@
-<section class="h-screen bg-gray-100 py-12 sm:py-16 lg:py-20">
+<section class="h-screen bg-orange-50 py-12 sm:py-16 lg:py-20">
   <div class="mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-center">
-      <h1 class="text-2xl font-semibold text-gray-900">Your Shopping Cart</h1>
+      <h1 class="text-2xl font-semibold text-orange-950">Your Shopping Cart</h1>
     </div>
     @if(cart.totalItemNum === 0){
       <div class="mx-auto mt-8 max-w-2xl md:mt-12">
         <div class="flex flex-col items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
-          <h5 class="mt-4 text-center text-2xl font-semibold text-gray-500">Your cart is empty</h5>
+          <h5 class="mt-4 text-center text-2xl font-semibold text-orange-500">Your cart is empty</h5>
         </div>
         <div class="mt-6 text-center">
           <button routerLink="/" type="button"
-            class="group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
+            class="group inline-flex w-full items-center justify-center rounded-md bg-orange-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-orange-800">
             Continue Shopping
             <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:ml-8 ml-4 h-6 w-6 transition-all" fill="none"
               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -39,24 +39,24 @@
                 <div class="relative flex flex-1 flex-col justify-between">
                   <div class="sm:col-gap-5 sm:grid sm:grid-cols-2">
                     <div class="pr-8 sm:pr-5">
-                      <p class="text-base font-semibold text-gray-900">{{ books[item.book_id]?.title }}</p>
-                      <p class="mx-0 mt-1 mb-0 text-sm text-gray-400">{{ books[item.book_id]?.author }}</p>
+                      <p class="text-base font-semibold text-orange-900">{{ books[item.book_id]?.title }}</p>
+                      <p class="mx-0 mt-1 mb-0 text-sm text-orange-400">{{ books[item.book_id]?.author }}</p>
                     </div>
 
                     <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
-                      <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
+                      <p class="shrink-0 w-20 text-base font-semibold text-orange-900 sm:order-2 sm:ml-8 sm:text-right">
                         {{ books[item.book_id]?.price | currency:'USD':'symbol':'1.2-2' }}</p>
 
                       <div class="sm:order-1">
-                        <div class="mx-auto flex h-8 items-stretch text-gray-600">
+                        <div class="mx-auto flex h-8 items-stretch text-orange-600">
                           <button (click)="updateItem(item.book_id, item.booknum - 1)"
-                            class="flex items-center justify-center rounded-l-md bg-gray-200 px-4 transition hover:bg-black hover:text-white">
+                            class="flex items-center justify-center rounded-l-md bg-orange-200 px-4 transition hover:bg-orange-900 hover:text-white">
                             -</button>
                           <div
-                            class="flex w-full items-center justify-center bg-gray-100 px-4 text-xs uppercase transition">
+                            class="flex w-full items-center justify-center bg-orange-50 px-4 text-xs uppercase transition">
                             {{ item.booknum }}</div>
                           <button (click)="updateItem(item.book_id, item.booknum + 1)"
-                            class="flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white">
+                            class="flex items-center justify-center rounded-r-md bg-orange-200 px-4 transition hover:bg-orange-900 hover:text-white">
                             +</button>
                         </div>
                       </div>
@@ -65,7 +65,7 @@
 
                   <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
                     <button (click)="removeItem(item.book_id)" type="button"
-                      class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
+                      class="flex rounded p-2 text-center text-orange-500 transition-all duration-200 ease-in-out focus:shadow hover:text-orange-900">
                       <svg class="block h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"
@@ -81,23 +81,23 @@
 
           <div class="mt-6 border-t border-b py-2">
             <div class="flex items-center justify-between">
-              <p class="text-sm text-gray-400">Subtotal</p>
-              <p class="text-lg font-semibold text-gray-900">{{ getSubtotal() | currency:'USD':'symbol':'1.2-2'}}</p>
+              <p class="text-sm text-orange-400">Subtotal</p>
+              <p class="text-lg font-semibold text-orange-900">{{ getSubtotal() | currency:'USD':'symbol':'1.2-2'}}</p>
             </div>
             <div class="flex items-center justify-between">
-              <p class="text-sm text-gray-400">totalItem</p>
-              <p class="text-lg font-semibold text-gray-900">{{cart.totalItemNum}}</p>
+              <p class="text-sm text-orange-400">totalItem</p>
+              <p class="text-lg font-semibold text-orange-900">{{cart.totalItemNum}}</p>
             </div>
           </div>
           <div class="mt-6 flex items-center justify-between">
-            <p class="text-sm font-medium text-gray-900">Total</p>
-            <p class="text-2xl font-semibold text-gray-900"><span class="text-xs font-normal text-gray-400">USD</span>
+            <p class="text-sm font-medium text-orange-900">Total</p>
+            <p class="text-2xl font-semibold text-orange-900"><span class="text-xs font-normal text-orange-400">USD</span>
               {{ getSubtotal() | currency:'USD':'symbol':'1.2-2'}}</p>
           </div>
 
           <div class="mt-6 text-center">
             <button (click)="onCheckout()" type="button"
-              class="group inline-flex w-full items-center justify-center rounded-md bg-purple-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-purple-800">
+              class="group inline-flex w-full items-center justify-center rounded-md bg-orange-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-orange-800">
               Checkout
               <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:ml-8 ml-4 h-6 w-6 transition-all" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
