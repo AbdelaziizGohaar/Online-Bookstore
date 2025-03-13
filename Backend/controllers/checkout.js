@@ -39,7 +39,7 @@ export const createCheckoutSession = async (userId) => {
     line_items: lineItems,
     mode: 'payment',
     success_url: `${process.env.FRONTEND_URL}/checkout/success`, // Redirect URL after successful payment
-    cancel_url: `${process.env.FRONTEND_URL}/checkout/cancel`, // Redirect URL after canceled payment
+    cancel_url: `${process.env.FRONTEND_URL}/checkout/failed`, // Redirect URL after failed payment
     metadata: {
       userId: userId.toString() // Pass user ID for order creation
     }
