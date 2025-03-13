@@ -26,7 +26,7 @@ export const createCheckoutSession = async (userId) => {
           product_data: {
             name: book.title
           },
-          unit_amount: book.price * 100 // Convert to cents
+          unit_amount: Math.round(book.price * 100) // Convert to cents
         },
         quantity: item.booknum
       };

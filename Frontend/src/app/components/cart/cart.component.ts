@@ -5,10 +5,11 @@ import { Cart } from '../../types/cart';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../types/book';
 import { RouterLink } from '@angular/router';
+import { CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, CurrencyPipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -47,11 +48,6 @@ export class CartComponent {
       return total;
     }, 0);
   }
-  
-  shippingCost:number = 10.00;
-  getTotal(): number {  
-    return this.getSubtotal() + this.shippingCost;
-  }
 
   updateItem(bookId: number, quantity: number): void {
     this.cartService.updateItem(bookId, quantity);
@@ -64,7 +60,7 @@ export class CartComponent {
   onCheckout() {
     this.cartService.checkout().subscribe({
       next: (response) => {
-        window.location.href = response.checkoutSession.url; // Redirect to Stripe
+        window.location.href = response.checkoutSession.url;
       },
       error: (err) => console.error('Checkout failed', err),
     });
