@@ -44,5 +44,8 @@ Thumbs.db
 # Ignore package files
 /package-lock.json
 /package.json
+/postcss.config.js
+/postcssrc.json
+/tailwind.config.js
 
 

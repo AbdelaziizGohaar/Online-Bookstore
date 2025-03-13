@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
@@ -15,6 +13,7 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { SignupComponent } from './components/sign-up/signup.component'; //update
 
 
 export const routes: Routes = [
@@ -34,22 +33,14 @@ export const routes: Routes = [
       ),
     title: 'Books | Booket'
   },
-  {
-    path: 'login',
+  { path: 'signup', 
     loadComponent: () =>
-      import('./components/login/login.component').then(
-        (m) => m.LoginComponent
-      ),
-    title: 'Login'
-  },
-  {
-    path: 'register',
-    loadComponent: () =>
-      import('./components/register/register.component').then(
-        (m) => m.RegisterComponent
-      ),
-    title: 'Register'
-  },
+        import('./components/sign-up/signup.component').then(
+          (m) => m.SignupComponent
+        ), 
+    title: 'Signup'
+},
+  
   {
     path: 'book-details/:id',
     loadComponent: () =>
@@ -128,5 +119,6 @@ export const routes: Routes = [
       ),
     title: 'Not Found Page'
   },
+
 
 ];
