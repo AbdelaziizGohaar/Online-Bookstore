@@ -1,0 +1,112 @@
+
+ <div class="flex items-center justify-center min-h-screen bg-gray-200">
+  <div class="relative flex w-[900px] h-[500px] rounded-2xl overflow-hidden shadow-lg bg-white">
+    
+    <!-- Blue Side-->
+    <div class="w-1/2 flex flex-col items-center justify-center bg-purple-900 text-white p-10">
+      <h2 class="text-2xl font-bold">Welcome!</h2>
+      <p class="mt-2">{{ isLoginMode ? "Don't have an account?" : "Already have an account?" }}</p>
+      <button (click)="toggleMode()" class="mt-4 px-4 py-2 bg-white text-purple-900 rounded-lg shadow-md">
+        {{ isLoginMode ? "Register" : "Login" }}
+      </button>
+    </div>
+
+    <!--  White Side -->
+    <div class="w-1/2 flex flex-col items-center justify-center bg-white p-10" [@slideAnimation]="animationState">
+      <h2 class="text-2xl font-bold">{{ isLoginMode ? "Login" : "Register" }}</h2>
+
+      <!--   Login Form -->
+      <form *ngIf="isLoginMode" [formGroup]="loginForm" (ngSubmit)="login()" class="w-full max-w-sm">
+        <input type="email" formControlName="email" placeholder="Email" class="w-full p-2 border rounded mt-4" />
+        <p *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-red-500 text-sm">
+          <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</small>
+          <small *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format.</small>
+        </p>
+
+        <div class="relative w-full">
+          <input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="Password" class="w-full p-2 border rounded mt-4" />
+          <button type="button" (click)="togglePasswordVisibility()" class="absolute right-3 top-5 text-gray-600">
+            <i class="fas" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
+          <small *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</small>
+          <small *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</small>
+          <small *ngIf="loginForm.get('password')?.errors?.['pattern']">Password must include uppercase, lowercase, and a number.</small>
+        </div>
+
+        <button type="submit" class="w-full bg-purple-900 text-white p-2 rounded mt-4">Login</button>
+        <p class="flex justify-center text-sm text-gray-500 mt-4 ">or login with social platforms</p>
+          <div class="flex justify-center gap-4 mt-3">
+            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+                <i class="bx bxl-google text-2xl text-gray-600"></i>
+            </a>
+            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+                <i class="bx bxl-facebook text-2xl text-blue-600"></i>
+            </a>
+            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+                <i class="bx bxl-github text-2xl text-gray-800"></i>
+            </a>
+            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+                <i class="bx bxl-linkedin text-2xl text-blue-700"></i>
+            </a>
+        </div>
+      </form>
+
+      <!--  Rigister Form -->
+      <form *ngIf="!isLoginMode" [formGroup]="registerForm" (ngSubmit)="register()" class="w-full max-w-sm">
+        <input type="text" formControlName="name" placeholder="Name" class="w-full p-2 border rounded mt-4" />
+        <div *ngIf="formSubmitted && registerForm.get('name')?.invalid" class="text-red-500 text-sm mt-1">
+          <small *ngIf="registerForm.get('name')?.errors?.['required']">Name is required.</small>
+          <small *ngIf="registerForm.get('name')?.errors?.['pattern']">Name must contain only letters.</small>
+        </div>
+
+        <input type="email" formControlName="email" placeholder="Email" class="w-full p-2 border rounded mt-4" />
+        <div *ngIf="formSubmitted && registerForm.get('email')?.invalid" class="text-red-500 text-sm mt-1">
+          <small *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</small>
+          <small *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format.</small>
+        </div>
+
+        <div class="relative w-full">
+          <input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="Password" class="w-full p-2 border rounded mt-4" />
+          <button type="button" (click)="togglePasswordVisibility()" class="absolute right-3 top-5 text-gray-600">
+            <i class="fas" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <div *ngIf="formSubmitted && registerForm.get('password')?.invalid" class="text-red-500 text-sm mt-1">
+          <small *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</small>
+          <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters.</small>
+          <small *ngIf="registerForm.get('password')?.errors?.['pattern']">Password must include uppercase, lowercase, and a number.</small>
+        </div>
+
+        <div class="relative w-full">
+          <input [type]="isConfirmPasswordVisible ? 'text' : 'password'" formControlName="confirmPassword" placeholder="Confirm Password" class="w-full p-2 border rounded mt-4" />
+          <button type="button" (click)="toggleConfirmPasswordVisibility()" class="absolute right-3 top-5 text-gray-600">
+            <i class="fas" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <p *ngIf="registerForm.hasError('passwordNotMatch')" class="text-red-500 text-sm">
+          Passwords do not match.
+        </p>
+
+        <button type="submit" class="w-full bg-purple-900 text-white p-2 rounded mt-4">Register</button>
+        <p class="flex justify-center text-sm text-gray-500 mt-4">or login with social platforms</p>
+          <div class="flex justify-center gap-4 mt-3">
+            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+                <i class="bx bxl-google text-2xl text-gray-600"></i>
+            </a>
+            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+                <i class="bx bxl-facebook text-2xl text-blue-600"></i>
+            </a>
+            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+                <i class="bx bxl-github text-2xl text-gray-800"></i>
+            </a>
+            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+                <i class="bx bxl-linkedin text-2xl text-blue-700"></i>
+            </a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
