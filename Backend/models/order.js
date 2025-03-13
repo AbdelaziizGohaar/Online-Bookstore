@@ -9,12 +9,12 @@ const PaymentSchema = new mongoose.Schema({
   },
   paymentMethod: {
     type: String,
-    required: true, // e.g., "Credit Card", "PayPal", "Stripe"
+    required: false, // e.g., "Credit Card", "PayPal", "Stripe"
     enum: ['credit_card', 'paypal', 'stripe']
   },
   amount_paid: {
     type: Number,
-    required: true,
+    required: false,
     validate: {
       validator(value) {
         return value <= this.parent().totalPrice; // Ensure amount_paid <= totalPrice
@@ -66,7 +66,7 @@ const OrderSchema = new mongoose.Schema({
       },
       quantity: {
         type: Number,
-        required: true,
+        required: false,
         min: 1
       }
     }

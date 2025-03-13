@@ -6,7 +6,7 @@ const orderValidationSchema = Joi.object({
     .items(
       Joi.object({
         book_id: Joi.number().required(),
-        book_name: Joi.string().required(),
+        // book_name: Joi.string().required(),
         quantity: Joi.number().min(1).required()
       })
     )

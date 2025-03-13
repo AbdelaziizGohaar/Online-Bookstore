@@ -55,7 +55,8 @@ export const createCheckoutSession = async (userId) => {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${process.env.FRONTEND_URL}/checkout/success`,
+      // success_url: `${process.env.FRONTEND_URL}/checkout/success`,
+      success_url: `${process.env.FRONTEND_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`, // Include session_id
       cancel_url: `${process.env.FRONTEND_URL}/checkout/cancel`,
       metadata: {
         cartItems: JSON.stringify(cartItems)

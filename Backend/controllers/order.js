@@ -1,12 +1,12 @@
 // import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import CustomError from '../helpers/CustomError.js';
+import Email from '../helpers/email.js';
 import {Customer, User} from '../models/Allusres.js';
 import Book from '../models/Book.js';
 import Orders from '../models/order.js';
-import {orderValidationSchema, updateOrderValidationSchema} from '../validators/orderValidation.js';
-import Email from '../helpers/email.js';
-
+// import {orderValidationSchema, updateOrderValidationSchema} from '../validators/orderValidation.js';
+import {updateOrderValidationSchema} from '../validators/orderValidation.js';
 // ==== find by order by id======
 const getOrder = async (order_id) => {
   // validation
@@ -23,17 +23,85 @@ const getOrder = async (order_id) => {
 };
 
 // ==== create order ======
-const addOrder = async (data, user_id, req) => {
-  data.user_id = user_id;
+// const addOrder = async (data, user_id, req) => {
+//   data.user_id = user_id;
 
+//   // Debugging logs
+//   console.log('User ID from authMiddleware:', user_id);
+//   console.log('Data user_id:', data.user_id);
+
+//   const {error} = orderValidationSchema.validate(data);
+//   if (error) {
+//     throw new CustomError(error.details[0].message, 400);
+//   }
+
+//   // Start a Mongoose session
+//   const session = await mongoose.startSession();
+//   session.startTransaction();
+
+//   try {
+//     // Check if user exists
+//     const userExists = await Customer.findOne({user_id: Number(data.user_id)}).session(session); // Ensure correct collection name
+//     if (!userExists) {
+//       console.log('User not found in DB:', data.user_id, typeof data.user_id);
+//       throw new CustomError('Not Found, Wrong User Id', 404);
+//     }
+
+//     // Check if books exist and validate stock
+//     for (const item of data.books) {
+//       const bookExists = await Book.findOne({book_id: item.book_id}).session(session);
+//       if (!bookExists) {
+//         throw new CustomError(`Book with ID ${item.book_id} not found`, 404);
+//       } else {
+//         // Check if stock is enough
+//         if (item.quantity > bookExists.stock) {
+//           throw new CustomError(`Not enough stock for book ID ${item.book_id}. Available: ${bookExists.stock}`, 400);
+//         } else {
+//           item.book_name = bookExists.title;
+//           item.price = bookExists.price;
+//           // Reduce stock
+//           bookExists.stock -= item.quantity;
+//           await bookExists.save({session}); // Save updated stock within the session
+//         }
+//       }
+//     }
+
+//     // Create the order
+//     const order = await Orders.create([data], {session});
+
+//     // Commit the transaction
+//     await session.commitTransaction();
+//     session.endSession();
+//     try {
+//       const orderURL = `${req.protocol}://${req.get('host')}/order`;
+//       await new Email(userExists, orderURL).sendOrderConfiramtion();
+//     } catch (emailError) {
+//       console.error('Email sending error:', emailError);
+//       throw new CustomError('Failed to send email. Please try again later.', 500);
+//     }
+//     return order;
+//   } catch (error) {
+//     // If any error occurs, abort the transaction
+//     await session.abortTransaction();
+//     session.endSession();
+//     throw new CustomError(error.message, 500);
+//   }
+// };
+
+// ============================================================ add order Payment =======================================
+const addOrder = async (data, req, paymentDetails = null) => {
+  // data.user_id = req.user_id;
+
+  console.log('req', req);
+  console.log('paymentDetails', paymentDetails);
   // Debugging logs
-  console.log('User ID from authMiddleware:', user_id);
+  console.log('User ID from authMiddleware:', data.user_id);
   console.log('Data user_id:', data.user_id);
 
-  const {error} = orderValidationSchema.validate(data);
-  if (error) {
-    throw new CustomError(error.details[0].message, 400);
-  }
+  // const {error} = orderValidationSchema.validate(data);
+  // if (error) {
+  //   throw new CustomError(error.details[0].message, 400);
+  // }
 
   // Start a Mongoose session
   const session = await mongoose.startSession();
@@ -54,16 +122,28 @@ const addOrder = async (data, user_id, req) => {
         throw new CustomError(`Book with ID ${item.book_id} not found`, 404);
       } else {
         // Check if stock is enough
-        if (item.quantity > bookExists.stock) {
+        if (item.booknum > bookExists.stock) {
           throw new CustomError(`Not enough stock for book ID ${item.book_id}. Available: ${bookExists.stock}`, 400);
         } else {
           item.book_name = bookExists.title;
           item.price = bookExists.price;
           // Reduce stock
-          bookExists.stock -= item.quantity;
+          bookExists.stock -= item.booknum;
+          console.log('booknum', item.booknum);
+          console.log('data.books', data.books);
           await bookExists.save({session}); // Save updated stock within the session
         }
       }
+    }
+
+    // Add payment details to the order if provided
+    if (paymentDetails) {
+      data.payment = {
+        payment_id: paymentDetails.payment_id,
+        payment_method: paymentDetails.payment_method,
+        amount_paid: paymentDetails.amount_paid,
+        currency: paymentDetails.currency
+      };
     }
 
     // Create the order
@@ -72,6 +152,7 @@ const addOrder = async (data, user_id, req) => {
     // Commit the transaction
     await session.commitTransaction();
     session.endSession();
+
     try {
       const orderURL = `${req.protocol}://${req.get('host')}/order`;
       await new Email(userExists, orderURL).sendOrderConfiramtion();
@@ -79,6 +160,7 @@ const addOrder = async (data, user_id, req) => {
       console.error('Email sending error:', emailError);
       throw new CustomError('Failed to send email. Please try again later.', 500);
     }
+
     return order;
   } catch (error) {
     // If any error occurs, abort the transaction

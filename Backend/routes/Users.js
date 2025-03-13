@@ -1,5 +1,5 @@
 import express from 'express';
-import {deleteUser, getUserProfile, loginUser, registerUser, updateUser, forgetPassword, resetPassword} from '../controllers/Users.js';
+import {deleteUser, forgetPassword, getUserProfile, loginUser, registerUser, resetPassword, updateUser} from '../controllers/Users.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 import {registerValidation, updateValidation, validate} from '../validators/usersValidator.js';
 // import bcrypt from 'bcrypt';
