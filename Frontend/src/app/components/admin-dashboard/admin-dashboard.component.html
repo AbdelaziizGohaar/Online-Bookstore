@@ -1,10 +1,10 @@
 <div class="container mx-auto p-6">
   <!-- Dashboard Header -->
   <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-    <h1 class="text-4xl font-bold text-gray-900">Your Book Dashboard</h1>
+    <h1 class="text-4xl font-bold text-orange-900">Your Book Dashboard</h1>
     <button 
       (click)="goToAddBook()" 
-      class="mt-4 md:mt-0 bg-white-600 text-green px-6 py-3 rounded-lg hover:bg-white-700 border-2 border-green-900 shadow-lg transition-transform hover:scale-105"
+      class="mt-4 md:mt-0 bg-white-600 text-orange px-6 py-3 rounded-lg hover:bg-white-700 border-2 border-orange-900 shadow-lg transition-transform hover:scale-105"
     >
       + Add New Book
     </button>
@@ -15,7 +15,7 @@
     <table class="w-full border-collapse">
       <!-- Table Head -->
       <thead>
-        <tr class="bg-gray-900 text-white">
+        <tr class="bg-orange-900 text-white">
           <th class="p-4 text-left">Title</th>
           <th class="p-4 text-left hidden md:table-cell">Author</th>
           <th class="p-4 text-center">Price ($)</th>
@@ -25,17 +25,17 @@
       </thead>
 
       <!-- Table Body -->
-      <tbody class="divide-y divide-gray-300 bg-gray-50">
+      <tbody class="divide-y divide-orange-300 bg-orange-50">
         @for (book of books; track book.book_id) {
-          <tr class="hover:bg-gray-100 transition">
-            <td class="p-4 text-gray-900 font-semibold">
+          <tr class="hover:bg-orange-100 transition">
+            <td class="p-4 text-orange-900 font-semibold">
               <div class="flex items-center space-x-4">
                 <span>{{ book.title }}</span>
               </div>
             </td>
-            <td class="p-4 text-gray-700 hidden md:table-cell">{{ book.author }}</td>
-            <td class="p-4 text-center text-gray-900 font-medium">${{ book.price }}</td>
-            <td class="p-4 text-center text-gray-700 hidden md:table-cell">{{ book.stock }}</td>
+            <td class="p-4 text-orange-700 hidden md:table-cell">{{ book.author }}</td>
+            <td class="p-4 text-center text-orange-900 font-medium">${{ book.price }}</td>
+            <td class="p-4 text-center text-orange-700 hidden md:table-cell">{{ book.stock }}</td>
             <td class="p-4 flex justify-center space-x-3">
                   <!-- Edit Button (Pencil Icon) -->
                   <button 
