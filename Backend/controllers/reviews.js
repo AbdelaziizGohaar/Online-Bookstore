@@ -6,13 +6,26 @@ import Review from '../models/Review.js';
 
 const getReviews = async (req) => {
   const bookId = req.query.bookid;
+  console.log(bookId);
   try {
     const bookExists = await Book.findOne({book_id: bookId});
     if (!bookExists) throw new CustomError('Book ID does not exist', 404);
 
-    const reviews = await Review.find({book_id: bookId});
+    const reviews = await Review.find({book_id: bookId}).populate();
     if (!reviews) throw new CustomError('Book does not has reviews');
-    return reviews;
+    const userIds = reviews.map(review => review.user_id);
+    const users = await User.find({ user_id: { $in: userIds } }).select('user_id name');
+
+    // Merge user names into reviews
+    const reviewsWithNames = reviews.map(review => {
+      const user = users.find(u => u.user_id === review.user_id);
+      return {
+        ...review._doc,
+        user_name: user ? user.name : 'Unknown User'
+      };
+    });
+    console.log(reviewsWithNames);
+    return reviewsWithNames;
   } catch (error) {
     throw new CustomError(error.message || 'Failed to get book review', error.status || 422);
   }
@@ -20,8 +33,9 @@ const getReviews = async (req) => {
 
 const addReview = async (req) => {
   try {
-    const user_id = req.user.userID;
-    console.log(req.body);
+    const user_id = req.user.user_id;
+    console.log("User id", user_id);
+    console.log("Add Review",req.body);
     const {book_id, rating, review} = req.body;
 
     const userExists = await User.findOne({user_id});
@@ -42,7 +56,7 @@ const addReview = async (req) => {
 
 const updateReview = async (req) => {
   try {
-    const user_id = req.user.userID;
+    const user_id = req.user.user_id;
     const reviewId = req.params.id;
     const {rating, review} = req.body;
     const reviewExists = await Review.findOne({review_id: reviewId, user_id});
@@ -60,7 +74,7 @@ const updateReview = async (req) => {
 
 const deleteReview = async (req) => {
   try {
-    const user_id = req.user.userID;
+    const user_id = req.user.user_id;
     const reviewId = req.params.id;
     const reviewExists = await Review.findOne({review_id: reviewId, user_id});
     if (!reviewExists) throw new CustomError('Review not found or not authorized to delete', 403);
