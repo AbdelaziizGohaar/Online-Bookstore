@@ -24,12 +24,12 @@
                     @for (book of order.books; track book.book_id) {
                     <li class="flex items-center space-x-4">
                         <!-- Book Image -->
-                        <img [src]="book.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgUfwRTH-egkhJgeJJRY-TvGpTf_QlvASe9A&s/150'"
+                        <img [src]="book.image"
                             alt="{{ book.book_name }}" class="w-16 h-24 object-cover rounded-lg shadow-sm">
                         <!-- Book Details -->
                         <div>
                             <p class="text-gray-900 font-medium">{{ book.book_name }}</p>
-                            <p class="text-gray-600">{{ book.quantity }} </p>
+                            <p class="text-gray-600">{{ book.booknum }} </p>
                         </div>
                     </li>
                     }

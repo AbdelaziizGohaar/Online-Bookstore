@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../types/order';
 import { CommonModule } from '@angular/common';
+import { Book } from '../../types/book';
+import { BookService } from '../../services/book.service';
 
 @Component({
   selector: 'app-order-details',
@@ -14,7 +16,8 @@ import { CommonModule } from '@angular/common';
 export class OrderDetailsComponent implements OnInit {
   order!: Order; // Order details
   isLoading: boolean = true; // Loading state
-
+  backendUrl = 'http://localhost:3000';
+  bookService = inject(BookService);
   constructor(
     private route: ActivatedRoute,
     private orderService: OrderService
@@ -32,6 +35,17 @@ export class OrderDetailsComponent implements OnInit {
     this.orderService.getOrderDetails(id).subscribe({
       next: (data) => {
         this.order = data;
+
+        this.order.books.forEach((book, index) => {
+          this.bookService.getBookDetails(book.book_id).subscribe((data) => {
+            this.order.books[index] = {
+              ...book,
+              book_name: data.title,
+              image: `http://localhost:3000${data.image}`
+            };
+            console.log(this.order.books);
+          });
+        });
         this.isLoading = false; // Stop loading
       },
       error: (error) => {

@@ -100,3 +100,17 @@ export const removeItem = async (data) => {
 
   return updatedCustomer.cart;
 };
+
+export const removeAllItem = async (userId) => {
+  const [errCustomer, customer] = await asyncWrapper(Customer.findOne({user_id: userId}));
+  if (errCustomer) throw new CustomError(errCustomer.message, 500);
+  if (!customer) throw new CustomError('Customer not found', 404);
+
+  customer.cart.totalItemNum = 0;
+  customer.cart.arrayOfBooks = [];
+
+  const [errSave, updatedCustomer] = await asyncWrapper(customer.save());
+  if (errSave) throw new CustomError(errSave.message, 500);
+
+  return updatedCustomer.cart;
+};
