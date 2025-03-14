@@ -25,7 +25,7 @@ const logStream = fs.createWriteStream(path.join('logs', 'access.log'), {
 
 // Allow max 100 requests from the same IP address in one hour
 const limiter = rateLimit({
-  max: 100,
+  max: 900,
   windowMs: 60 * 60 * 1000,
   message: 'Too many requests from this IP, please try again later!'
 });
