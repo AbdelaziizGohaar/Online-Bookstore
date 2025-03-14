@@ -23,14 +23,14 @@
 //   }
 // }  
 
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -39,46 +39,54 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  
   cartService = inject(CartService);
   authService = inject(AuthService);
- // router = inject(Router);
+  router = inject(Router);
 
   cartItem: number = 0;
 
-  isLoggedIn: boolean = false;
-
-
   searchControl = new FormControl('');
-  constructor(private router: Router) { }
+
+  isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
+  userRole$: Observable<string | null> = this.authService.userRole$;
+  
+
+  //constructor(private router: Router) { }
+  constructor() {}
 
   ngOnInit(): void {
-    //debug
-  console.log('User Logged In:', this.authService.isAuthenticated()); //update
-  console.log('Cart Items:', this.cartService.getCartItems()); //update
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.userRole$ = this.authService.userRole$;
+
+    this.authService.refreshUserRole();
+
+    this.userRole$.subscribe(role => console.log('User Role from Observable:', role));
+    this.isLoggedIn$.subscribe(status => console.log('Login Status:', status));
+
+    // اشترك في حالة تسجيل الدخول حتى يتغير الـ header تلقائيًا عند تسجيل الدخول أو الخروج
+    
+
+    // متابعة التغييرات في عدد العناصر في السلة
     this.cartService.cart$.subscribe(cart => {
       this.cartItem = cart ? cart.totalItemNum : 0;
-      console.log('Updated Cart Items:', this.cartItem);
     });
-    this.cartService.getCartItems();
-
-
-    this.isLoggedIn = this.authService.isAuthenticated();
   }
 
+  
 
   logout(): void {
     this.authService.logout();
-    this.isLoggedIn = false;
-    this.router.navigate(['/login']);
+   
+    this.router.navigate(['/']);
   }
 
   search() {
     let searchString = '';
     if (this.searchControl.value) {
        searchString = this.searchControl.value.trim();
-    }
-      
+    } 
       this.router.navigate([], {
         queryParams: { search: searchString }
       });
