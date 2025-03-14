@@ -8,8 +8,10 @@ import {Admin, Customer, User} from '../models/Allusres.js';
 import {validate} from '../validators/usersValidator.js';
 
 export const registerUser = async (req, res, next) => {
+  console.log(' Received Register Data:', req.body);
   try {
     const {name, email, password, role} = req.body;
+
     const validRoles = ['Admin', 'Customer'];
     const existuser = await User.findOne({email});
     if (!validRoles.includes(role)) {

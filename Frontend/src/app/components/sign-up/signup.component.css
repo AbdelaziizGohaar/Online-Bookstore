@@ -1,0 +1,63 @@
+.active-svg svg {
+          fill: currentColor; /* Fills the SVG with the current text color */
+        } 
+      
+        .nav-item {
+          position: relative;
+          font-size: 1.1rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          transition: color 0.3s ease-in-out;
+        }
+        
+        .nav-item::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 3px;
+          bottom: -5px;
+          left: 0;
+          background: linear-gradient(to right, #ff8a00, #e52e71);
+          transform: scaleX(0);
+          transform-origin: right;
+          transition: transform 0.3s ease-in-out;
+        }
+        
+        .nav-item:hover {
+          color: #ff8a00;
+        }
+        
+        .nav-item:hover::after {
+          transform: scaleX(1);
+          transform-origin: left;
+        }
+        
+      
+        .btn-btn {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .btn-btn:before {
+          content: "";
+          position: absolute;
+          background: linear-gradient(to right, #ff8a00, #e52e71);
+          height: 150px;
+          width: 200px;
+          top: 100%;
+          left: 100%;
+          transition: all 0.7s;
+          z-index: -1;
+        }
+        
+        .btn-btn:hover::before {
+          top: -30px;
+          left: -30px;
+        }
+        
+        .btn-btn:active::before {
+          background: #ff8a00;
+          transition: background 0s;
+        }
+        

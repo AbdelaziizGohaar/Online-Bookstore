@@ -89,10 +89,20 @@ export class SignupComponent {
         this.authService.register(name, email, password, 'Customer').subscribe({
           next: () => {
             this.isLoading = false;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
             this.router.navigate(['/signup']);
+=======
+            this.router.navigate(['/']);
+>>>>>>> Stashed changes
+=======
+            this.router.navigate(['/']);
+>>>>>>> Stashed changes
           },
           error: (error) => {
             this.isLoading = false;
+            console.error(" Registration Error:", error);
+            console.error(" Error Details:", error.error);
             this.errorMessage = error?.error?.message || 'Registration failed!';
           },
         });

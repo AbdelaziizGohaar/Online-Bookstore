@@ -1,7 +1,7 @@
+import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 import mongooseSequence from 'mongoose-sequence';
-import crypto from 'node:crypto';
 
 const AutoIncrement = mongooseSequence(mongoose);
 

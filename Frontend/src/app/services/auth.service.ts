@@ -22,6 +22,7 @@ export class AuthService {
 //send post req to users/ for create new user
   register(name:string, email:string, password:string, role:string):Observable<any>{
     //return user info after success operation 
+    console.log(" Sending Register Request:", { name, email, password, role });
     return this.http.post(`${this.API_URL}` , {name ,email ,password ,role});
   }
 
