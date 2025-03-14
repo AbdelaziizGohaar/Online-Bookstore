@@ -4,10 +4,10 @@ import process from 'node:process';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import connectDB from './dbconfig/db.js';
 import errorHandler from './middlewares/errorHandler.js';
+import rateLimit from 'express-rate-limit';
 import router from './routes/index.js';
 
 dotenv.config();
@@ -25,7 +25,7 @@ const logStream = fs.createWriteStream(path.join('logs', 'access.log'), {
 
 // Allow max 100 requests from the same IP address in one hour
 const limiter = rateLimit({
-  max: 10000000,
+  max: 100,
   windowMs: 60 * 60 * 1000,
   message: 'Too many requests from this IP, please try again later!'
 });

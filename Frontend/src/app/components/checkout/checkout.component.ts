@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../types/order';
 import { CurrencyPipe } from '@angular/common';
+import { CartService } from '../../services/cart.service';
 
 
 
@@ -14,6 +15,8 @@ import { CurrencyPipe } from '@angular/common';
   styleUrl: './checkout.component.css'
 })
 export class CheckoutComponent {
+  cartService = inject(CartService);
+
   paymentStatus: 'success' | 'failed' | 'pending' = 'pending';
   orderDetails: Order | null = null;
   metadata: any = null;
@@ -31,7 +34,7 @@ export class CheckoutComponent {
     if (url.includes('/checkout/success')) {
       this.paymentStatus = 'success';
       await this.fetchSessionMetadata(); // Fetch metadata from Stripe session
-
+      this.cartService.removeAllItem(); // Clear the cart after successful payment
       // this.fetchOrderDetails();
     } else if (url.includes('/checkout/failed')) {
       this.paymentStatus = 'failed';

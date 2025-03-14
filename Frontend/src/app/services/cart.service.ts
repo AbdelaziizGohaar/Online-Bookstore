@@ -49,6 +49,13 @@ export class CartService {
     });
   }
 
+  removeAllItem(): void {
+    this.http.delete<Cart>(`${this.apiUrl}`).subscribe({
+      next: (cart) => this.updateCart(cart),
+      error: (err) => console.error('Failed to remove cart item', err)
+    });
+  }
+
   checkout(): Observable<{ checkoutSession: any }> {
     return this.http.post<{ checkoutSession: any }>(`http://localhost:3000/checkout`, {});
   }
