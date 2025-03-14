@@ -4,10 +4,10 @@ import process from 'node:process';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import connectDB from './dbconfig/db.js';
 import errorHandler from './middlewares/errorHandler.js';
-import rateLimit from 'express-rate-limit';
 import router from './routes/index.js';
 
 dotenv.config();

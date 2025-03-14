@@ -8,6 +8,7 @@ import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-checkout',
+  standalone: true,
   imports: [CurrencyPipe, RouterLink], // Add CurrencyPipe to imports
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
