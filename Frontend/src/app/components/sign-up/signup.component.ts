@@ -99,29 +99,29 @@ export class SignupComponent {
       }
 
       login() {
-        if (this.loginForm.invalid) return;
-        this.errorMessage = '';
-        this.isLoading = true; 
-    
         const email = this.loginForm.value.email.trim(); 
         const password = this.loginForm.value.password.trim();
-    
+      
+       
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!emailRegex.test(email)) {
+          console.error("Invalid email format!");
+          this.errorMessage = "Invalid email format. Please enter a valid email address.";
+          return;
+        }
+      
         this.authService.login(email, password).subscribe({
           next: (response) => {
-            // for cheack if token send with login
             console.log('Login Response:', response);
             this.authService.saveToken(response.token);
             this.router.navigate(['/']);
           },
           error: (error) => {
-            console.warn("Login error:", error); 
-            this.errorMessage = error.error.message || 'Login failed';
-          },
-          complete: () => {
-            this.isLoading = false; 
+            console.warn("Login error:", error);
           }
         });
       }
+      
 
   toggleMode() {
     this.isLoginMode = !this.isLoginMode; 
