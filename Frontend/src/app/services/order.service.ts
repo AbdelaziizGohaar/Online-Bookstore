@@ -58,7 +58,7 @@ export class OrderService {
 
   // Add a new order with Stripe sessionId
   addOrderWithSession(sessionId: string): Observable<Order> {
-    return this.http.post<Order>(`${this.apiUrl}/orderpay`, { sessionId }).pipe(
+    return this.http.post<Order>(`${this.apiUrl}/`, { sessionId }).pipe(
       tap((response) => console.log('Order created:', response)), // Debugging log
       catchError((error) => {
         console.error('Error creating order:', error); // Debugging log

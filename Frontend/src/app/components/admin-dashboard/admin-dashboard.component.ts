@@ -31,13 +31,16 @@ export class AdminDashboardComponent {
     this.router.navigate(['/edit-book', book.book_id]);
   }
   deleteBook(bookId: number) {
-    this.bookService.deleteBook(bookId).subscribe((res) => {
-      console.log(res);
-      if (res.error) {
-        return alert(res.error);
-      }
-      alert('Book deleted successfully');
-      this.books = this.books.filter((book) => book.book_id !==bookId);
-    });
+    const isConfirmed = window.confirm("Are you sure you want to delete this book?");
+if (isConfirmed) {
+  this.bookService.deleteBook(bookId).subscribe((res) => {
+    console.log(res);
+    if (res.error) {
+      return alert(res.error);
+    }
+    alert('Book deleted successfully');
+    this.books = this.books.filter((book) => book.book_id !==bookId);
+  });
+}
   }
 }

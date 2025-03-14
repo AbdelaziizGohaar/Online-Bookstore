@@ -68,6 +68,11 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         required: false,
         min: 1
+      },
+      booknum: {
+        type: Number,
+        required: false,
+        min: 1
       }
     }
   ],
