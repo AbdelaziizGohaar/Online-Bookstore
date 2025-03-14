@@ -10,23 +10,12 @@ export class AuthService {
 
   private API_URL = 'http://localhost:3000/users';
 
-  // private userRoleSubject = new BehaviorSubject<string | null>(null);
-  // userRole$ = this.userRoleSubject.asObservable(); // ✅ لجعل التحديث فوري
-
-  // private isLoggedInSubject = new BehaviorSubject<boolean>(this.isAuthenticated());
-  // isLoggedIn$ = this.isLoggedInSubject.asObservable();
-
   private isLoggedInSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   private userRoleSubject = new BehaviorSubject<string | null>(localStorage.getItem('userRole') || null);
   userRole$ = this.userRoleSubject.asObservable();
 
-  // private userLoggedInSubject = new BehaviorSubject<boolean>(this.isAuthenticated());
-  // userLoggedIn$ = this.userLoggedInSubject.asObservable();
-
-  
-  
 
 //used for send requests to backend
   constructor(private http: HttpClient) {}
@@ -35,10 +24,6 @@ export class AuthService {
     //return user info after success operation 
     return this.http.post(`${this.API_URL}` , {name ,email ,password ,role});
   }
-
-  // login(email:string , password:string):Observable<any>{ 
-  //   return this.http.post(`${this.API_URL}/login` , {email,password});
-  // }
 
   login(email: string, password: string): Observable<{ token: string }> { 
     return this.http.post<{ token: string }>(`${this.API_URL}/login`, { email, password }).pipe(
@@ -58,19 +43,6 @@ export class AuthService {
     );
   }
   
-  // login(email: string, password: string): Observable<{ token: string }> {
-  //   return this.http.post<{ token: string }>(`${this.API_URL}/login`, { email, password }).pipe(
-  //     tap(response => {
-  //       if (response.token) {
-  //         this.saveToken(response.token);
-  //         console.log("Token saved:", response.token);
-  //         const role = this.getUserRole();
-  //         this.userRoleSubject.next(role);
-  //         this.isLoggedInSubject.next(true);
-  //       }
-  //     })
-  //   );
-  // }
 
   saveToken(token:string):void{ 
     localStorage.setItem('token', token);
@@ -113,9 +85,6 @@ export class AuthService {
     this.userRoleSubject.next(role);
   }
   
-  
 }
-// function tap(arg0: (response: any) => void): import("rxjs").OperatorFunction<Object, any> {
-//   throw new Error('Function not implemented.');
-// }
+
 

@@ -1,127 +1,15 @@
-<!-- <header
-  class="text-slate-700 container relative mx-auto flex flex-col overflow-hidden px-4 py-4 lg:flex-row lg:items-center">
-  <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-    <img src="/favicon.png" class="h-8" alt="Flowbite Logo">
-    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">BOOKET</span>
-  </a>
-  <input type="checkbox" class="peer hidden" id="navbar-open" />
-  <label class="absolute top-5 right-5 cursor-pointer lg:hidden" for="navbar-open">
-    <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
-    </svg>
-  </label>
-  <nav aria-label="Header Navigation"
-    class="peer-checked:pt-8 peer-checked:max-h-60 flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row">
-    <ul class="flex w-full flex-col items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
-      <li>
-        <div class=" mr-5 rounded-xl bg-white px-4 py-8">
-          <div class="mb-2 flex">
-            <div class="mr-1 w-full">
-              <input type="text" class="placeholder:text-gray-400 h-12 w-full rounded-md bg-gray-200 px-4 font-medium focus:outline-none focus:ring-1 focus:ring-orange-900" placeholder="Search..." [formControl]="searchControl" (keyup.enter)="search()"/>
-            </div>
-            <button class="shrink-0 flex h-12 w-12 items-center justify-center rounded-lg bg-orange-900 text-white hover:bg-white hover:text-orange-900 "
-            (click)="search()">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-        
-      </li>
-      <li class="lg:mr-12"><a
-          class="rounded text-gray-900 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
-          routerLink="/">Home</a></li>
-      <li class="lg:mr-12"><a
-          class="rounded text-gray-900 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
-          routerLink="/admin-dashboard">Dashboard</a></li>
-      <li class="lg:mr-12"><a
-          class="rounded text-gray-900 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
-          href="#">Contact</a></li>
-      <li class="lg:mr-12"><a
-          class="rounded text-gray-900 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
-          href="#">FAQ</a></li>
-    </ul>
-    <hr class="mt-4 w-full lg:hidden" />
-    <div class="my-4 flex items-center space-x-6 space-y-2 lg:my-0 lg:ml-auto lg:space-x-8 lg:space-y-0">
-      <a class="rounded-xl border-2 border-blue-600 px-6 py-2 font-medium text-blue-600 hover:bg-blue-600 hover:text-white" 
-      routerLink="/login">
-        Login</a>
-        <a class="rounded-xl border-2 border-green-600 px-6 py-2 font-medium text-green-600 hover:bg-green-600 hover:text-white" 
-      routerLink="/register">
-      Register</a>
-        <a class="rounded-xl border-2 border-red-600 px-6 py-2 font-medium text-red-600 hover:bg-red-600 hover:text-white">
-        Logout</a>
-      <a routerLink="/profile"
-      routerLinkActive="active-svg"
-        class="items-center p-2 whitespace-nowrap rounded  transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2 hover:text-opacity-50">
-        <svg class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-        </svg>
-      </a>
-        <a routerLink="/cart"
-        routerLinkActive="active-svg" class="group -m-2 flex items-center p-2">
-          <svg class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-          </svg>
-          <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{ cartItem }}</span>
-        </a>
-    </div>
-  </nav>
-</header>  -->
 
-
-
-
-
-
-
-<!-- 
-
-<header
-  class="text-slate-700 container relative mx-auto flex flex-col overflow-hidden px-4 py-4 lg:flex-row lg:items-center">
-  <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-    <img src="/favicon.avif" class="h-8" alt="Booket Logo">
-    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-orange-950">BOOKET</span>
-  </a>
-  <input type="checkbox" class="peer hidden" id="navbar-open" />
-  <label class="absolute top-5 right-5 cursor-pointer lg:hidden" for="navbar-open">
-    <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
-    </svg>
-  </label>
-  <nav aria-label="Header Navigation"
-    class="peer-checked:pt-8 peer-checked:max-h-60 flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row">
-    <ul class="flex w-full flex-col items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
-      <li class="lg:mr-12">
-        <a class="rounded text-gray-900 transition hover:text-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
-          routerLink="/">Home</a>
-      </li>
-      <li class="lg:mr-12">
-        <a class="rounded text-gray-900 transition hover:text-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
-          routerLink="/admin-dashboard">Dashboard</a>
-      </li>
-    </ul>
-    <hr class="mt-4 w-full lg:hidden" />
-    <div class="my-4 flex items-center space-x-6 lg:my-0 lg:ml-auto">
-      <a routerLink="/cart" class="relative text-gray-700 hover:text-blue-600">
-        <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-            d="M3 3h2l1 3h13l1-3h2M6 6l1 7h10l1-7M10 16a2 2 0 100 4 2 2 0 000-4m6 0a2 2 0 100 4 2 2 0 000-4">
-          </path>
-        </svg>
-      </a>
-      <a class="rounded-xl border-2 border-blue-600 px-6 py-2 font-medium text-blue-600 hover:bg-blue-600 hover:text-white"
-        routerLink="/signup">
-        Sign Up
-      </a>
-    </div>
-  </nav>
-</header> -->
 <header class="fixed top-0 left-0 w-full px-4 py-4 flex flex-col lg:flex-row lg:items-center z-50 bg-white/10 backdrop-blur-md text-white">
   <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-    <img src="/favicon.png" class="h-8" alt="Booket Logo">
-    <span class="self-center text-2xl font-semibold whitespace-nowrap">BOOKET</span>
+   
+    <span class="nav-item self-center text-8xl font-black tracking-widest 
+    bg-gradient-to-r from-yellow-400 via-red-500  bg-clip-text text-transparent 
+    drop-shadow-[2px_2px_5px_rgba(255,255,255,0.6)] 
+    transition-all duration-300 hover:scale-105 hover:drop-shadow-[0px_0px_20px_rgba(255,0,150,0.8)] 
+    animate-pulse uppercase font-[Oswald]">
+    BOOKET
+  </span>
+  
   </a>
   
   <input type="checkbox" class="peer hidden" id="navbar-open" />
@@ -133,31 +21,51 @@
 
   <nav aria-label="Header Navigation" class="peer-checked:pt-8 peer-checked:max-h-60 flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row">
     <ul class="flex w-full flex-col items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
-      <li class="lg:mr-12">
-        <a class="nav-item text-white transition" routerLink="/">Home</a>
-      </li>
+      
 
       
       <li *ngIf="(isLoggedIn$ | async) && (userRole$ | async) === 'Admin'" class="lg:mr-12">
-        <a class="nav-item text-white transition" routerLink="/admin-dashboard">Dashboard</a>
+        <a class="nav-item self-center text-1xl font-black tracking-widest 
+        bg-gradient-to-r from-yellow-400 via-red-500  bg-clip-text text-transparent 
+        drop-shadow-[2px_2px_5px_rgba(255,255,255,0.6)] 
+        transition-all duration-300 hover:scale-105 hover:drop-shadow-[0px_0px_20px_rgba(255,0,150,0.8)] 
+        animate-pulse uppercase font-[Oswald]" routerLink="/admin-dashboard">Dashboard</a>
       </li>
 
-      <li class="lg:mr-12">
-        <a class="nav-item text-white transition" href="#">Contact</a>
-      </li>
-
-      <li class="lg:mr-12">
-        <a class="nav-item text-white transition" href="#">FAQ</a>
-      </li>
+     
     </ul>
+
+    <div class="relative flex items-center w-full lg:w-auto lg:ml-auto">
+      <input 
+        type="text" 
+        [formControl]="searchControl"
+        (keyup.enter)="search()"
+        placeholder="Search books..."
+        class="w-full lg:w-72 rounded-full border border-white bg-transparent py-2 px-4 text-white placeholder-white focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-500 transition"
+      />
+      <button (click)="search()" class=" absolute right-3 text-white hover:text-blue-400">
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M15 10a5 5 0 11-10 0 5 5 0 0110 0z"></path>
+        </svg>
+      </button>
+    </div>
+    
 
     
     <div class="my-4 flex items-center space-x-6 lg:my-0 lg:ml-auto">
-      <a *ngIf="(userRole$ | async) !== 'Admin'" href="/cart" class="relative text-white hover:text-blue-400">
+      <a *ngIf="(userRole$ | async) === 'Customer'" routerLink="/cart" class="relative text-white hover:text-blue-400">
         <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
             d="M3 3h2l1 3h13l1-3h2M6 6l1 7h10l1-7M10 16a2 2 0 100 4 2 2 0 000-4m6 0a2 2 0 100 4 2 2 0 000-4">
           </path>
+        </svg>
+      </a>
+
+      <a routerLink="/profile"
+      routerLinkActive="active-svg"
+        class="items-center p-2 whitespace-nowrap rounded  transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2 hover:text-opacity-50">
+        <svg class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
         </svg>
       </a>
 

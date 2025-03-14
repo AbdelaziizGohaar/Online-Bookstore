@@ -65,11 +65,7 @@ export class HeaderComponent implements OnInit {
     this.userRole$.subscribe(role => console.log('User Role from Observable:', role));
     this.isLoggedIn$.subscribe(status => console.log('Login Status:', status));
 
-    // اشترك في حالة تسجيل الدخول حتى يتغير الـ header تلقائيًا عند تسجيل الدخول أو الخروج
-    
-
-    // متابعة التغييرات في عدد العناصر في السلة
-    this.cartService.cart$.subscribe(cart => {
+      this.cartService.cart$.subscribe(cart => {
       this.cartItem = cart ? cart.totalItemNum : 0;
     });
   }
