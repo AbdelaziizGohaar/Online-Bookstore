@@ -1,18 +1,109 @@
 import express from 'express';
 import * as OrderController from '../controllers/order.js';
 import {asyncWrapper} from '../helpers/asyncWrapper.js';
+import stripe from '../helpers/stripe.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
+// =============== create order with Payment =======================
+// router.post('/orderpay', authMiddleware, async (req, res) => {
+//   const {sessionId} = req.body; // Pass the Stripe session ID from the frontend
+//   console.log('the sessionIddddd', sessionId);
+//   try {
+//     // Retrieve the Stripe session
+//     const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+//     // Retrieve the payment intent
+//     const paymentIntent = await stripe.paymentIntents.retrieve(session.payment_intent);
+
+//     // Extract metadata
+//     const userId = session.metadata.userId;
+//     const cartItems = JSON.parse(session.metadata.cartItems);
+
+//     // Prepare payment details
+//     const paymentDetails = {
+//       payment_id: paymentIntent.id,
+//       payment_method: paymentIntent.payment_method,
+//       amount_paid: paymentIntent.amount / 100, // Convert from cents to dollars
+//       currency: paymentIntent.currency
+//     };
+
+//     // Create the order
+//     const order = await OrderController.addOrderPay(cartItems, userId, paymentDetails);
+//     res.json({message: 'Order created successfully', order});
+//   } catch (err) {
+//     return res.status(422).json({error: err.message});
+//   }
+// });
+
 // ======== create order========
+// router.post('/', authMiddleware, async (req, res) => {
+//   const [err, order] = await asyncWrapper(OrderController.addOrder(req.body, req.user.user_id, req));
+//   const {sessionId} = req.body;
+//   console.log('the sessionIddddd', sessionId);
+
+//   if (err) {
+//     return res.status(422).json({error: err.message});
+//   }
+//   res.status(200).json({message: 'order created succsesfully', order});
+// });
+
+// ======== create order ========
 router.post('/', authMiddleware, async (req, res) => {
-  const [err, order] = await asyncWrapper(OrderController.addOrder(req.body, req.user.user_id));
+  const [err, order] = await asyncWrapper(OrderController.addOrder(req.body, req.user.user_id, req));
 
   if (err) {
     return res.status(422).json({error: err.message});
   }
-  res.status(200).json({message: 'order created succsesfully', order});
+  res.status(200).json({message: 'Order created successfully', order});
+});
+
+// ======== create order with payment ========
+router.post('/orderpay', authMiddleware, async (req, res) => {
+  const {sessionId} = req.body; // Pass the Stripe session ID from the frontend
+  console.log('the sessionIdddddarwa', sessionId);
+
+  try {
+    // Retrieve the Stripe session
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    console.log('the session', session);
+    console.log('================================================================================================');
+
+    // Retrieve the payment intent
+    const paymentIntent = await stripe.paymentIntents.retrieve(session.payment_intent);
+    console.log('the paymentIntentddddd', paymentIntent);
+
+    // Extract metadata
+    const cartItems = JSON.parse(session.metadata.cartItems);
+    console.log('the cartItems', cartItems);
+
+    // Prepare payment details
+    const paymentDetails = {
+      payment_id: paymentIntent.id,
+      payment_method: paymentIntent.payment_method,
+      amount_paid: paymentIntent.amount / 100, // Convert from cents to dollars
+      currency: paymentIntent.currency
+    };
+
+    // Create the order with payment details
+    const orderData = {
+      user_id: req.user.user_id,
+      books: cartItems,
+      totalPrice: paymentDetails.amount_paid, // Use the amount paid from Stripe
+      status: 'pending'
+    };
+
+    const [err, order] = await asyncWrapper(OrderController.addOrder(orderData, req, paymentDetails));
+
+    if (err) {
+      return res.status(422).json({error: err.message});
+    }
+
+    res.status(200).json({message: 'Order created successfully', order});
+  } catch (err) {
+    return res.status(422).json({error: err.message});
+  }
 });
 
 // ======== get all orders with filters========
@@ -55,7 +146,7 @@ router.get('/:order_id', authMiddleware, async (req, res) => {
 
 // ======== Update specific order ========
 router.put('/:order_id', authMiddleware, async (req, res) => {
-  const [err, order] = await asyncWrapper (OrderController.updateOrder(req.params.order_id, req.body));
+  const [err, order] = await asyncWrapper (OrderController.updateOrder(req.params.order_id, req.body, req));
   if (err) return res.status(422).json({error: err.message});
   if (!order) {
     return res.status(422).json({message: 'Order not found'});

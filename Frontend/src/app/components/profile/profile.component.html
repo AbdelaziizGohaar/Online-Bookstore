@@ -33,7 +33,7 @@
                 </svg>
                 <!-- Glow Effect on Hover -->
                 <div
-                    class="absolute inset-0 rounded-full bg-blue-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                    class="absolute inset-0 rounded-full bg-orange-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
                 </div>
             </div>
             <!-- User Name -->
@@ -47,26 +47,26 @@
                 <li>
                     <button (click)="setActiveSection('account')"
                         class="w-full text-left px-4 py-2 rounded-md font-medium"
-                        [class.bg-blue-600]="activeSection === 'account'"
+                        [class.bg-orange-600]="activeSection === 'account'"
                         [class.text-white]="activeSection === 'account'"
-                        [class.bg-gray-100]="activeSection !== 'account'"
-                        [class.text-gray-700]="activeSection !== 'account'">
+                        [class.bg-orange-100]="activeSection !== 'account'"
+                        [class.text-orange-700]="activeSection !== 'account'">
                         Account Info
                     </button>
                 </li>
                 <li>
                     <button (click)="setActiveSection('update')" class="w-full text-left px-4 py-2 rounded-md"
-                        [class.bg-blue-600]="activeSection === 'update'" [class.text-white]="activeSection === 'update'"
-                        [class.bg-gray-100]="activeSection !== 'update'"
-                        [class.text-gray-700]="activeSection !== 'update'">
+                        [class.bg-orange-600]="activeSection === 'update'" [class.text-white]="activeSection === 'update'"
+                        [class.bg-orange-100]="activeSection !== 'update'"
+                        [class.text-orange-700]="activeSection !== 'update'">
                         Update User Info
                     </button>
                 </li>
                 <li>
                     <button (click)="setActiveSection('orders')" class="w-full text-left px-4 py-2 rounded-md"
-                        [class.bg-blue-600]="activeSection === 'orders'" [class.text-white]="activeSection === 'orders'"
-                        [class.bg-gray-100]="activeSection !== 'orders'"
-                        [class.text-gray-700]="activeSection !== 'orders'">
+                        [class.bg-orange-600]="activeSection === 'orders'" [class.text-white]="activeSection === 'orders'"
+                        [class.bg-orange-100]="activeSection !== 'orders'"
+                        [class.text-orange-700]="activeSection !== 'orders'">
                         My Orders
                     </button>
                 </li>
@@ -95,7 +95,7 @@
                     <input type="text" class="w-full p-2 border rounded" [value]="role || 'Loading...'" disabled>
                 </div>
             </div>
-            <!-- <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Update</button> -->
+            <!-- <button class="mt-4 bg-orange-600 text-white px-4 py-2 rounded">Update</button> -->
         </div>
         }
 
@@ -142,7 +142,7 @@
                 </div>
 
                 <!-- Update Button -->
-                <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+                <button type="submit" class="mt-4 bg-orange-600 text-white px-4 py-2 rounded"
                     [disabled]="updateForm.invalid || isUpdating">
                     {{ isUpdating ? 'Updating...' : 'Update' }}
                 </button>

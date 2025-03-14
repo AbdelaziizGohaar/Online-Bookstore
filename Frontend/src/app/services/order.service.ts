@@ -6,7 +6,7 @@ import { map, tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
-}) 
+})
 export class OrderService {
   private apiUrl = 'http://localhost:3000/orders'; // Base URL for orders API
 
@@ -44,11 +44,6 @@ export class OrderService {
     });
   }
 
-  // Fetch all orders for the authenticated user
-  // getOrdersForAuthenticatedUser(): Observable<Order[]> {
-  //   return this.http.get<Order[]>(`${this.apiUrl}/users`);
-  // }
-
 
   getOrdersForAuthenticatedUser(): Observable<Order[]> {
     return this.http.get<{ orders: Order[] }>(`${this.apiUrl}/users`).pipe(
@@ -56,6 +51,17 @@ export class OrderService {
       tap((response) => console.log('API Response:', response)), // Debugging log
       catchError((error) => {
         console.error('API Error:', error); // Debugging log
+        throw error;
+      })
+    );
+  }
+
+  // Add a new order with Stripe sessionId
+  addOrderWithSession(sessionId: string): Observable<Order> {
+    return this.http.post<Order>(`${this.apiUrl}/orderpay`, { sessionId }).pipe(
+      tap((response) => console.log('Order created:', response)), // Debugging log
+      catchError((error) => {
+        console.error('Error creating order:', error); // Debugging log
         throw error;
       })
     );

@@ -1,12 +1,12 @@
 
- <div class="flex items-center justify-center min-h-screen bg-gray-200">
+ <div class="flex items-center justify-center min-h-screen bg-orange-200">
   <div class="relative flex w-[900px] h-[500px] rounded-2xl overflow-hidden shadow-lg bg-white">
     
     <!-- Blue Side-->
-    <div class="w-1/2 flex flex-col items-center justify-center bg-purple-900 text-white p-10">
+    <div class="w-1/2 flex flex-col items-center justify-center bg-orange-900 text-white p-10">
       <h2 class="text-2xl font-bold">Welcome!</h2>
       <p class="mt-2">{{ isLoginMode ? "Don't have an account?" : "Already have an account?" }}</p>
-      <button (click)="toggleMode()" class="mt-4 px-4 py-2 bg-white text-purple-900 rounded-lg shadow-md">
+      <button (click)="toggleMode()" class="mt-4 px-4 py-2 bg-white text-orange-900 rounded-lg shadow-md">
         {{ isLoginMode ? "Register" : "Login" }}
       </button>
     </div>
@@ -25,7 +25,7 @@
 
         <div class="relative w-full">
           <input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="Password" class="w-full p-2 border rounded mt-4" />
-          <button type="button" (click)="togglePasswordVisibility()" class="absolute right-3 top-5 text-gray-600">
+          <button type="button" (click)="togglePasswordVisibility()" class="absolute right-3 top-5 text-orange-600">
             <i class="fas" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
           </button>
         </div>
@@ -35,19 +35,19 @@
           <small *ngIf="loginForm.get('password')?.errors?.['pattern']">Password must include uppercase, lowercase, and a number.</small>
         </div>
 
-        <button type="submit" class="w-full bg-purple-900 text-white p-2 rounded mt-4">Login</button>
-        <p class="flex justify-center text-sm text-gray-500 mt-4 ">or login with social platforms</p>
+        <button type="submit" class="w-full bg-orange-900 text-white p-2 rounded mt-4">Login</button>
+        <p class="flex justify-center text-sm text-orange-500 mt-4 ">or login with social platforms</p>
           <div class="flex justify-center gap-4 mt-3">
-            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
-                <i class="bx bxl-google text-2xl text-gray-600"></i>
+            <a href="#" class="p-3 bg-orange-100 rounded-full shadow-md hover:bg-orange-200 transition">
+                <i class="bx bxl-google text-2xl text-orange-600"></i>
             </a>
-            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+            <a href="#" class="p-3 bg-orange-100 rounded-full shadow-md hover:bg-orange-200 transition">
                 <i class="bx bxl-facebook text-2xl text-blue-600"></i>
             </a>
-            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
-                <i class="bx bxl-github text-2xl text-gray-800"></i>
+            <a href="#" class="p-3 bg-orange-100 rounded-full shadow-md hover:bg-orange-200 transition">
+                <i class="bx bxl-github text-2xl text-orange-800"></i>
             </a>
-            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+            <a href="#" class="p-3 bg-orange-100 rounded-full shadow-md hover:bg-orange-200 transition">
                 <i class="bx bxl-linkedin text-2xl text-blue-700"></i>
             </a>
         </div>
@@ -69,7 +69,7 @@
 
         <div class="relative w-full">
           <input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="Password" class="w-full p-2 border rounded mt-4" />
-          <button type="button" (click)="togglePasswordVisibility()" class="absolute right-3 top-5 text-gray-600">
+          <button type="button" (click)="togglePasswordVisibility()" class="absolute right-3 top-5 text-orange-600">
             <i class="fas" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
           </button>
         </div>
@@ -81,7 +81,7 @@
 
         <div class="relative w-full">
           <input [type]="isConfirmPasswordVisible ? 'text' : 'password'" formControlName="confirmPassword" placeholder="Confirm Password" class="w-full p-2 border rounded mt-4" />
-          <button type="button" (click)="toggleConfirmPasswordVisibility()" class="absolute right-3 top-5 text-gray-600">
+          <button type="button" (click)="toggleConfirmPasswordVisibility()" class="absolute right-3 top-5 text-orange-600">
             <i class="fas" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
           </button>
         </div>
@@ -89,19 +89,19 @@
           Passwords do not match.
         </p>
 
-        <button type="submit" class="w-full bg-purple-900 text-white p-2 rounded mt-4">Register</button>
-        <p class="flex justify-center text-sm text-gray-500 mt-4">or login with social platforms</p>
+        <button type="submit" class="w-full bg-orange-900 text-white p-2 rounded mt-4">Register</button>
+        <p class="flex justify-center text-sm text-orange-500 mt-4">or login with social platforms</p>
           <div class="flex justify-center gap-4 mt-3">
-            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+            <a href="#" class="p-3 bg-orange-100 rounded-full shadow-md hover:bg-orange-200 transition">
                 <i class="bx bxl-google text-2xl text-gray-600"></i>
             </a>
-            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+            <a href="#" class="p-3 bg-orange-100 rounded-full shadow-md hover:bg-orange-200 transition">
                 <i class="bx bxl-facebook text-2xl text-blue-600"></i>
             </a>
-            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+            <a href="#" class="p-3 bg-orange-100 rounded-full shadow-md hover:bg-orange-200 transition">
                 <i class="bx bxl-github text-2xl text-gray-800"></i>
             </a>
-            <a href="#" class="p-3 bg-gray-100 rounded-full shadow-md hover:bg-gray-200 transition">
+            <a href="#" class="p-3 bg-orange-100 rounded-full shadow-md hover:bg-orange-200 transition">
                 <i class="bx bxl-linkedin text-2xl text-blue-700"></i>
             </a>
         </div>

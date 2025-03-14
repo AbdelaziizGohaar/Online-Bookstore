@@ -33,14 +33,15 @@ export const routes: Routes = [
       ),
     title: 'Books | Booket'
   },
-  { path: 'signup', 
+  {
+    path: 'signup',
     loadComponent: () =>
-        import('./components/sign-up/signup.component').then(
-          (m) => m.SignupComponent
-        ), 
+      import('./components/sign-up/signup.component').then(
+        (m) => m.SignupComponent
+      ),
     title: 'Signup'
-},
-  
+  },
+
   {
     path: 'book-details/:id',
     loadComponent: () =>
@@ -112,6 +113,14 @@ export const routes: Routes = [
     title: 'Order Details'
   },
   {
+    path: 'checkout/success',
+    component: CheckoutComponent
+  },
+  {
+    path: 'checkout/failed',
+    component: CheckoutComponent
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./components/notfound/notfound.component').then(
@@ -119,6 +128,5 @@ export const routes: Routes = [
       ),
     title: 'Not Found Page'
   },
-
 
 ];
