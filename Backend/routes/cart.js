@@ -41,4 +41,10 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   res.json(deletedItem);
 });
 
+router.delete('/', authMiddleware, async (req, res) => {
+  const [err, deletedCart] = await asyncWrapper(CartController.removeAllItem(req.user.user_id));
+  if (err) throw new CustomError(err.message, 404);
+  res.json(deletedCart);
+});
+
 export default router;
