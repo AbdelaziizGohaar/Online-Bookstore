@@ -70,6 +70,14 @@
   </nav>
 </header>  -->
 
+
+
+
+
+
+
+<!-- 
+
 <header
   class="text-slate-700 container relative mx-auto flex flex-col overflow-hidden px-4 py-4 lg:flex-row lg:items-center">
   <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -106,6 +114,59 @@
       <a class="rounded-xl border-2 border-blue-600 px-6 py-2 font-medium text-blue-600 hover:bg-blue-600 hover:text-white"
         routerLink="/signup">
         Sign Up
+      </a>
+    </div>
+  </nav>
+</header> -->
+<header class="fixed top-0 left-0 w-full px-4 py-4 flex flex-col lg:flex-row lg:items-center z-50 bg-white/10 backdrop-blur-md text-white">
+  <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <img src="/favicon.png" class="h-8" alt="Booket Logo">
+    <span class="self-center text-2xl font-semibold whitespace-nowrap">BOOKET</span>
+  </a>
+  
+  <input type="checkbox" class="peer hidden" id="navbar-open" />
+  <label class="absolute top-5 right-5 cursor-pointer lg:hidden" for="navbar-open">
+    <svg class="h-7 w-7 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </label>
+
+  <nav aria-label="Header Navigation" class="peer-checked:pt-8 peer-checked:max-h-60 flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row">
+    <ul class="flex w-full flex-col items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
+      <li class="lg:mr-12">
+        <a class="nav-item text-white transition" routerLink="/">Home</a>
+      </li>
+
+      
+      <li *ngIf="(isLoggedIn$ | async) && (userRole$ | async) === 'Admin'" class="lg:mr-12">
+        <a class="nav-item text-white transition" routerLink="/admin-dashboard">Dashboard</a>
+      </li>
+
+      <li class="lg:mr-12">
+        <a class="nav-item text-white transition" href="#">Contact</a>
+      </li>
+
+      <li class="lg:mr-12">
+        <a class="nav-item text-white transition" href="#">FAQ</a>
+      </li>
+    </ul>
+
+    
+    <div class="my-4 flex items-center space-x-6 lg:my-0 lg:ml-auto">
+      <a *ngIf="(userRole$ | async) !== 'Admin'" href="/cart" class="relative text-white hover:text-blue-400">
+        <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M3 3h2l1 3h13l1-3h2M6 6l1 7h10l1-7M10 16a2 2 0 100 4 2 2 0 000-4m6 0a2 2 0 100 4 2 2 0 000-4">
+          </path>
+        </svg>
+      </a>
+
+      <a *ngIf="!(isLoggedIn$ | async)" class="btn-btn rounded-xl border-2 border-white px-6 py-2 font-medium text-white" routerLink="/signup">
+        Signup
+      </a>
+      
+      <a *ngIf="isLoggedIn$ | async" (click)="logout()" class="btn-btn rounded-xl border-2 border-white px-6 py-2 font-medium text-white cursor-pointer">
+        Logout
       </a>
     </div>
   </nav>
