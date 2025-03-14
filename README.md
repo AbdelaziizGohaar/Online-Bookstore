@@ -1,7 +1,3 @@
-Here's the **updated README.md** including **caching with Redis** and **rate limiting using express-rate-limit**:
-
----
-
 # 📚 Online Bookstore (E-commerce Platform) - MEAN Stack Project
 
 ## 🚀 Project Overview
