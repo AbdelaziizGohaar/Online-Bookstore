@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+<div class="min-h-screen bg-orange-100 flex flex-col items-center justify-center p-4">
   <!-- Success View -->
   @if (paymentStatus === 'success') {
   <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
@@ -6,8 +6,8 @@
       xmlns="http://www.w3.org/2000/svg">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
     </svg>
-    <h2 class="mt-4 text-2xl font-bold text-gray-900">Payment Successful!</h2>
-    <p class="mt-2 text-gray-600">Thank you for your purchase. Your order has been successfully processed.</p>
+    <h2 class="mt-4 text-2xl font-bold text-orange-900">Payment Successful!</h2>
+    <p class="mt-2 text-orange-600">Thank you for your purchase. Your order has been successfully processed.</p>
 
     <!-- Continue Shopping Button -->
     <button routerLink="/"
@@ -24,8 +24,8 @@
       xmlns="http://www.w3.org/2000/svg">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
     </svg>
-    <h2 class="mt-4 text-2xl font-bold text-gray-900">Payment Failed</h2>
-    <p class="mt-2 text-gray-600">There was an issue processing your payment. Please try again.</p>
+    <h2 class="mt-4 text-2xl font-bold text-orange-900">Payment Failed</h2>
+    <p class="mt-2 text-orange-600">There was an issue processing your payment. Please try again.</p>
 
     <!-- Retry Payment Button -->
     <button routerLink="/cart"
@@ -38,8 +38,8 @@
   <!-- Loading View -->
   @if (paymentStatus === 'pending') {
   <div class="text-center">
-    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-    <p class="mt-4 text-gray-600">Processing your payment...</p>
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-900"></div>
+    <p class="mt-4 text-orange-600">Processing your payment...</p>
   </div>
   }
 </div>

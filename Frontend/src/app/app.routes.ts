@@ -1,19 +1,8 @@
 import { Routes } from '@angular/router';
-
-import { BookListComponent } from './components/book-list/book-list.component';
-import { BookDetailsComponent } from './components/book-details/book-details.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { NotfoundComponent } from './components/notfound/notfound.component'
-import { CartComponent } from './components/cart/cart.component';
-import { AddBookComponent } from './components/add-book/add-book.component';
-import { EditBookComponent } from './components/edit-book/edit-book.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { ProfileComponent } from './components/profile/profile.component'
-import { OrderListComponent } from './components/order-list/order-list.component'
-import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
-import { SignupComponent } from './components/sign-up/signup.component'; //update
+
 
 
 export const routes: Routes = [

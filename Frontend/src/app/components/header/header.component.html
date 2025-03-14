@@ -1,9 +1,9 @@
 
-<header class="fixed top-0 left-0 w-full px-4 py-4 flex flex-col lg:flex-row lg:items-center z-50 bg-white/10 backdrop-blur-md text-white">
+<header class="fixed top-0 left-0 w-full px-4 py-4 flex flex-col lg:flex-row lg:items-center z-50 bg-orange/10 backdrop-blur-2xl text-orange">
   <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-   
+    <img src="/favicon.png" alt="logo" class="w-12 h-12" />
     <span class="nav-item self-center text-8xl font-black tracking-widest 
-    bg-gradient-to-r from-yellow-400 via-red-500  bg-clip-text text-transparent 
+    bg-gradient-to-r from-orange-400 via-orange-500  bg-clip-text text-transparent 
     drop-shadow-[2px_2px_5px_rgba(255,255,255,0.6)] 
     transition-all duration-300 hover:scale-105 hover:drop-shadow-[0px_0px_20px_rgba(255,0,150,0.8)] 
     animate-pulse uppercase font-[Oswald]">
@@ -14,7 +14,7 @@
   
   <input type="checkbox" class="peer hidden" id="navbar-open" />
   <label class="absolute top-5 right-5 cursor-pointer lg:hidden" for="navbar-open">
-    <svg class="h-7 w-7 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg class="h-7 w-7 text-orange" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </label>
@@ -41,9 +41,9 @@
         [formControl]="searchControl"
         (keyup.enter)="search()"
         placeholder="Search books..."
-        class="w-full lg:w-72 rounded-full border border-white bg-transparent py-2 px-4 text-white placeholder-white focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-500 transition"
+        class="w-full lg:w-72 rounded-full border border-orange bg-transparent py-2 px-4 text-orange placeholder-orange focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-500 transition"
       />
-      <button (click)="search()" class=" absolute right-3 text-white hover:text-blue-400">
+      <button (click)="search()" class=" absolute right-3 text-orange hover:text-orange-400">
         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M15 10a5 5 0 11-10 0 5 5 0 0110 0z"></path>
         </svg>
@@ -53,27 +53,30 @@
 
     
     <div class="my-4 flex items-center space-x-6 lg:my-0 lg:ml-auto">
-      <a *ngIf="(userRole$ | async) === 'Customer'" routerLink="/cart" class="relative text-white hover:text-blue-400">
+      <a *ngIf="(userRole$ | async) === 'Customer'" routerLink="/cart" class="relative text-orange hover:text-orange-400">
         <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
             d="M3 3h2l1 3h13l1-3h2M6 6l1 7h10l1-7M10 16a2 2 0 100 4 2 2 0 000-4m6 0a2 2 0 100 4 2 2 0 000-4">
           </path>
         </svg>
+        <span class="absolute -top-2 -right-2 bg-orange-900 text-white text-xs rounded-full px-2 py-1">
+          {{ cartItem }}
+        </span>
       </a>
 
       <a routerLink="/profile"
       routerLinkActive="active-svg"
-        class="items-center p-2 whitespace-nowrap rounded  transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2 hover:text-opacity-50">
-        <svg class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+        class="items-center p-2 orangespace-nowrap rounded  transition-all duration-200 focus:ring-offset-2 hover:text-opacity-50">
+        <svg class="size-6 shrink-0 text-orange-400 group-hover:text-orange-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
         </svg>
       </a>
 
-      <a *ngIf="!(isLoggedIn$ | async)" class="btn-btn rounded-xl border-2 border-white px-6 py-2 font-medium text-white" routerLink="/signup">
+      <a *ngIf="!(isLoggedIn$ | async)" class="btn-btn rounded-xl border-2 border-orange px-6 py-2 font-medium text-orange" routerLink="/signup">
         Signup
       </a>
       
-      <a *ngIf="isLoggedIn$ | async" (click)="logout()" class="btn-btn rounded-xl border-2 border-white px-6 py-2 font-medium text-white cursor-pointer">
+      <a *ngIf="isLoggedIn$ | async" (click)="logout()" class="btn-btn rounded-xl border-2 border-orange px-6 py-2 font-medium text-orange cursor-pointer">
         Logout
       </a>
     </div>

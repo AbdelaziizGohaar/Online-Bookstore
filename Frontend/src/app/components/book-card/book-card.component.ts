@@ -23,6 +23,5 @@ export class BookCardComponent {
   addToCart($event: Event, bookId: number): void {
     $event.stopPropagation();
     this.cartService.addItem(bookId);
-    alert("item added to cart!");
   }
 }

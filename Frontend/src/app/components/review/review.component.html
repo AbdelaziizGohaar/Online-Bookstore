@@ -1,7 +1,7 @@
 <section class="px-28">
-<h2 class="px-14 mt-5 text-2xl font-bold text-gray-900">Book Reviews</h2>
+<h2 class="px-14 mt-5 text-2xl font-bold text-orange-900">Book Reviews</h2>
 @if (reviews.length === 0) {
-  <p class="px-8 mt-5 text-xl font-bold text-gray-900">No reviews available for this book.</p>
+  <p class="px-8 mt-5 text-xl font-bold text-orange-900">No reviews available for this book.</p>
 } @else {
 <ul class="">
   @for ( review of reviews; track review.review_id) {
@@ -16,15 +16,15 @@
           }
         
           @for (i of [].constructor(5 - review.rating); track $index) {
-            <svg class="block h-6 w-6 align-middle text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <svg class="block h-6 w-6 align-middle text-orange-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
             </svg>
           }
         </div>
         
-        <p class="mt-5 text-base text-gray-900">{{ review.review }}</p>
-        <p class="mt-5 text-sm font-bold text-gray-900">{{ review.user_name }}</p>
-        <p class="mt-1 text-sm text-gray-600">{{ review.updatedAt }}</p>
+        <p class="mt-5 text-base text-orange-900">{{ review.review }}</p>
+        <p class="mt-5 text-sm font-bold text-orange-900">{{ review.user_name }}</p>
+        <p class="mt-1 text-sm text-orange-600">{{ review.updatedAt }}</p>
       </div>
     </div>
   </li>

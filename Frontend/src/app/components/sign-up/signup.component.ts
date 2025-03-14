@@ -89,7 +89,7 @@ export class SignupComponent {
         this.authService.register(name, email, password, 'Customer').subscribe({
           next: () => {
             this.isLoading = false;
-            this.router.navigate(['/login']);
+            this.router.navigate(['/signup']);
           },
           error: (error) => {
             this.isLoading = false;
