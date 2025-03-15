@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap ,BehaviorSubject} from 'rxjs';
+import { environment } from '../../environment.prod';
 
 // for make AuthService avalibale in all project without need import it in providers
 @Injectable({
@@ -8,7 +9,7 @@ import { Observable, tap ,BehaviorSubject} from 'rxjs';
 })
 export class AuthService {
 
-  private API_URL = 'http://localhost:3000/users';
+  private API_URL = `${environment.apiUrl}/users`;
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   isLoggedIn$ = this.isLoggedInSubject.asObservable();

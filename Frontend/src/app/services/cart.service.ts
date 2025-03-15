@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Cart } from '../types/cart';
+import { environment } from '../../environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  private apiUrl = 'http://localhost:3000/cart';
+  private apiUrl = `${environment.apiUrl}/cart`;
   private cartSubject = new BehaviorSubject<Cart | null>(null);
 
   constructor(private http: HttpClient) {}

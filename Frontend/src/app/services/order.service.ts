@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Order } from '../types/order'; // Ensure the path to your Order model is correct
 import { map, tap, catchError } from 'rxjs/operators';
+import { environment } from '../../environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  private apiUrl = 'http://localhost:3000/orders'; // Base URL for orders API
+  private apiUrl = `${environment.apiUrl}/orders`; // Base URL for orders API
 
   constructor(private http: HttpClient) { }
 
