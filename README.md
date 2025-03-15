@@ -133,9 +133,8 @@ To **prevent abuse**, we use `express-rate-limit` to restrict excessive API requ
 ---
 
 ## 🛠️ Deployment
-- **Backend**: Deployed on **Heroku/Vercel** with MongoDB Atlas.
-- **Frontend**: Deployed on **Vercel/Netlify**.
-- **Redis**: Hosted using **Redis Cloud** for production.
+- **Backend**: Deployed on **Railway** with MongoDB Atlas.
+- **Frontend**: Deployed on **Vercel**.
 
 ---
 
