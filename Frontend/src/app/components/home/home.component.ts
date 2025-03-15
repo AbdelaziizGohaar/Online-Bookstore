@@ -4,6 +4,7 @@ import { Book } from '../../types/book';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookCardComponent } from '../book-card/book-card.component';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environment.prod';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ export class HomeComponent {
   featuredBooks: Book[] = [];
   libraryBooks: Book[] = [];
   isLoading: boolean = true; // Loading state
-  backendUrl = 'http://localhost:3000';
+  backendUrl = `${environment.apiUrl}`;
   constructor(private bookService: BookService, private router: Router) { }
 
   ngOnInit() {

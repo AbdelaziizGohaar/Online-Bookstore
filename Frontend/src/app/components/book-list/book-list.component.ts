@@ -4,6 +4,7 @@ import { BookService } from '../../services/book.service';
 import { Book } from '../../types/book';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environment.prod';
 
 @Component({
   selector: 'app-book-list',
@@ -19,7 +20,7 @@ export class BookListComponent {
 
   books: Book[] = [];
   // featuredBooks: Book[] = [];
-  backendUrl = 'http://localhost:3000';
+  backendUrl = `${environment.apiUrl}`;
   currentPage = 1;
   totalPages = 1;
   totalBooks = 0;

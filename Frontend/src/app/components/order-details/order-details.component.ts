@@ -5,6 +5,7 @@ import { Order } from '../../types/order';
 import { CommonModule } from '@angular/common';
 import { Book } from '../../types/book';
 import { BookService } from '../../services/book.service';
+import { environment } from '../../../environment.prod';
 
 @Component({
   selector: 'app-order-details',
@@ -16,7 +17,7 @@ import { BookService } from '../../services/book.service';
 export class OrderDetailsComponent implements OnInit {
   order!: Order; // Order details
   isLoading: boolean = true; // Loading state
-  backendUrl = 'http://localhost:3000';
+  backendUrl = `${environment.apiUrl}`;
   bookService = inject(BookService);
   constructor(
     private route: ActivatedRoute,
@@ -41,7 +42,7 @@ export class OrderDetailsComponent implements OnInit {
             this.order.books[index] = {
               ...book,
               book_name: data.title,
-              image: `http://localhost:3000${data.image}`
+              image: `${environment.apiUrl}${data.image}`
             };
             console.log(this.order.books);
           });

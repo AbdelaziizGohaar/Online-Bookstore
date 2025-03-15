@@ -5,6 +5,7 @@ import { Book } from '../../types/book';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { ReviewComponent } from '../review/review.component';
+import { environment } from '../../../environment.prod';
 
 
 
@@ -28,7 +29,7 @@ export class BookDetailsComponent {
       this.bookService.getBookDetails(id).subscribe((data) => {
         this.book = {
           ...data,
-          image: `http://localhost:3000${data.image}`
+          image: `${environment.apiUrl}${data.image}`
         };
         
         console.log(this.book);

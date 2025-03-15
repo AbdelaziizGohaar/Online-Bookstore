@@ -6,6 +6,7 @@ import { BookService } from '../../services/book.service';
 import { Book } from '../../types/book';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe} from '@angular/common';
+import { environment } from '../../../environment.prod';
 
 @Component({
   selector: 'app-cart',
@@ -30,7 +31,7 @@ export class CartComponent {
           this.bookService.getBookDetails(item.book_id).subscribe((data) => {
             this.books[item.book_id] = {
               ...data,
-              image: `http://localhost:3000${data.image}`
+              image: `${environment.apiUrl}${data.image}`
             };
           });
         });
