@@ -58,6 +58,6 @@ export class CartService {
   }
 
   checkout(): Observable<{ checkoutSession: any }> {
-    return this.http.post<{ checkoutSession: any }>(`http://localhost:3000/checkout`, {});
+    return this.http.post<{ checkoutSession: any }>(`${environment.apiUrl}/checkout`, {});
   }
 }

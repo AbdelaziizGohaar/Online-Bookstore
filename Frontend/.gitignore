@@ -48,4 +48,8 @@ Thumbs.db
 /postcssrc.json
 /tailwind.config.js
 
+src/environment.prod.ts
+/dist/
+/node_modules/
+
 
